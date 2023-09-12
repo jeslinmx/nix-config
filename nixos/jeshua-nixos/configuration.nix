@@ -17,10 +17,12 @@
   boot.loader = {
     timeout = 0;
     efi.canTouchEfiVariables = true;
-    systemd-boot.enable = true;
+    systemd-boot.enable = false; # replaced with lanzaboote
     systemd-boot.netbootxyz.enable = true;
   };
   boot.initrd.luks.devices."luksroot".device = "/dev/disk/by-uuid/4931d933-81f1-45c3-87b5-6944e52703fd";
+  boot.lanzaboote.enable = true;
+  boot.lanzaboote.pkiBundle = "/etc/secureboot/";
   # boot.initrd.systemd.enable = true; # experimentally use systemd in stage 1, required for early plymouth
   # boot.plymouth.enable = true;
 
