@@ -5,6 +5,7 @@
     homeDirectory = "/home/jeslinmx";
     stateVersion = "23.05";
   };
+  xdg.enable = true;
   home.packages = with pkgs; [
     home-manager
     git
