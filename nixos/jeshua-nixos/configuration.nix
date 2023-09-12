@@ -26,6 +26,8 @@
   ### NETWORKING ###
   networking.hostName = "jeshua-nixos";
   networking.networkmanager.enable = true;
+  services.avahi.enable = true;
+  services.avahi.nssmdns = true;
 
   ### GRAPHICAL ENVIRONMENT ###
   services.xserver = {
