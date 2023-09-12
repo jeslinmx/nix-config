@@ -1,4 +1,4 @@
+```bash
+nixos-generate-config --dir "nixos/${HOSTNAME}/"
+sudo nixos-rebuild switch --flake ".#${HOSTNAME}"
 ```
-nixos-generate-config --dir .
-sudo nixos-rebuild switch --flake .
-`

@@ -15,21 +15,23 @@
     };
     pkgs = import nixpkgs nixpkgsConfig;
     unstable = import nixpkgs-unstable nixpkgsConfig;
-    configureNixos = hostname: nixpkgs.lib.nixosSystem {
-      inherit system;
-      modules = [
-        ./nixos/${hostname}/configuration.nix
-        ./nixos/${hostname}/hardware-configuration.nix
-        home-manager.nixosModules.home-manager {
-          home-manager.useUserPackages = true;
-          home-manager.extraSpecialArgs = { inherit unstable; };
-          home-manager.users.jeslinmx = import ./home-manager;
-        }
-      ];
+    configureNixos = hostname: {
+      ${hostname} = nixpkgs.lib.nixosSystem {
+        inherit system;
+        modules = [
+          ./nixos/common/default.nix
+          ./nixos/${hostname}/configuration.nix
+          ./nixos/${hostname}/hardware-configuration.nix
+          home-manager.nixosModules.home-manager {
+            home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = { inherit unstable; };
+            home-manager.users.jeslinmx = import ./home-manager;
+          }
+        ];
+      };
     };
   in {
-    nixosConfigurations = {
-      "jeshua-nixos" = configureNixos "jeshua-nixos";
-    };
+    nixosConfigurations = {}
+      // configureNixos "jeshua-nixos";
   };
 }
