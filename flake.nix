@@ -18,12 +18,12 @@
     configureNixos = hostname: nixpkgs.lib.nixosSystem {
       inherit system;
       modules = [
-        ./hardware-configuration.nix
-        ./configuration/${hostname}.nix
+        ./nixos/${hostname}/configuration.nix
+        ./nixos/${hostname}/hardware-configuration.nix
         home-manager.nixosModules.home-manager {
           home-manager.useUserPackages = true;
           home-manager.extraSpecialArgs = { inherit unstable; };
-          home-manager.users.jeslinmx = import ./home;
+          home-manager.users.jeslinmx = import ./home-manager;
         }
       ];
     };
