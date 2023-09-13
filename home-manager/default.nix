@@ -33,7 +33,7 @@
     clapper
     vscode
     steam
-    prismlauncher-qt5
+    prismlauncher
     obsidian
     keepassxc
     telegram-desktop
