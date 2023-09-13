@@ -16,24 +16,26 @@
     };
     pkgs = import nixpkgs nixpkgsConfig;
     unstable = import nixpkgs-unstable nixpkgsConfig;
-    configureNixos = hostname: {
+    configureNixos = hostname:
+    let specialArgs = { inherit hostname; inherit unstable; };
+    in {
       ${hostname} = nixpkgs.lib.nixosSystem {
         inherit system;
+        inherit specialArgs;
         modules = [
           ./nixos/common/default.nix
           ./nixos/${hostname}/configuration.nix
           ./nixos/${hostname}/hardware-configuration.nix
+          lanzaboote.nixosModules.lanzaboote
           home-manager.nixosModules.home-manager {
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit unstable; };
+            home-manager.extraSpecialArgs = specialArgs;
             home-manager.users.jeslinmx = import ./home-manager;
           }
-          lanzaboote.nixosModules.lanzaboote
         ];
       };
     };
   in {
-    nixosConfigurations = {}
-      // configureNixos "jeshua-nixos";
+    nixosConfigurations = configureNixos "jeshua-nixos";
   };
 }

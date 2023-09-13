@@ -27,7 +27,6 @@
   # boot.plymouth.enable = true;
 
   ### NETWORKING ###
-  networking.hostName = "jeshua-nixos";
   networking.networkmanager.enable = true;
   services.avahi.enable = true;
   services.avahi.nssmdns = true;
