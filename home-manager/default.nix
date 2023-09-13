@@ -9,11 +9,15 @@
   home.packages = with pkgs; [
     ### ESSENTIALS ###
     home-manager
-    git
     neovim
-    kitty
     starship
     unstable.chezmoi
+    neofetch
+    ripgrep
+    fzf
+    gcc
+    cloudflared
+    btop
 
     ### GNOME ###
     gjs
@@ -24,7 +28,7 @@
 
     ### GRAPHICAL ###
     vivaldi
-    ytmdesktop
+    kitty
     discord
     clapper
     vscode
