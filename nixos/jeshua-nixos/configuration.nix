@@ -38,6 +38,8 @@
     displayManager.gdm.enable = true;
     desktopManager.gnome.enable = true;
   };
+  programs.hyprland.enable = true;
+  programs.hyprland.xwayland.enable = true;
 
   ### OTHER ENVIRONMENT CUSTOMIZATION ###
   environment.gnome.excludePackages = with pkgs.gnome; [
