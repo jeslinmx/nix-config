@@ -41,6 +41,8 @@
   programs.hyprland.xwayland.enable = true;
 
   ### OTHER ENVIRONMENT CUSTOMIZATION ###
+  nixpkgs.config.allowUnfree = true;
+
   environment.gnome.excludePackages = with pkgs.gnome; [
     baobab cheese epiphany gedit totem yelp evince geary seahorse
     gnome-maps gnome-music gnome-terminal
@@ -54,5 +56,12 @@
     # make messing up sudo more fun
     Defaults insults
   '';
+
+  programs.steam = {
+    enable = true;
+    gamescopeSession.enable = false;
+    remotePlay.openFirewall = false;
+    dedicatedServer.openFirewall = false;
+  };
 }
 
