@@ -9,15 +9,20 @@
   home.packages = with pkgs; [
     ### ESSENTIALS ###
     home-manager
-    neovim
     starship
     unstable.chezmoi
     neofetch
     ripgrep
     fzf
     gcc
+
+    ### CLI TOOLS ###
+    neovim
+    up
     cloudflared
     btop
+    ncdu
+    kjv
 
     ### GNOME ###
     gjs
@@ -32,13 +37,14 @@
     discord
     clapper
     vscode
-    steam
     prismlauncher
     obsidian
     keepassxc
     telegram-desktop
     xiphos
+    onlyoffice-bin
   ];
+
   # programs.starship.enable = true;
   # programs.kitty.enable = true;
 }
