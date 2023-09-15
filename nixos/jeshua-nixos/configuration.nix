@@ -64,5 +64,11 @@
     remotePlay.openFirewall = false;
     dedicatedServer.openFirewall = false;
   };
+
+  ### FONTS ###
+  fonts.fonts = with pkgs; [
+    cozette
+    (nerdfonts.override { fonts = [ "CascadiaCode" ]; })
+  ];
 }
 
