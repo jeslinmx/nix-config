@@ -11,6 +11,7 @@
     ../common/locale-sg.nix
     ../common/enable-standard-hardware.nix
     ../common/user-jeslinmx.nix
+    ../common/cloudflare-warp.nix
   ];
 
   ### BOOT ###
