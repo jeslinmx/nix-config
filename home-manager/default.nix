@@ -9,6 +9,10 @@
   systemd.user.sessionVariables = {
     GDK_SCALE = "1.5";
   };
+  services.syncthing = {
+    enable = true;
+    tray.enable = true;
+  };
   home.packages = with pkgs; [
     ### ESSENTIALS ###
     home-manager
@@ -22,6 +26,7 @@
 
     ### CLI TOOLS ###
     neovim
+    vim
     up
     btop
     ncdu
@@ -35,21 +40,13 @@
     gnome-extension-manager
     gnome.file-roller
     gnome.simple-scan
+    gnome.gnome-software
 
     ### GRAPHICAL ###
     vivaldi
     kitty
-    discord
     clapper
-    vscode
-    prismlauncher
-    obsidian
-    keepassxc
-    telegram-desktop
-    xiphos
-    onlyoffice-bin
   ];
 
-  # programs.starship.enable = true;
   # programs.kitty.enable = true;
 }

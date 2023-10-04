@@ -52,9 +52,10 @@
 
   ### OTHER ENVIRONMENT CUSTOMIZATION ###
   nixpkgs.config.allowUnfree = true;
+  services.flatpak.enable = true;
 
   environment.gnome.excludePackages = with pkgs.gnome; [
-    baobab cheese epiphany gedit totem yelp evince geary seahorse
+    baobab cheese epiphany gedit totem yelp geary seahorse
     gnome-maps gnome-music gnome-terminal
     pkgs.gnome-console pkgs.gnome-text-editor pkgs.gnome-photos
   ];
