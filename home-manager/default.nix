@@ -9,6 +9,24 @@
   systemd.user.sessionVariables = {
     GDK_SCALE = "1.5";
   };
+  gtk = {
+    enable = true;
+    theme = {
+      name = "Catppuccin-Mocha-Compact-Blue-Dark";
+      package = pkgs.catppuccin-gtk.override {
+        variant = "mocha";
+        accents = [ "blue" ];
+        size = "compact";
+        tweaks = [ "normal" ];
+      };
+    };
+    iconTheme = {
+      name = "Colloid-nord";
+      package = pkgs.colloid-icon-theme.override {
+        schemeVariants = [ "nord" ];
+      };
+    };
+  };
   services.syncthing = {
     enable = true;
     tray.enable = true;
