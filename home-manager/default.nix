@@ -43,7 +43,6 @@
     desktop-file-utils
 
     ### CLI TOOLS ###
-    neovim
     vim
     up
     btop
@@ -61,9 +60,8 @@
     gnome.gnome-software
 
     ### GRAPHICAL ###
-    vivaldi
+    unstable.vivaldi
     kitty
-    clapper
   ];
 
   # programs.kitty.enable = true;
