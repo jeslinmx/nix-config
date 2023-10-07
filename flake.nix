@@ -13,12 +13,13 @@
     let nixpkgsConfig = { inherit system; };
       pkgs = import nixpkgs nixpkgsConfig;
       unstable = import nixpkgs-unstable nixpkgsConfig;
-      specialArgs = { inherit hostname; inherit unstable; };
+      specialArgs = { inherit unstable; };
     in {
       ${hostname} = nixpkgs.lib.nixosSystem {
         inherit system;
         inherit specialArgs;
         modules = [
+          { networking.hostName = hostname; }
           ./nixos/common/default.nix
           ./nixos/${hostname}/configuration.nix
           ./nixos/${hostname}/hardware-configuration.nix
