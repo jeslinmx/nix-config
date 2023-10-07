@@ -9,12 +9,11 @@
   };
 
   outputs = inputs@{ nixpkgs, nixpkgs-unstable, home-manager, lanzaboote, ... }:
-  let system = "x86_64-linux";
-    nixpkgsConfig = { inherit system; };
-    pkgs = import nixpkgs nixpkgsConfig;
-    unstable = import nixpkgs-unstable nixpkgsConfig;
-    configureNixos = hostname:
-    let specialArgs = { inherit hostname; inherit unstable; };
+  let configureNixos = system: hostname:
+    let nixpkgsConfig = { inherit system; };
+      pkgs = import nixpkgs nixpkgsConfig;
+      unstable = import nixpkgs-unstable nixpkgsConfig;
+      specialArgs = { inherit hostname; inherit unstable; };
     in {
       ${hostname} = nixpkgs.lib.nixosSystem {
         inherit system;
@@ -33,6 +32,6 @@
       };
     };
   in {
-    nixosConfigurations = configureNixos "jeshua-nixos";
+    nixosConfigurations = configureNixos "x86_64-linux" "jeshua-nixos";
   };
 }
