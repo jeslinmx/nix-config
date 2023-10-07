@@ -12,7 +12,16 @@
     ../common/enable-standard-hardware.nix
     ../common/user-jeslinmx.nix
     ../common/cloudflare-warp.nix
+    ../common/quirks-iwlwifi.nix
   ];
+
+  ### HARDWARE QUIRKS ###
+  boot.extraModprobeConfig = ''
+    install iwlwifi echo 1 > /sys/bus/pci/devices/0000\:00\:14.3/reset; modprobe --ignore-install iwlwifi
+  '';
+  systemd.extraConfig = ''
+    DefaultTimeoutStopSec=10s
+  '';
 
   ### BOOT ###
   boot.loader = {
