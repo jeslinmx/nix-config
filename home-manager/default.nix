@@ -6,6 +6,9 @@
     stateVersion = "23.05";
   };
   xdg.enable = true;
+  systemd.user.sessionVariables = {
+    GDK_SCALE = "1.5";
+  };
   home.packages = with pkgs; [
     ### ESSENTIALS ###
     home-manager
@@ -15,14 +18,16 @@
     ripgrep
     fzf
     gcc
+    desktop-file-utils
 
     ### CLI TOOLS ###
     neovim
     up
-    cloudflared
     btop
     ncdu
     kjv
+    wl-clipboard
+    lazygit
 
     ### GNOME ###
     gjs
