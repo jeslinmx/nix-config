@@ -10,7 +10,7 @@
 
   outputs = inputs@{ nixpkgs, nixpkgs-unstable, home-manager, lanzaboote, ... }:
   let configureNixos = system: hostname:
-    let nixpkgsConfig = { inherit system; };
+    let nixpkgsConfig = { inherit system; config.allowUnfree = true; };
       pkgs = import nixpkgs nixpkgsConfig;
       unstable = import nixpkgs-unstable nixpkgsConfig;
       specialArgs = { inherit unstable; };
