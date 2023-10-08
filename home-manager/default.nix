@@ -42,7 +42,7 @@
     desktop-file-utils
 
     ### CLI TOOLS ###
-    vim
+    vim-full
     up
     btop
     ncdu
