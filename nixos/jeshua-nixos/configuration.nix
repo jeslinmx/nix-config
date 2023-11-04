@@ -14,6 +14,7 @@
     ../common/cloudflare-warp.nix
     ../common/quirks-iwlwifi.nix
     ../common/allow-via-keyboards.nix
+    ../common/fingerprint-auth.nix
   ];
 
   ### HARDWARE QUIRKS ###
