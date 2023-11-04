@@ -4,7 +4,7 @@
     name = "jeslinmx";
     group = "jeslinmx";
     isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "scanner" "lp" ];
   };
   users.groups.jeslinmx = {};
 }
