@@ -13,6 +13,7 @@
     ../common/user-jeslinmx.nix
     ../common/cloudflare-warp.nix
     ../common/quirks-iwlwifi.nix
+    ../common/allow-via-keyboards.nix
   ];
 
   ### HARDWARE QUIRKS ###
