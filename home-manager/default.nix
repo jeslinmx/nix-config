@@ -14,10 +14,7 @@
   systemd.user.sessionVariables = {
     GDK_SCALE = "1.5";
   };
-  services.syncthing = {
-    enable = true;
-    tray.enable = true;
-  };
+  services.syncthing.enable = true;
   home.packages = with pkgs; [
     ### ESSENTIALS ###
     home-manager
