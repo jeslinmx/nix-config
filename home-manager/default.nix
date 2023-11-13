@@ -27,6 +27,7 @@
     desktop-file-utils
 
     ### CLI TOOLS ###
+    tmux
     vim-full
     up
     btop
@@ -34,6 +35,8 @@
     kjv
     wl-clipboard
     lazygit
+    unstable.ollama
+    tshark
 
     ### GNOME ###
     gjs
@@ -45,6 +48,7 @@
 
     ### GRAPHICAL ###
     unstable.vivaldi
+    telegram-desktop # https://discourse.nixos.org/t/flatpak-telegram-desktop-desktop-entry-problems/31374
     kitty
   ];
 
