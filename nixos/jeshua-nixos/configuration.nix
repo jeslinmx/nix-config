@@ -15,6 +15,7 @@
     ../common/quirks-iwlwifi.nix
     ../common/allow-via-keyboards.nix
     ../common/fingerprint-auth.nix
+    ../common/input.nix
   ];
 
   ### HARDWARE QUIRKS ###
