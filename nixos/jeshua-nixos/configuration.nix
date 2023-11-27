@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, unstable, ... }: {
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It's perfectly fine and recommended to leave
@@ -38,6 +38,21 @@
   boot.lanzaboote.pkiBundle = "/etc/secureboot/";
   # boot.initrd.systemd.enable = true; # experimentally use systemd in stage 1, required for early plymouth
   # boot.plymouth.enable = true;
+
+  ### POWER MANAGEMENT ###
+  powerManagement.enable = true;
+  services.thermald.enable = true;
+  services.auto-cpufreq.enable = true;
+  services.auto-cpufreq.settings = {
+    battery = {
+       governor = "powersave";
+       turbo = "auto";
+    };
+    charger = {
+       governor = "performance";
+       turbo = "auto";
+    };
+  };
 
   ### NETWORKING ###
   networking.networkmanager.enable = true;
