@@ -1,4 +1,4 @@
-{ pkgs, unstable, ... }: {
+{ pkgs, pkgs-unfree, unstable, ... }: {
   home = {
     username = "jeslinmx";
     homeDirectory = "/home/jeslinmx";
@@ -47,7 +47,7 @@
     gnome.gnome-software
 
     ### GRAPHICAL ###
-    unstable.vivaldi
+    pkgs-unfree.vivaldi
     telegram-desktop # https://discourse.nixos.org/t/flatpak-telegram-desktop-desktop-entry-problems/31374
     kitty
   ];
