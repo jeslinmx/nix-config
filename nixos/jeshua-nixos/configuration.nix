@@ -93,7 +93,6 @@
 
   ### FONTS ###
   fonts.fonts = with pkgs; [
-    cozette
     (nerdfonts.override { fonts = [ "CascadiaCode" ]; })
   ];
 }

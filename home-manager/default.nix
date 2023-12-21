@@ -21,10 +21,7 @@
     starship
     unstable.chezmoi
     neofetch
-    ripgrep
-    fzf
     gcc
-    desktop-file-utils
 
     ### CLI TOOLS ###
     tmux
@@ -49,6 +46,7 @@
     ### GRAPHICAL ###
     pkgs-unfree.vivaldi
     telegram-desktop # https://discourse.nixos.org/t/flatpak-telegram-desktop-desktop-entry-problems/31374
+    unstable.vscode
     kitty
   ];
 
