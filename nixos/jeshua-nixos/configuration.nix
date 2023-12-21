@@ -76,6 +76,8 @@
     pkgs.gnome-console pkgs.gnome-text-editor pkgs.gnome-photos
   ];
 
+  virtualisation.libvirtd.enable = true;
+
   security.sudo.extraConfig = ''
     # disable prompt timeout
     Defaults passwd_timeout=0
@@ -90,6 +92,8 @@
     remotePlay.openFirewall = false;
     dedicatedServer.openFirewall = false;
   };
+
+  boot.supportedFilesystems = [ "ntfs" ];
 
   ### FONTS ###
   fonts.fonts = with pkgs; [

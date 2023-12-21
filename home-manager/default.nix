@@ -48,6 +48,7 @@
     telegram-desktop # https://discourse.nixos.org/t/flatpak-telegram-desktop-desktop-entry-problems/31374
     unstable.vscode
     kitty
+    virt-manager
   ];
 
   # programs.kitty.enable = true;
