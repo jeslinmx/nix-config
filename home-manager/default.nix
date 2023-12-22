@@ -1,4 +1,4 @@
-{ pkgs, pkgs-unfree, unstable, ... }: {
+{ pkgs, unstable, ... }: {
   home = {
     username = "jeslinmx";
     homeDirectory = "/home/jeslinmx";
@@ -18,22 +18,21 @@
   home.packages = with pkgs; [
     ### ESSENTIALS ###
     home-manager
-    starship
+    unstable.starship
     unstable.chezmoi
     neofetch
     gcc
 
     ### CLI TOOLS ###
     tmux
-    vim-full
+    unstable.vim-full
     up
     btop
     ncdu
     kjv
     wl-clipboard
-    lazygit
+    unstable.lazygit
     unstable.ollama
-    tshark
 
     ### GNOME ###
     gjs
@@ -44,7 +43,7 @@
     gnome.gnome-software
 
     ### GRAPHICAL ###
-    pkgs-unfree.vivaldi
+    unstable.vivaldi
     telegram-desktop # https://discourse.nixos.org/t/flatpak-telegram-desktop-desktop-entry-problems/31374
     unstable.vscode
     kitty

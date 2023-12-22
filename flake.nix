@@ -9,14 +9,15 @@
   };
 
   outputs = inputs@{ nixpkgs, nixpkgs-unstable, home-manager, lanzaboote, ... }:
-  let configureNixos = system: hostname:
-    let nixpkgsConfig = { inherit system; config.allowUnfree = true; };
-      specialArgs = {
-        pkgs-unfree = import nixpkgs nixpkgsConfig;
-        unstable = import nixpkgs-unstable nixpkgsConfig;
-      };
-    in {
-      ${hostname} = nixpkgs.lib.nixosSystem {
+  let mkNixos = configs: builtins.mapAttrs (
+    hostname: { system ? "x86_64-linux", allowUnfree ? false }:
+      let
+        nixpkgsConfig = { inherit system; config = { inherit allowUnfree; }; };
+        specialArgs = {
+          pkgs = import nixpkgs nixpkgsConfig;
+          unstable = import nixpkgs-unstable nixpkgsConfig;
+        };
+      in nixpkgs.lib.nixosSystem {
         inherit system;
         inherit specialArgs;
         modules = [
@@ -31,9 +32,11 @@
             home-manager.users.jeslinmx = import ./home-manager;
           }
         ];
-      };
-    };
+      }
+  ) configs;
   in {
-    nixosConfigurations = configureNixos "x86_64-linux" "jeshua-nixos";
+    nixosConfigurations = mkNixos {
+      jeshua-nixos = { allowUnfree = true; system = "x86_64-linux"; };
+    };
   };
 }
