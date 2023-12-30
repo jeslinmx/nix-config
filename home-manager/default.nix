@@ -21,14 +21,15 @@
     unstable.starship
     unstable.chezmoi
     neofetch
-    gcc
+    up
+    eza
+    zoxide
 
     ### CLI TOOLS ###
-    tmux
+    zellij
     unstable.vim-full
-    up
+    tealdeer
     btop
-    ncdu
     kjv
     wl-clipboard
     unstable.lazygit
@@ -43,14 +44,13 @@
     gnome.gnome-software
 
     ### GRAPHICAL ###
-    unstable.vivaldi
+    vivaldi
     telegram-desktop # https://discourse.nixos.org/t/flatpak-telegram-desktop-desktop-entry-problems/31374
     unstable.vscode
     kitty
     virt-manager
   ];
 
-  # programs.kitty.enable = true;
   xdg.dataFile."applications/vivaldi-stable.desktop".text = ''
     [Desktop Entry]
     Version=1.0
