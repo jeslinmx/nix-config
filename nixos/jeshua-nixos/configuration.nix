@@ -94,6 +94,7 @@
   };
 
   boot.supportedFilesystems = [ "ntfs" ];
+  boot.kernel.sysctl = { "vm.swappiness" = 0; };
 
   ### FONTS ###
   fonts.packages = with pkgs; [
