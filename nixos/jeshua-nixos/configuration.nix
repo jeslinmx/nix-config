@@ -8,97 +8,35 @@
   system.stateVersion = "23.05"; # Did you read the comment?
 
   imports = [
-    ../common/locale-sg.nix
     ../common/enable-standard-hardware.nix
-    ../common/user-jeslinmx.nix
-    ../common/cloudflare-warp.nix
-    ../common/quirks-iwlwifi.nix
-    ../common/allow-via-keyboards.nix
+    ../common/power-management.nix
     ../common/fingerprint-auth.nix
-    ../common/input.nix
+    ../common/quirks/iwlwifi.nix
+    ../common/secure-boot.nix
+    ../common/plymouth.nix
+    ../common/nix-settings.nix
+    ../common/locale-sg.nix
+    ../common/gnome.nix
+    ../common/chinese-input.nix
+    ../common/cloudflare-warp.nix
+    ../common/enable-via-qmk.nix
+    ../common/steam.nix
+    ../common/create-users.nix
   ];
 
-  ### HARDWARE QUIRKS ###
-  boot.extraModprobeConfig = ''
-    install iwlwifi echo 1 > /sys/bus/pci/devices/0000\:00\:14.3/reset; modprobe --ignore-install iwlwifi
-  '';
-  systemd.extraConfig = ''
-    DefaultTimeoutStopSec=10s
-  '';
+  createUsers.jeslinmx = { extraGroups = [ "wheel" "scanner" "lp" ]; };
 
-  ### BOOT ###
+  ### BOOT CUSTOMIZATION ###
   boot.loader = {
     timeout = 0;
     efi.canTouchEfiVariables = true;
-    systemd-boot.enable = false; # replaced with lanzaboote
     systemd-boot.netbootxyz.enable = true;
   };
   boot.initrd.luks.devices."luksroot".device = "/dev/disk/by-uuid/4931d933-81f1-45c3-87b5-6944e52703fd";
-  boot.lanzaboote.enable = true;
-  boot.lanzaboote.pkiBundle = "/etc/secureboot/";
-  # boot.initrd.systemd.enable = true; # experimentally use systemd in stage 1, required for early plymouth
-  # boot.plymouth.enable = true;
 
-  ### POWER MANAGEMENT ###
-  powerManagement.enable = true;
-  services.thermald.enable = true;
-  services.auto-cpufreq.enable = true;
-  services.auto-cpufreq.settings = {
-    battery = {
-       governor = "powersave";
-       turbo = "auto";
-    };
-    charger = {
-       governor = "performance";
-       turbo = "auto";
-    };
-  };
-
-  ### NETWORKING ###
-  networking.networkmanager.enable = true;
-
-  ### GRAPHICAL ENVIRONMENT ###
-  services.xserver = {
-    enable = true;
-    displayManager.gdm.enable = true;
-    desktopManager.gnome.enable = true;
-  };
-  programs.hyprland.enable = true;
-  programs.hyprland.xwayland.enable = true;
-
-  ### OTHER ENVIRONMENT CUSTOMIZATION ###
-  nixpkgs.config.allowUnfree = true;
+  ### ENVIRONMENT CUSTOMIZATION ###
   services.flatpak.enable = true;
-
-  environment.gnome.excludePackages = with pkgs.gnome; [
-    baobab cheese epiphany gedit totem yelp geary seahorse
-    gnome-maps gnome-music gnome-terminal
-    pkgs.gnome-console pkgs.gnome-text-editor pkgs.gnome-photos
-  ];
-
   virtualisation.libvirtd.enable = true;
-
-  security.sudo.extraConfig = ''
-    # disable prompt timeout
-    Defaults passwd_timeout=0
-
-    # make messing up sudo more fun
-    Defaults insults
-  '';
-
-  programs.steam = {
-    enable = true;
-    gamescopeSession.enable = false;
-    remotePlay.openFirewall = false;
-    dedicatedServer.openFirewall = false;
-  };
-
   boot.supportedFilesystems = [ "ntfs" ];
   boot.kernel.sysctl = { "vm.swappiness" = 0; };
-
-  ### FONTS ###
-  fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "CascadiaCode" ]; })
-  ];
 }
-

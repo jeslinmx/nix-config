@@ -35,6 +35,9 @@
     unstable.lazygit
     unstable.ollama
 
+    ### FONTS ###
+    (nerdfonts.override { fonts = [ "CascadiaCode" ]; })
+
     ### GNOME ###
     gjs
     gnome.dconf-editor
