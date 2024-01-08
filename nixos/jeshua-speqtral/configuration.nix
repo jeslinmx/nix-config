@@ -13,7 +13,7 @@
     ../common/fingerprint-auth.nix
     ../common/quirks/iwlwifi.nix
     ../common/secure-boot.nix
-    ../common/plymouth.nix
+    # ../common/plymouth.nix
     ../common/nix-settings.nix
     ../common/locale-sg.nix
     ../common/gnome.nix
