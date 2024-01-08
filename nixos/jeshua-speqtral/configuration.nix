@@ -22,7 +22,10 @@
     ../common/create-users.nix
   ];
 
-  createUsers.jeslinmx = { extraGroups = [ "wheel" "scanner" "lp" ]; };
+  createUsers.jeslinmx = {
+    description = "Jeshua Lin";
+    extraGroups = [ "wheel" "scanner" "lp" ];
+  };
 
   ### BOOT CUSTOMIZATION ###
   boot.loader = {
