@@ -39,4 +39,5 @@
   virtualisation.libvirtd.enable = true;
   boot.supportedFilesystems = [ "ntfs" ];
   boot.kernel.sysctl = { "vm.swappiness" = 0; };
+  environment.sessionVariables = { GDK_SCALE = "1.5"; };
 }

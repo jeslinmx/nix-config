@@ -27,7 +27,7 @@ with lib;
 
   config.home-manager = {
     useUserPackages = true;
-    extraSpecialArgs = { inherit pkgs; inherit unstable; };
+    extraSpecialArgs = { inherit pkgs; inherit unstable; hostConfig = config; };
     users = builtins.mapAttrs (
       username: { ... }: import ( self.outPath + "/home-manager/${username}" )
     ) config.createUsers;
