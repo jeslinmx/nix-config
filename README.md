@@ -7,6 +7,7 @@
 5. Write nixos/<hostname>/configuration.nix
 6. `nixos-install --flake .#<hostname> --root /mnt`
 7. If using Secure Boot, perform the steps described in ./nixos/common/secure-boot.nix, making sure to `nixos-enter` before running any commands
+8. `nixos-install --flake .#<hostname> --root /mnt` again to generate signed boot images
 8. Reboot into the new system
 9. Symlink /etc/nixos/flake.nix to a local copy of ./flake.nix
 
