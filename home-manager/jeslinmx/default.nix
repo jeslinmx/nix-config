@@ -5,6 +5,7 @@
   imports = [
     ./packages.nix
     ./vivaldi-dark-mode.nix
+    ./gnome-shell.nix
   ];
 
   home = {
