@@ -39,6 +39,7 @@
   in {
     nixosConfigurations = mkNixos {
       jeshua-nixos = { system = "x86_64-linux"; nixpkgs-config.allowUnfree = true; };
+      jeshua-speqtral = { system = "x86_64-linux"; nixpkgs-config.allowUnfree = true; };
     };
   };
 }
