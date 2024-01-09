@@ -18,6 +18,7 @@
     ../common/locale-sg.nix
     ../common/gnome.nix
     ../common/chinese-input.nix
+    ../common/windows-fonts.nix
     ../common/cloudflare-warp.nix
     ../common/create-users.nix
   ];
