@@ -18,6 +18,7 @@ with lib.hm.gvariant;
     media-controls
     middle-click-to-close-in-overview
     next-up
+    quick-settings-tweaker
     rounded-window-corners
     space-bar
     syncthing-indicator
@@ -140,6 +141,7 @@ with lib.hm.gvariant;
         "mediacontrols@cliffniff.github.com"
         "middleclickclose@paolo.tranquilli.gmail.com"
         "next-up@artisticat1.github.com"
+        "quick-settings-tweaks@qwreey"
         "rounded-window-corners@yilozt"
         "space-bar@luchrioh"
         "syncthing@gnome.2nv2u.com"
@@ -397,7 +399,7 @@ with lib.hm.gvariant;
       element-order = [ "icon" "title" "controls" "menu" ];
       extension-index = 0;
       extension-position = "center";
-      hide-media-notification = true;
+      hide-media-notification = false;
       max-widget-width = 350;
       mouse-actions = [ "toggle_play" "toggle_menu" "toggle_info" "previous" "next" "none" "none" "none" ];
       prefer-using-seek = false;
@@ -418,6 +420,23 @@ with lib.hm.gvariant;
     "org/gnome/shell/extensions/next-up" = {
       which-panel = 2;
     };
+
+    "org/gnome/shell/extensions/quick-settings-tweaks" = {
+      add-unsafe-quick-toggle-enabled = false;
+      input-always-show = true;
+      input-show-selected = false;
+      media-control-enabled = true;
+      notifications-enabled = true;
+      notifications-integrated = true;
+      notifications-position = "bottom";
+      notifications-use-native-controls = false;
+      output-show-selected = false;
+      user-removed-buttons = [ "NightLightToggle" "KeyboardBrightnessToggle" "DarkModeToggle" "BackgroundAppsToggle" "SystemItem" "BrightnessItem"];
+      volume-mixer-position = "top";
+      volume-mixer-show-description = true;
+      volume-mixer-show-icon = true;
+    };
+
 
     "org/gnome/shell/extensions/rounded-window-corners" = {
       border-width = 0;
