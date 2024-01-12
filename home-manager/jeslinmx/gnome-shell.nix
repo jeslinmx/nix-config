@@ -6,6 +6,7 @@ with lib.hm.gvariant;
 {
   home.packages = with pkgs.gnomeExtensions; [
     appindicator
+    autohide-battery
     blur-my-shell
     caffeine
     clipboard-indicator
@@ -129,6 +130,7 @@ with lib.hm.gvariant;
       disable-user-extensions = false;
       enabled-extensions = [
         "appindicatorsupport@rgcjonas.gmail.com"
+        "autohide-battery@sitnik.ru"
         "blur-my-shell@aunetx"
         "caffeine@patapon.info"
         "clipboard-indicator@tudmotu.com"
