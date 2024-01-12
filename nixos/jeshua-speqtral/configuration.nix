@@ -20,6 +20,7 @@
     ../common/chinese-input.nix
     ../common/windows-fonts.nix
     ../common/cloudflare-warp.nix
+    ../common/ios-usb.nix
     ../common/create-users.nix
   ];
 
