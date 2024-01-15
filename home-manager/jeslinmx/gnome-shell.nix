@@ -1,10 +1,12 @@
-# Generated via dconf2nix: https://github.com/gvolpe/dconf2nix
-{ lib, pkgs, ... }:
+{ lib, hostConfig, pkgs, ... }: lib.mkIf hostConfig.services.xserver.desktopManager.gnome.enable {
+  home.packages = with pkgs; with pkgs.gnome; with pkgs.gnomeExtensions; [
+    gnome-extension-manager
+    dconf-editor
+    file-roller
+    simple-scan
+    gnome-software
 
-with lib.hm.gvariant;
-
-{
-  home.packages = with pkgs.gnomeExtensions; [
+    ### EXTENSIONS ###
     appindicator
     autohide-battery
     blur-my-shell
@@ -27,7 +29,8 @@ with lib.hm.gvariant;
     tiling-assistant
     user-themes
   ];
-  dconf.settings = {
+
+  dconf.settings = with lib.hm.gvariant; {
     "org/gnome/desktop/datetime" = {
       automatic-timezone = true;
     };

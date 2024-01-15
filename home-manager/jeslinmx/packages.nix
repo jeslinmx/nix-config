@@ -1,8 +1,14 @@
-{ pkgs, unstable, ... }:
-{
+{ pkgs, unstable, ... }: {
+  programs = {
+    home-manager.enable = true;
+    kitty.enable = true;
+    vivaldi = {
+      enable = true;
+      commandLineArgs = [ "--force-dark-mode" ];
+    };
+  };
   home.packages = with pkgs; [
     ### ESSENTIALS ###
-    home-manager
     unstable.starship
     unstable.chezmoi
     neofetch
@@ -20,16 +26,7 @@
     unstable.lazygit
     unstable.ollama
 
-    ### GNOME ###
-    gjs
-    gnome.dconf-editor
-    gnome-extension-manager
-    gnome.file-roller
-    gnome.simple-scan
-    gnome.gnome-software
-
     ### GRAPHICAL ###
-    vivaldi
     telegram-desktop # https://discourse.nixos.org/t/flatpak-telegram-desktop-desktop-entry-problems/31374
     unstable.vscode
     virt-manager
