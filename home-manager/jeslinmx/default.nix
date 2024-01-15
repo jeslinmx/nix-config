@@ -6,6 +6,7 @@
     ./packages.nix
     ./vivaldi-dark-mode.nix
     ./gnome-shell.nix
+    ./kitty.nix
   ];
 
   home = {
