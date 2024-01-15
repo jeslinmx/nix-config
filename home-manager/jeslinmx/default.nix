@@ -4,7 +4,7 @@
 
   imports = [
     ./aesthetics.nix
-    ./packages.nix
+    ./programs.nix
     ./gnome-shell.nix
     ./kitty.nix
   ];
