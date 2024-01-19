@@ -12,7 +12,7 @@
     zoxide.enable = true; # config in chezmoi
 
     kitty.enable = true; # config in dedicated module
-    vivaldi = { enable = true; commandLineArgs = [ "--force-dark-mode" ]; };
+    vivaldi = { enable = true; commandLineArgs = [ "--force-dark-mode" "--enable-features=UseOzonePlatform" "--ozone-pltform=wayland" ]; };
     vscode.enable = true;
   };
 
