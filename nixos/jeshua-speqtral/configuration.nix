@@ -29,7 +29,7 @@
     defaultUserShell = pkgs.bashInteractive;
   };
   createUsers.jeslinmx = {
-    description = "Jeshy";
+    description = "Jeshua Lin";
     extraGroups = [ "wheel" "scanner" "lp" ];
   };
 
