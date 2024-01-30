@@ -1,4 +1,8 @@
-{ outputs, pkgs, ... }: {
+{
+  outputs,
+  pkgs,
+  ...
+}: {
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It's perfectly fine and recommended to leave
@@ -31,7 +35,7 @@
   };
   createUsers.jeslinmx = {
     description = "Jeshy";
-    extraGroups = [ "wheel" "scanner" "lp" ];
+    extraGroups = ["wheel" "scanner" "lp"];
   };
 
   ### BOOT CUSTOMIZATION ###
@@ -45,7 +49,7 @@
   ### ENVIRONMENT CUSTOMIZATION ###
   services.flatpak.enable = true;
   virtualisation.libvirtd.enable = true;
-  boot.supportedFilesystems = [ "ntfs" ];
-  boot.kernel.sysctl = { "vm.swappiness" = 0; };
-  environment.sessionVariables = { GDK_SCALE = "1.5"; };
+  boot.supportedFilesystems = ["ntfs"];
+  boot.kernel.sysctl = {"vm.swappiness" = 0;};
+  environment.sessionVariables = {GDK_SCALE = "1.5";};
 }

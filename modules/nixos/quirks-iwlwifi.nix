@@ -5,8 +5,8 @@
   '';
   systemd.services.load-iwlwifi = {
     serviceConfig.Type = "oneshot";
-    wantedBy = [ "multi-user.target" ];
-    after = [ "multi-user.target" ];
+    wantedBy = ["multi-user.target"];
+    after = ["multi-user.target"];
     script = ''
       /run/current-system/sw/bin/modprobe iwlwifi
     '';

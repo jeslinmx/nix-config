@@ -1,5 +1,9 @@
-{ outputs, lib, ... }: {
-  imports = [ outputs.modules.lanzaboote ];
+{
+  outputs,
+  lib,
+  ...
+}: {
+  imports = [outputs.modules.lanzaboote];
 
   # For secure boot to work, you must do the following steps:
   # 0. reboot into UEFI menu and set Secure Boot to Setup Mode

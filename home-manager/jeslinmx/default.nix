@@ -1,5 +1,8 @@
-{ osConfig, outputs, ... }: {
-
+{
+  osConfig,
+  outputs,
+  ...
+}: {
   home.stateVersion = osConfig.system.stateVersion;
 
   imports = with outputs.modules.home; [

@@ -1,5 +1,13 @@
-{ lib, osConfig, pkgs, ... }: lib.mkIf osConfig.services.xserver.desktopManager.gnome.enable {
-  home.packages = with pkgs; with pkgs.gnome; with pkgs.gnomeExtensions; [
+{
+  lib,
+  osConfig,
+  pkgs,
+  ...
+}:
+lib.mkIf osConfig.services.xserver.desktopManager.gnome.enable {
+  home.packages = with pkgs;
+  with pkgs.gnome;
+  with pkgs.gnomeExtensions; [
     gnome-extension-manager
     dconf-editor
     file-roller
@@ -59,8 +67,8 @@
     };
 
     "org/gnome/desktop/search-providers" = {
-      enabled = [ "org.gnome.Contacts.desktop" "org.gnome.Calculator.desktop" "org.gnome.Calendar.desktop" "org.gnome.Characters.desktop" ];
-      sort-order = [ "org.gnome.Documents.desktop" "org.gnome.Nautilus.desktop" "org.gnome.Contacts.desktop" "org.gnome.Calendar.desktop" "org.gnome.Settings.desktop" "org.gnome.Characters.desktop" "org.gnome.Software.desktop" "org.gnome.Calculator.desktop" "org.gnome.Weather.desktop" "org.gnome.Terminal.desktop" "org.gnome.clocks.desktop" ];
+      enabled = ["org.gnome.Contacts.desktop" "org.gnome.Calculator.desktop" "org.gnome.Calendar.desktop" "org.gnome.Characters.desktop"];
+      sort-order = ["org.gnome.Documents.desktop" "org.gnome.Nautilus.desktop" "org.gnome.Contacts.desktop" "org.gnome.Calendar.desktop" "org.gnome.Settings.desktop" "org.gnome.Characters.desktop" "org.gnome.Software.desktop" "org.gnome.Calculator.desktop" "org.gnome.Weather.desktop" "org.gnome.Terminal.desktop" "org.gnome.clocks.desktop"];
     };
 
     "org/gnome/desktop/sound" = {
@@ -70,27 +78,27 @@
 
     "org/gnome/desktop/wm/keybindings" = {
       activate-window-menu = [];
-      maximize = [ "<Super>Up" ];
-      move-to-workspace-1 = [ "<Shift><Control><Super>1" ];
-      move-to-workspace-2 = [ "<Shift><Control><Super>2" ];
-      move-to-workspace-3 = [ "<Shift><Control><Super>3" ];
-      move-to-workspace-4 = [ "<Shift><Control><Super>4" ];
-      move-to-workspace-last = [ "<Shift><Control><Super>End" ];
-      move-to-workspace-left = [ "<Shift><Control><Super>Left" ];
-      move-to-workspace-right = [ "<Shift><Control><Super>Right" ];
-      switch-applications = [ "<Super>Tab" ];
-      switch-applications-backward = [ "<Shift><Super>Tab" ];
-      switch-input-source = [ "<Alt>space" ];
-      switch-input-source-backward = [ "<Shift><Alt>space" ];
-      switch-to-workspace-1 = [ "<Control><Super>1" ];
-      switch-to-workspace-2 = [ "<Control><Super>2" ];
-      switch-to-workspace-3 = [ "<Control><Super>3" ];
-      switch-to-workspace-4 = [ "<Control><Super>4" ];
-      switch-to-workspace-last = [ "<Control><Super>End" ];
-      switch-to-workspace-left = [ "<Control><Super>Left" ];
-      switch-to-workspace-right = [ "<Control><Super>Right" ];
-      switch-windows = [ "<Alt>Tab" ];
-      switch-windows-backward = [ "<Shift><Alt>Tab" ];
+      maximize = ["<Super>Up"];
+      move-to-workspace-1 = ["<Shift><Control><Super>1"];
+      move-to-workspace-2 = ["<Shift><Control><Super>2"];
+      move-to-workspace-3 = ["<Shift><Control><Super>3"];
+      move-to-workspace-4 = ["<Shift><Control><Super>4"];
+      move-to-workspace-last = ["<Shift><Control><Super>End"];
+      move-to-workspace-left = ["<Shift><Control><Super>Left"];
+      move-to-workspace-right = ["<Shift><Control><Super>Right"];
+      switch-applications = ["<Super>Tab"];
+      switch-applications-backward = ["<Shift><Super>Tab"];
+      switch-input-source = ["<Alt>space"];
+      switch-input-source-backward = ["<Shift><Alt>space"];
+      switch-to-workspace-1 = ["<Control><Super>1"];
+      switch-to-workspace-2 = ["<Control><Super>2"];
+      switch-to-workspace-3 = ["<Control><Super>3"];
+      switch-to-workspace-4 = ["<Control><Super>4"];
+      switch-to-workspace-last = ["<Control><Super>End"];
+      switch-to-workspace-left = ["<Control><Super>Left"];
+      switch-to-workspace-right = ["<Control><Super>Right"];
+      switch-windows = ["<Alt>Tab"];
+      switch-windows-backward = ["<Shift><Alt>Tab"];
     };
 
     "org/gnome/desktop/wm/preferences" = {
@@ -118,9 +126,9 @@
     };
 
     "org/gnome/settings-daemon/plugins/media-keys" = {
-      control-center = [ "<Super>i" ];
+      control-center = ["<Super>i"];
       custom-keybindings = [];
-      home = [ "<Super>e" ];
+      home = ["<Super>e"];
     };
 
     "org/gnome/settings-daemon/plugins/power" = {
@@ -184,7 +192,7 @@
       enable-all = false;
       opacity = 230;
       sigma = 30;
-      whitelist = [ "kitty" ];
+      whitelist = ["kitty"];
     };
 
     "org/gnome/shell/extensions/blur-my-shell/dash-to-panel" = {
@@ -227,7 +235,7 @@
       animate-appicon-hover = false;
       appicon-margin = 0;
       appicon-padding = 6;
-      available-monitors = [ 0 ];
+      available-monitors = [0];
       click-action = "CYCLE-MIN";
       dot-color-dominant = true;
       dot-color-override = false;
@@ -288,7 +296,7 @@
       secondarymenu-contains-showdetails = true;
       shift-click-action = "LAUNCH";
       shift-middle-click-action = "MINIMIZE";
-      shortcut = [ "<Super>q" ];
+      shortcut = ["<Super>q"];
       shortcut-previews = true;
       shortcut-text = "<Super>q";
       show-appmenu = false;
@@ -339,7 +347,7 @@
       brightness = 0.8;
       dimming-enabled = true;
       saturation = 1.0;
-      toggle-shortcut = [ "<Super>g" ];
+      toggle-shortcut = ["<Super>g"];
     };
 
     "org/gnome/shell/extensions/just-perfection" = {
@@ -400,14 +408,14 @@
     "org/gnome/shell/extensions/mediacontrols" = {
       cache-images = true;
       colored-player-icon = false;
-      element-order = [ "icon" "title" "controls" "menu" ];
+      element-order = ["icon" "title" "controls" "menu"];
       extension-index = 0;
       extension-position = "center";
       hide-media-notification = false;
       max-widget-width = 350;
-      mouse-actions = [ "toggle_play" "toggle_menu" "toggle_info" "previous" "next" "none" "none" "none" ];
+      mouse-actions = ["toggle_play" "toggle_menu" "toggle_info" "previous" "next" "none" "none" "none"];
       prefer-using-seek = false;
-      seperator-chars = [ "|" "|" ];
+      seperator-chars = ["|" "|"];
       show-control-icons = false;
       show-next-icon = false;
       show-player-icon = false;
@@ -418,7 +426,7 @@
       show-seperators = false;
       show-sources-menu = false;
       show-text = true;
-      track-label = [ "track" "-" "artist" ];
+      track-label = ["track" "-" "artist"];
     };
 
     "org/gnome/shell/extensions/next-up" = {
@@ -435,12 +443,11 @@
       notifications-position = "bottom";
       notifications-use-native-controls = false;
       output-show-selected = false;
-      user-removed-buttons = [ "NightLightToggle" "KeyboardBrightnessToggle" "DarkModeToggle" "BackgroundAppsToggle" "SystemItem" "BrightnessItem"];
+      user-removed-buttons = ["NightLightToggle" "KeyboardBrightnessToggle" "DarkModeToggle" "BackgroundAppsToggle" "SystemItem" "BrightnessItem"];
       volume-mixer-position = "top";
       volume-mixer-show-description = true;
       volume-mixer-show-icon = true;
     };
-
 
     "org/gnome/shell/extensions/rounded-window-corners" = {
       border-width = 0;
@@ -503,7 +510,7 @@
       last-active = "f417ed5763f4cc9664c083cb053e36678d60f4de";
       merge-task-lists = false;
       show-only-selected-categories = false;
-      task-list-order = [ "system-task-list" "fc599df9afaea2c477524fdd890e713f2d782353" ];
+      task-list-order = ["system-task-list" "fc599df9afaea2c477524fdd890e713f2d782353"];
     };
 
     "org/gnome/shell/extensions/tiling-assistant" = {
@@ -527,29 +534,29 @@
       maximize-with-gap = false;
       move-adaptive-tiling-mod = 3;
       overridden-settings = "{'org.gnome.mutter.edge-tiling': <true>, 'org.gnome.desktop.wm.keybindings.maximize': <['<Super>Up']>, 'org.gnome.desktop.wm.keybindings.unmaximize': <['<Super>Down']>, 'org.gnome.mutter.keybindings.toggle-tiled-left': <['<Super>Left']>, 'org.gnome.mutter.keybindings.toggle-tiled-right': <['<Super>Right']>}";
-      restore-window = [ "<Super>Down" ];
+      restore-window = ["<Super>Down"];
       search-popup-layout = [];
       show-layout-panel-indicator = false;
       single-screen-gap = 10;
-      tile-bottom-half = [ "<Super>KP_2" ];
+      tile-bottom-half = ["<Super>KP_2"];
       tile-bottom-half-ignore-ta = [];
-      tile-bottomleft-quarter = [ "<Super>KP_1" ];
+      tile-bottomleft-quarter = ["<Super>KP_1"];
       tile-bottomleft-quarter-ignore-ta = [];
-      tile-bottomright-quarter = [ "<Super>KP_3" ];
+      tile-bottomright-quarter = ["<Super>KP_3"];
       tile-bottomright-quarter-ignore-ta = [];
       tile-edit-mode = [];
-      tile-left-half = [ "<Super>Left" "<Super>KP_4" ];
+      tile-left-half = ["<Super>Left" "<Super>KP_4"];
       tile-left-half-ignore-ta = [];
-      tile-maximize = [ "<Super>Up" "<Super>KP_5" ];
+      tile-maximize = ["<Super>Up" "<Super>KP_5"];
       tile-maximize-horizontally = [];
       tile-maximize-vertically = [];
-      tile-right-half = [ "<Super>Right" "<Super>KP_6" ];
+      tile-right-half = ["<Super>Right" "<Super>KP_6"];
       tile-right-half-ignore-ta = [];
-      tile-top-half = [ "<Super>KP_8" ];
+      tile-top-half = ["<Super>KP_8"];
       tile-top-half-ignore-ta = [];
-      tile-topleft-quarter = [ "<Super>KP_7" ];
+      tile-topleft-quarter = ["<Super>KP_7"];
       tile-topleft-quarter-ignore-ta = [];
-      tile-topright-quarter = [ "<Super>KP_9" ];
+      tile-topright-quarter = ["<Super>KP_9"];
       tile-topright-quarter-ignore-ta = [];
       toggle-always-on-top = [];
       toggle-tiling-popup = [];
@@ -557,22 +564,21 @@
     };
 
     "org/gnome/shell/keybindings" = {
-      switch-to-application-1 = [ "" ];
-      switch-to-application-2 = [ "" ];
-      switch-to-application-3 = [ "" ];
-      switch-to-application-4 = [ "" ];
-      switch-to-application-5 = [ "" ];
-      switch-to-application-6 = [ "" ];
-      switch-to-application-7 = [ "" ];
-      switch-to-application-8 = [ "" ];
-      switch-to-application-9 = [ "" ];
-      toggle-application-view = [ "" ];
-      toggle-overview = [ "" ];
+      switch-to-application-1 = [""];
+      switch-to-application-2 = [""];
+      switch-to-application-3 = [""];
+      switch-to-application-4 = [""];
+      switch-to-application-5 = [""];
+      switch-to-application-6 = [""];
+      switch-to-application-7 = [""];
+      switch-to-application-8 = [""];
+      switch-to-application-9 = [""];
+      toggle-application-view = [""];
+      toggle-overview = [""];
     };
 
     "org/gnome/tweaks" = {
       show-extensions-notice = false;
     };
-
   };
 }
