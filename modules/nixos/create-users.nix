@@ -1,9 +1,8 @@
-{ config, lib, self, pkgs, unstable, home-manager, ... }:
-with lib;
+{ inputs, outputs, lib, config, ... }:
 {
-  imports = [ home-manager ];
+  imports = [ outputs.modules.home-manager ];
 
-  options.createUsers = mkOption {
+  options.createUsers = with lib; mkOption {
     type = with types; attrsOf ( submodule {
       options = {
         description = mkOption { type = passwdEntry str; default = ""; };
@@ -27,9 +26,10 @@ with lib;
 
   config.home-manager = {
     useUserPackages = true;
-    extraSpecialArgs = { inherit pkgs; inherit unstable; hostConfig = config; };
+    useGlobalPkgs = true;
+    extraSpecialArgs = { inherit inputs outputs; };
     users = builtins.mapAttrs (
-      username: { ... }: import ( self.outPath + "/home-manager/${username}" )
+      username: _: outputs.homeConfigurations.${username}
     ) config.createUsers;
   };
 }

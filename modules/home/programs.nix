@@ -1,4 +1,4 @@
-{ pkgs, unstable, ... }: {
+{ pkgs, osConfig, inputs, ... }: {
   programs = {
     btop = { enable = true; settings = {
       color_theme = "catppuccin_mocha";
@@ -17,20 +17,24 @@
   };
 
   # unnixed stuff
-  home.packages = with pkgs; [
-    ### ESSENTIALS ###
-    unstable.chezmoi
-    neofetch
-    up
+  home.packages =
+    let
+      nixpkgs-config = { inherit (osConfig.nixpkgs) system config; };
+      unstable = (import inputs.nixpkgs-unstable nixpkgs-config);
+    in with pkgs;[
+      ### ESSENTIALS ###
+      unstable.chezmoi
+      neofetch
+      up
 
-    ### CLI TOOLS ###
-    vim-full # config in chezmoi
-    kjv
-    wl-clipboard
-    unstable.ollama
+      ### CLI TOOLS ###
+      vim-full # config in chezmoi
+      kjv
+      wl-clipboard
+      unstable.ollama
 
-    ### GRAPHICAL ###
-    telegram-desktop # https://discourse.nixos.org/t/flatpak-telegram-desktop-desktop-entry-problems/31374
-    virt-manager
-  ];
+      ### GRAPHICAL ###
+      telegram-desktop # https://discourse.nixos.org/t/flatpak-telegram-desktop-desktop-entry-problems/31374
+      virt-manager
+    ];
 }

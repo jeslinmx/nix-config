@@ -1,4 +1,4 @@
-{ pkgs, unstable, ... }: {
+{ outputs, pkgs, ... }: {
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It's perfectly fine and recommended to leave
@@ -7,22 +7,28 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.05"; # Did you read the comment?
 
-  imports = [
-    ../common/enable-standard-hardware.nix
-    ../common/power-management.nix
-    ../common/fingerprint-auth.nix
-    ../common/quirks/iwlwifi.nix
-    ../common/secure-boot.nix
-    ../common/nix-settings.nix
-    ../common/locale-sg.nix
-    ../common/gnome.nix
-    ../common/chinese-input.nix
-    ../common/cloudflare-warp.nix
-    ../common/enable-via-qmk.nix
-    ../common/steam.nix
-    ../common/create-users.nix
+  imports = with outputs.modules.nixos; [
+    chinese-input
+    cloudflare-warp
+    create-users
+    enable-standard-hardware
+    enable-via-qmk
+    gnome
+    ios-usb
+    locale-sg
+    nix-enable-flakes
+    nix-gc
+    power-management
+    quirks-iwlwifi
+    secure-boot
+    steam
+    sudo-disable-timeout
+    windows-fonts
   ];
 
+  users = {
+    defaultUserShell = pkgs.bashInteractive;
+  };
   createUsers.jeslinmx = {
     description = "Jeshy";
     extraGroups = [ "wheel" "scanner" "lp" ];

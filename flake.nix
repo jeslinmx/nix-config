@@ -1,45 +1,23 @@
 {
-  description = "NixOS configuration";
+  description = "NixOS and home-manager configuration";
 
   inputs = {
-    nixpkgs-23-05.url = "github:nixos/nixpkgs/nixos-23.05";
-    nixpkgs-23-11.url = "github:nixos/nixpkgs/nixos-23.11";
+    nixpkgs-2305.url = "github:nixos/nixpkgs/nixos-23.05";
+    nixpkgs-2311.url = "github:nixos/nixpkgs/nixos-23.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager/release-23.11";
     lanzaboote.url = "github:nix-community/lanzaboote";
+    # private-config.url = "github:jeslinmx/nix-private-config";
   };
 
-  outputs = inputs:
-  let mkNixos = configs: builtins.mapAttrs (
-    hostname: {
-      system ? "x86_64-linux",
-      nixpkgs-version ? "nixpkgs-23-11",
-      nixpkgs-config ? {},
-    }:
-      let
-        nixpkgsConfig = { inherit system; config = nixpkgs-config; };
-        specialArgs = with inputs; {
-          inherit self;
-          pkgs = import inputs.${nixpkgs-version} nixpkgsConfig;
-          unstable = import nixpkgs-unstable nixpkgsConfig;
-          lanzaboote = lanzaboote.nixosModules.lanzaboote;
-          home-manager = home-manager.nixosModules.home-manager;
-        };
-      in inputs.${nixpkgs-version}.lib.nixosSystem {
-        inherit system;
-        inherit specialArgs;
-        modules = [
-          { networking.hostName = hostname; }
-          ./nixos/default.nix
-          ./nixos/${hostname}/configuration.nix
-          ./nixos/${hostname}/hardware-configuration.nix
-        ];
-      }
-  ) configs;
+  outputs = { self, ... }@inputs:
+  let puts = { inherit inputs; inherit (self) outputs; };
   in {
-    nixosConfigurations = mkNixos {
-      jeshua-nixos = { system = "x86_64-linux"; nixpkgs-config.allowUnfree = true; };
-      jeshua-speqtral = { system = "x86_64-linux"; nixpkgs-config.allowUnfree = true; };
-    };
+    inherit (inputs.nixpkgs-unstable) lib;
+    dirUtils = import ./dirUtils.nix;
+
+    modules = (import ./modules) puts;
+    homeConfigurations = (import ./home-manager) puts;
+    nixosConfigurations = (import ./nixos) puts;
   };
 }

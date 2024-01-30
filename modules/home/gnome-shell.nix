@@ -1,4 +1,4 @@
-{ lib, hostConfig, pkgs, ... }: lib.mkIf hostConfig.services.xserver.desktopManager.gnome.enable {
+{ lib, osConfig, pkgs, ... }: lib.mkIf osConfig.services.xserver.desktopManager.gnome.enable {
   home.packages = with pkgs; with pkgs.gnome; with pkgs.gnomeExtensions; [
     gnome-extension-manager
     dconf-editor

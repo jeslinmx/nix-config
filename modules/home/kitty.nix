@@ -1,4 +1,4 @@
-{ lib, config, hostConfig, pkgs, ... }: lib.mkIf config.programs.kitty.enable {
+{ lib, config, pkgs, ... }: lib.mkIf config.programs.kitty.enable {
   programs.kitty = {
     theme = "Catppuccin-Mocha";
     font = {

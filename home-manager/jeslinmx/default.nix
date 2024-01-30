@@ -1,12 +1,12 @@
-{ hostConfig, ... }: {
+{ osConfig, outputs, ... }: {
 
-  home.stateVersion = hostConfig.system.stateVersion;
+  home.stateVersion = osConfig.system.stateVersion;
 
-  imports = [
-    ./aesthetics.nix
-    ./programs.nix
-    ./gnome-shell.nix
-    ./kitty.nix
+  imports = with outputs.modules.home; [
+    aesthetics
+    programs
+    gnome-shell
+    kitty
   ];
 
   home = {
