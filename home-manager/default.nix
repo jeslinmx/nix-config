@@ -1,1 +1,0 @@
-{outputs, ...}: outputs.dirUtils.readSubdirs ./.

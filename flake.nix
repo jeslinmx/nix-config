@@ -1,37 +1,44 @@
 {
-  description = "NixOS and home-manager configuration";
+  description = "NixOS (and home-manager) configuration";
 
   inputs = {
+    nixos-unstable.url = "nixpkgs/nixos-unstable";
+    nixos-2311.url = "nixpkgs/nixos-23.11";
     flake-utils.url = "github:numtide/flake-utils";
-    nixpkgs-2305.url = "github:nixos/nixpkgs/nixos-23.05";
-    nixpkgs-2311.url = "github:nixos/nixpkgs/nixos-23.11";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    home-manager.url = "github:nix-community/home-manager/release-23.11";
     lanzaboote.url = "github:nix-community/lanzaboote";
+    home-configs.url = "path:./home-manager";
+    home-configs.inputs.nixpkgs.follows = "nixpkgs";
     # private-config.url = "github:jeslinmx/nix-private-config";
   };
 
   outputs = {
-    self,
+    nixpkgs,
     flake-utils,
-    nixpkgs-unstable,
+    home-configs,
     ...
-  } @ inputs: let
-    puts = {
-      inherit inputs;
-      inherit (self) outputs;
-    };
-  in
-    {
-      inherit (nixpkgs-unstable) lib;
-      dirUtils = import ./dirUtils.nix;
-      formatter = flake-utils.lib.eachDefaultSystem (system: nixpkgs-unstable.legacyPackages.${system}.alejandra);
-
-      modules = (import ./modules) puts;
-      homeConfigurations = (import ./home-manager) puts;
-      nixosConfigurations = (import ./nixos) puts;
+  } @ inputs:
+    rec {
+      inherit (home-configs.outputs) homeModules homeConfigurations;
+      nixosModules = with builtins; with nixpkgs.lib; let
+        dir = ./nixos/modules;
+        dirContents = readDir dir;
+        moduleFiles = filterAttrs (fname: type: (type == "regular") && (strings.hasSuffix ".nix" fname)) dirContents;
+      in
+        mapAttrs' (
+          fname: _:
+            attrsets.nameValuePair
+            (strings.removeSuffix ".nix" fname)
+            (import /${dir}/${fname})
+        )
+        moduleFiles;
+      nixosConfigurations = with builtins; with nixpkgs.lib; let
+        dir = ./nixos/systems;
+        dirContents = readDir dir;
+        configFiles = filterAttrs (fname: type: type == "directory") dirContents;
+      in
+        mapAttrs (fname: _: (import /${dir}/${fname}) (inputs // {inherit nixosModules;})) configFiles;
     }
     // flake-utils.lib.eachDefaultSystem (system: {
-      formatter = nixpkgs-unstable.legacyPackages.${system}.alejandra;
+      formatter = nixpkgs.legacyPackages.${system}.alejandra;
     });
 }

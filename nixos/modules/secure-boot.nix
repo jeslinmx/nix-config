@@ -1,10 +1,4 @@
-{
-  outputs,
-  lib,
-  ...
-}: {
-  imports = [outputs.modules.lanzaboote];
-
+{lib, ...}: {
   # For secure boot to work, you must do the following steps:
   # 0. reboot into UEFI menu and set Secure Boot to Setup Mode
   # 1. create signing keys using `nix run nixpkgs#sbctl create-keys`

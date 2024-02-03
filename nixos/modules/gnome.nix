@@ -9,7 +9,6 @@
     baobab
     cheese
     epiphany
-    gedit
     totem
     yelp
     geary
@@ -17,6 +16,7 @@
     gnome-maps
     gnome-music
     gnome-terminal
+    pkgs.gedit
     pkgs.gnome-console
     pkgs.gnome-text-editor
     pkgs.gnome-photos

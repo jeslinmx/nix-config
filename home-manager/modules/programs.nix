@@ -1,9 +1,12 @@
 {
   pkgs,
-  osConfig,
-  inputs,
+  nixpkgs-unstable,
   ...
 }: {
+  services = {
+    syncthing.enable = true;
+  };
+
   programs = {
     btop = {
       enable = true;
@@ -32,8 +35,8 @@
 
   # unnixed stuff
   home.packages = let
-    nixpkgs-config = {inherit (osConfig.nixpkgs) system config;};
-    unstable = import inputs.nixpkgs-unstable nixpkgs-config;
+    nixpkgs-config = {inherit (pkgs) system config;};
+    unstable = import nixpkgs-unstable nixpkgs-config;
   in
     with pkgs; [
       ### ESSENTIALS ###
@@ -50,5 +53,6 @@
       ### GRAPHICAL ###
       telegram-desktop # https://discourse.nixos.org/t/flatpak-telegram-desktop-desktop-entry-problems/31374
       virt-manager
+      floorp
     ];
 }

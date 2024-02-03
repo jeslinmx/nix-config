@@ -1,10 +1,10 @@
 {
   lib,
-  osConfig,
+  osConfig ? {},
   pkgs,
   ...
 }:
-lib.mkIf osConfig.services.xserver.desktopManager.gnome.enable {
+lib.mkIf (osConfig.services.xserver.desktopManager.gnome.enable or false) {
   home.packages = with pkgs;
   with pkgs.gnome;
   with pkgs.gnomeExtensions; [
