@@ -20,23 +20,25 @@
       )
       moduleFiles;
 
-    homeConfigurations = {
-      jeslinmx = {osConfig ? {}, ...}: {
-        imports = with homeModules; [
-          aesthetics
-          programs
-          gnome-shell
-          kitty
-        ];
-
-        home = {
-          stateVersion = osConfig.system.stateVersion or "23.11";
-          username = "jeslinmx";
-          homeDirectory = "/home/jeslinmx";
-        };
-        xdg.enable = true;
-      };
-    };
+    homeConfigurations = with builtins; with nixpkgs.lib; let
+      dir = ./profiles;
+      dirContents = readDir dir;
+      profileFiles = filterAttrs (fname: type: (type == "regular") && (strings.hasSuffix ".nix" fname)) dirContents;
+    in
+      mapAttrs' (
+        fname: _: let username = (strings.removeSuffix ".nix" fname);
+          in attrsets.nameValuePair
+          username
+          ({ osConfig ? {}, ... }: {
+            imports = [ /${dir}/${fname} ];
+            home = {
+              stateVersion = mkDefault (osConfig.system.stateVersion or "23.11");
+              username = mkDefault username;
+              homeDirectory = mkDefault "/home/${username}";
+            };
+          })
+      )
+      profileFiles;
 
     setup-module = branchName: {
       imports = [inputs."home-manager-${branchName}".nixosModules.home-manager];
