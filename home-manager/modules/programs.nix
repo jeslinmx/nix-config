@@ -8,6 +8,7 @@
   };
 
   programs = {
+    home-manager.enable = true;
     btop = {
       enable = true;
       settings = {
@@ -15,22 +16,22 @@
         theme_background = false;
       };
     };
-    eza.enable = true; # config in chezmoi
-    home-manager.enable = true;
-    lazygit.enable = true; # config in chezmoi
-    starship.enable = true; # config in chezmoi
     tealdeer = {
       enable = true;
       settings = {updates.auto_update = true;};
     };
+    eza.enable = true; # config in chezmoi
+    lazygit.enable = true; # config in chezmoi
+    starship.enable = true; # config in chezmoi
     zoxide.enable = true; # config in chezmoi
 
-    kitty.enable = true; # config in dedicated module
     vivaldi = {
       enable = true;
       commandLineArgs = ["--force-dark-mode" "--enable-features=UseOzonePlatform" "--ozone-pltform=wayland"];
     };
-    vscode.enable = true;
+    vscode.enable = true; # natively handles config sync
+    firefox.enable = true; # config in dedicated module
+    kitty.enable = true; # config in dedicated module
   };
 
   # unnixed stuff
