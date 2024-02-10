@@ -2,7 +2,11 @@
   pkgs,
   nixpkgs-unstable,
   ...
-}: {
+}: let
+    nixpkgs-config = {inherit (pkgs) system config;};
+    unstable = import nixpkgs-unstable nixpkgs-config;
+  in
+{
   services = {
     syncthing.enable = true;
   };
@@ -27,6 +31,7 @@
 
     vivaldi = {
       enable = true;
+      package = unstable.vivaldi;
       commandLineArgs = ["--force-dark-mode" "--enable-features=UseOzonePlatform" "--ozone-pltform=wayland"];
     };
     vscode.enable = true; # natively handles config sync
@@ -35,11 +40,7 @@
   };
 
   # unnixed stuff
-  home.packages = let
-    nixpkgs-config = {inherit (pkgs) system config;};
-    unstable = import nixpkgs-unstable nixpkgs-config;
-  in
-    with pkgs; [
+  home.packages = with pkgs; [
       ### ESSENTIALS ###
       unstable.chezmoi
       neofetch

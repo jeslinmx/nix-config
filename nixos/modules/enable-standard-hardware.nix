@@ -13,7 +13,7 @@
     avahi = {
       # enable network autodiscovery, particularly driverless printing
       enable = true;
-      nssmdns4 = true;
+      nssmdns = true;
       openFirewall = true;
     };
   };

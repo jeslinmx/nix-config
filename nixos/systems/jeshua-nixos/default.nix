@@ -35,7 +35,7 @@ nixos-2311.lib.nixosSystem {
 
         ### USERS ###
         standard-users
-        (home-configs.setup-module "unstable")
+        (home-configs.setup-module "23.11")
       ];
 
       system.stateVersion = "23.05";
