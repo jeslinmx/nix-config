@@ -22,6 +22,7 @@
     };
     tealdeer = {
       enable = true;
+      updateOnActivation = false; # otherwise HM service errors due to lack of connectivity
       settings = {updates.auto_update = true;};
     };
     eza.enable = true; # config in chezmoi
