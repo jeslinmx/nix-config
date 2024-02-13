@@ -1,5 +1,4 @@
-{ lib, config, pkgs, ... }:
-lib.mkIf config.programs.firefox.enable {
+{
   programs.firefox = {
     profiles = {
       default = {
