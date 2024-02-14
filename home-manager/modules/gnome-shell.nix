@@ -242,7 +242,7 @@ lib.mkIf (osConfig.services.xserver.desktopManager.gnome.enable or false) {
       dot-color-unfocused-different = false;
       dot-position = "BOTTOM";
       dot-size = 1;
-      dot-style-focused = "CILIORA";
+      dot-style-focused = "SEGMENTED";
       dot-style-unfocused = "DASHES";
       enter-peek-mode-timeout = 50;
       focus-highlight = true;
