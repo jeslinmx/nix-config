@@ -1,11 +1,17 @@
-{homeModules, ...}: {
+{homeModules, pkgs, ...}: {
   imports = with homeModules; [
     aesthetics
-    firefox
-    programs
+    common-programs
     gnome-shell
-    kitty
   ];
 
   xdg.enable = true;
+
+  home.packages = with pkgs; [
+      ### CLI TOOLS ###
+      kjv
+
+      ### GRAPHICAL ###
+      telegram-desktop # https://discourse.nixos.org/t/flatpak-telegram-desktop-desktop-entry-problems/31374
+  ];
 }

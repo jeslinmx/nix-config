@@ -1,11 +1,11 @@
 {
   nixosModules,
-  nixos-unstable,
+  nixos-2311,
   lanzaboote,
   home-configs,
   ...
 }:
-nixos-unstable.lib.nixosSystem {
+nixos-2311.lib.nixosSystem {
   system = "x86_64-linux";
   modules = [
     ({pkgs, ...}: {
@@ -34,8 +34,13 @@ nixos-unstable.lib.nixosSystem {
         secure-boot
 
         ### USERS ###
-        standard-users
-        (home-configs.setup-module "unstable")
+        (home-configs.setup-module "23.11" {
+          jeshua = {
+            uid = 1000;
+            description = "Jeshua Lin";
+            extraGroups = ["wheel" "scanner" "lp"];
+          };
+        })
       ];
 
       system.stateVersion = "23.11";
@@ -56,11 +61,6 @@ nixos-unstable.lib.nixosSystem {
 
       ### USER SETUP ###
       users.defaultUserShell = pkgs.bashInteractive;
-      users.users.jeslinmx = {
-        isStandardUser = true;
-        description = "Jeshua Lin";
-        extraGroups = ["wheel" "scanner" "lp"];
-      };
     })
   ];
 }

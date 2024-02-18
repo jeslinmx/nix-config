@@ -1,4 +1,5 @@
 {
+  homeModules,
   pkgs,
   nixpkgs-unstable,
   ...
@@ -7,6 +8,11 @@
     unstable = import nixpkgs-unstable nixpkgs-config;
   in
 {
+  imports = with homeModules; [
+    firefox
+    kitty
+  ];
+
   services = {
     syncthing.enable = true;
   };
@@ -22,8 +28,9 @@
     };
     tealdeer = {
       enable = true;
-      updateOnActivation = false; # otherwise HM service errors due to lack of connectivity
-      settings = {updates.auto_update = true;};
+      # temporarily disabled until updateOnActivation is supported in a stable release
+      # updateOnActivation = false; # otherwise HM service errors due to lack of connectivity
+      # settings = {updates.auto_update = true;};
     };
     eza.enable = true; # config in chezmoi
     lazygit.enable = true; # config in chezmoi
@@ -35,7 +42,6 @@
       package = unstable.vivaldi;
       commandLineArgs = ["--force-dark-mode" "--enable-features=UseOzonePlatform" "--ozone-pltform=wayland"];
     };
-    vscode.enable = true; # natively handles config sync
     firefox.enable = true; # config in dedicated module
     kitty.enable = true; # config in dedicated module
   };
@@ -49,12 +55,10 @@
 
       ### CLI TOOLS ###
       vim-full # config in chezmoi
-      kjv
       wl-clipboard
       unstable.ollama
 
       ### GRAPHICAL ###
-      telegram-desktop # https://discourse.nixos.org/t/flatpak-telegram-desktop-desktop-entry-problems/31374
       virt-manager
     ];
 }

@@ -40,17 +40,27 @@
       )
       profileFiles;
 
-    setup-module = branchName: {
+    setup-module = branchName: users: { config, ... }: {
       imports = [inputs."home-manager-${branchName}".nixosModules.home-manager];
-      home-manager = {
+      config = with nixpkgs.lib; mkMerge
+      ( [ { home-manager = {
         useUserPackages = true;
         useGlobalPkgs = true;
         extraSpecialArgs = {
           nixpkgs-unstable = nixpkgs;
           inherit homeModules;
         };
-        users = homeConfigurations;
-      };
+      }; users.mutableUsers = true; } ] ++ (mapAttrsToList (
+        username: cfg: {
+          users.users.${username} = {
+            initialHashedPassword = mkDefault "";
+            isNormalUser = mkDefault true;
+            group = mkIf config.users.users.${username}.isNormalUser (mkOverride 900 username);
+          } // cfg;
+          users.groups.${username} = mkIf config.users.users.${username}.isNormalUser {};
+          home-manager.users.${username} = homeConfigurations.${username};
+        }
+        ) users) );
     };
   };
 }

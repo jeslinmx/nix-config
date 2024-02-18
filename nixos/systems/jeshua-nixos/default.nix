@@ -1,11 +1,11 @@
 {
   nixosModules,
-  nixos-2311,
+  nixos-unstable,
   lanzaboote,
   home-configs,
   ...
 }:
-nixos-2311.lib.nixosSystem {
+nixos-unstable.lib.nixosSystem {
   system = "x86_64-linux";
   modules = [
     ({pkgs, ...}: {
@@ -34,8 +34,13 @@ nixos-2311.lib.nixosSystem {
         secure-boot
 
         ### USERS ###
-        standard-users
-        (home-configs.setup-module "23.11")
+        (home-configs.setup-module "unstable" {
+          jeslinmx = {
+            uid = 1000;
+            description = "Jeshy";
+            extraGroups = ["wheel" "scanner" "lp"];
+          };
+        })
       ];
 
       system.stateVersion = "23.05";
@@ -43,10 +48,12 @@ nixos-2311.lib.nixosSystem {
       nixpkgs.config.allowUnfree = true;
 
       ### BOOT CUSTOMIZATION ###
-      boot = {
-        loader.efi.canTouchEfiVariables = true;
-        initrd.luks.devices."luksroot".device = "/dev/disk/by-uuid/4931d933-81f1-45c3-87b5-6944e52703fd";
+      boot.loader = {
+        timeout = 0;
+        efi.canTouchEfiVariables = true;
+        systemd-boot.netbootxyz.enable = true;
       };
+      boot.initrd.luks.devices."luksroot".device = "/dev/disk/by-uuid/4931d933-81f1-45c3-87b5-6944e52703fd";
 
       ### ENVIRONMENT CUSTOMIZATION ###
       services.flatpak.enable = true;
@@ -57,11 +64,6 @@ nixos-2311.lib.nixosSystem {
 
       ### USER SETUP ###
       users.defaultUserShell = pkgs.bashInteractive;
-      users.users.jeslinmx = {
-        isStandardUser = true;
-        description = "Jeshy";
-        extraGroups = ["wheel" "scanner" "lp"];
-      };
     })
   ];
 }
