@@ -40,5 +40,8 @@
     }
     // flake-utils.lib.eachDefaultSystem (system: {
       formatter = nixpkgs.legacyPackages.${system}.alejandra;
+      devShells.default = with (import nixpkgs { inherit system; }); mkShell {
+        packages = [ just alejandra nix-output-monitor ];
+      };
     });
 }
