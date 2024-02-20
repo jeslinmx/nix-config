@@ -18,7 +18,6 @@
   };
 
   programs = {
-    home-manager.enable = true;
     btop = {
       enable = true;
       settings = {
@@ -32,10 +31,13 @@
       # updateOnActivation = false; # otherwise HM service errors due to lack of connectivity
       # settings = {updates.auto_update = true;};
     };
+    home-manager.enable = true;
     eza.enable = true; # config in chezmoi
+    zoxide.enable = true; # config in chezmoi
+    fzf.enable = true; # config in chezmoi
+    ripgrep.enable = true; # config in chezmoi
     lazygit.enable = true; # config in chezmoi
     starship.enable = true; # config in chezmoi
-    zoxide.enable = true; # config in chezmoi
 
     vivaldi = {
       enable = true;
@@ -55,6 +57,7 @@
 
       ### CLI TOOLS ###
       vim-full # config in chezmoi
+      rclone
       wl-clipboard
       unstable.ollama
 
