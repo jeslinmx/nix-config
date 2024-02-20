@@ -3,6 +3,7 @@
     aesthetics
     common-programs
     gnome-shell
+    rclone
   ];
 
   xdg.enable = true;

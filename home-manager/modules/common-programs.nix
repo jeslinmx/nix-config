@@ -57,7 +57,6 @@
 
       ### CLI TOOLS ###
       vim-full # config in chezmoi
-      rclone
       wl-clipboard
       unstable.ollama
 
