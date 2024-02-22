@@ -1,26 +1,32 @@
 {pkgs, ...}: {
-  services.xserver = {
-    enable = true;
-    displayManager.gdm.enable = true;
-    desktopManager.gnome.enable = true;
+  services = {
+    xserver = {
+      enable = true;
+      displayManager.gdm.enable = true;
+      desktopManager.gnome.enable = true;
+    };
+    gnome = {
+      core-utilities.enable = false;
+      sushi.enable = true;
+    };
   };
-
-  environment.gnome.excludePackages = with pkgs.gnome; [
-    baobab
-    cheese
-    epiphany
-    totem
-    yelp
-    geary
-    seahorse
-    gnome-maps
-    gnome-music
-    gnome-terminal
-    pkgs.gedit
-    pkgs.gnome-console
-    pkgs.gnome-text-editor
-    pkgs.gnome-photos
+  programs.gnome-disks.enable = true;
+  programs.file-roller.enable = true;
+  environment.systemPackages = with pkgs;
+  with pkgs.gnome; [
+    dconf-editor
+    eog
+    gnome-calculator
+    gnome-calendar
+    gnome-characters
+    gnome-connections
+    gnome-contacts
+    gnome-extension-manager
+    gnome-font-viewer
+    gnome-software
+    gnome-weather
+    nautilus
+    simple-scan
+    unoconv # allows sushi to open Office files without crashing
   ];
-
-  networking.networkmanager.enable = true;
 }

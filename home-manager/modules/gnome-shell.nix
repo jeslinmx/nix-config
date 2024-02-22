@@ -5,16 +5,7 @@
   ...
 }:
 lib.mkIf (osConfig.services.xserver.desktopManager.gnome.enable or false) {
-  home.packages = with pkgs;
-  with pkgs.gnome;
-  with pkgs.gnomeExtensions; [
-    gnome-extension-manager
-    dconf-editor
-    file-roller
-    simple-scan
-    gnome-software
-
-    ### EXTENSIONS ###
+  home.packages = with pkgs.gnomeExtensions; [
     appindicator
     autohide-battery
     blur-my-shell
