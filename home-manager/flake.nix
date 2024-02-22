@@ -4,6 +4,7 @@
   inputs = {
     home-manager-unstable.url = "github:nix-community/home-manager";
     "home-manager-23.11".url = "github:nix-community/home-manager/release-23.11";
+    private-config.url = "git+ssh://git@github.com/jeslinmx/nix-private-config";
   };
 
   outputs = {nixpkgs, ...} @ inputs: rec {
@@ -16,6 +17,7 @@
         fname: _:
           attrsets.nameValuePair
           (strings.removeSuffix ".nix" fname)
+
           (import /${dir}/${fname})
       )
       moduleFiles;
@@ -49,6 +51,7 @@
         extraSpecialArgs = {
           nixpkgs-unstable = nixpkgs;
           inherit homeModules;
+          privateHomeModules = inputs.private-config.homeModules;
         };
       }; users.mutableUsers = true; } ] ++ (mapAttrsToList (
         username: cfg: {

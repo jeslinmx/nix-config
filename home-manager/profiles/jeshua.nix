@@ -1,9 +1,11 @@
-{homeModules, ...}: {
+{homeModules, privateHomeModules, ...}: {
   imports = with homeModules; [
     aesthetics
     common-programs
     gnome-shell
     rclone
+    privateHomeModules.awscli
+    privateHomeModules.ssh-config
   ];
 
   xdg.enable = true;

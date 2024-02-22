@@ -8,7 +8,6 @@
     lanzaboote.url = "github:nix-community/lanzaboote";
     home-configs.url = "path:./home-manager";
     home-configs.inputs.nixpkgs.follows = "nixpkgs";
-    # private-config.url = "github:jeslinmx/nix-private-config";
   };
 
   outputs = {
