@@ -165,6 +165,10 @@ lib.mkIf (osConfig.services.xserver.desktopManager.gnome.enable or false) {
       tray-pos = "right";
     };
 
+    "org/gnome/shell/extensions/autohide-battery" = {
+      hide-on = 95;
+    };
+
     "org/gnome/shell/extensions/blur-my-shell" = {
       brightness = 0.6;
       color-and-noise = false;
