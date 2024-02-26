@@ -59,6 +59,7 @@
       vim-full # config in chezmoi
       wl-clipboard
       unstable.ollama
+      dig
 
       ### GRAPHICAL ###
       virt-manager

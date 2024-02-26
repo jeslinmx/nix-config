@@ -28,6 +28,7 @@ nixos-2311.lib.nixosSystem {
         gnome
         ios-usb
         windows-fonts
+        wireshark
 
         ### SECURE BOOT ###
         lanzaboote.nixosModules.lanzaboote
@@ -38,7 +39,7 @@ nixos-2311.lib.nixosSystem {
           jeshua = {
             uid = 1000;
             description = "Jeshua Lin";
-            extraGroups = ["wheel" "scanner" "lp"];
+            extraGroups = ["wheel" "scanner" "lp" "wireshark"];
           };
         })
       ];

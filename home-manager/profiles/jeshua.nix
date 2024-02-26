@@ -1,4 +1,4 @@
-{homeModules, privateHomeModules, ...}: {
+{homeModules, privateHomeModules, pkgs, ...}: {
   imports = with homeModules; [
     aesthetics
     common-programs
@@ -13,4 +13,9 @@
   programs = {
     vscode.enable = true; # natively handles config sync
   };
+
+  home.packages = with pkgs; [
+    powershell
+    wimlib
+  ];
 }
