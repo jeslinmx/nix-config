@@ -3,11 +3,13 @@
     aesthetics
     common-programs
     gnome-shell
+    colors
     rclone
     privateHomeModules.awscli
     privateHomeModules.ssh-config
   ];
 
+  colors.scheme = "catppuccin-mocha";
   xdg.enable = true;
 
   programs = {
