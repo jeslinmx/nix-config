@@ -104,7 +104,7 @@
       Containers = {
         Default = [
           {
-            name = "Work";
+            name = "Isolated";
             color = "blue";
             icon = "briefcase";
           }
