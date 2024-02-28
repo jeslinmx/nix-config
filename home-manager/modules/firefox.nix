@@ -1,4 +1,4 @@
-{
+{ lib, pkgs, ... }: {
   programs.firefox = {
     profiles = {
       default = {
@@ -7,13 +7,14 @@
           "browser.newtabpage.activity-stream.feeds.section.highlights" = true;
           "browser.newtabpage.activity-stream.showSearch" = false;
           "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
-          "browser.toolbars.bookmarks.visibility" = "newtab";
+          "browser.toolbars.bookmarks.visibility" = "never";
           "browser.tabs.tabmanager.enabled" = false; # hide dropdown tab menu
           "browser.tabs.tabClipWidth" = 999; # clip tab close button on inactive tabs
           "browser.compactmode.show" = true; # compact UI density
           "browser.uidensity" = 1; # enable compact UI
           "extensions.pocket.enabled" = false;
           "apz.overscroll.enabled" = true;
+          "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
 
           # fonts
           "font.name.monospace.x-western" = "CaskaydiaCove Nerd Font";
@@ -54,7 +55,10 @@
           "media.block-play-until-document-interaction" = true;
           "media.block-play-until-visible" = true;
         };
-        extensions = [];
+        userChrome = builtins.readFile (pkgs.fetchurl {
+          url = "https://raw.githubusercontent.com/christorange/VerticalFox/v1.4.0/windows/userChrome.css";
+          hash = "sha256-YvGtSYlyKdDuRyY2d/t4xV6SfiQFjoQ9ZNcaw4SOvp8=";
+        });
         search = {
           force = true;
           default = "DuckDuckGo";
@@ -63,13 +67,53 @@
               urls = [{ template = "https://speqtralquantum.sharepoint.com/_layouts/15/search.aspx/?q={searchTerms}"; }];
               definedAliases = [ "q" ];
             };
+            "Lenovo PSREF" = {
+              urls = [{ template = "https://psref.lenovo.com/Search?kw={searchTerms}"; }];
+              definedAliases = [ "psref" ];
+            };
             "Google".metaData.hidden = true;
             "Amazon.com".metaData.hidden = true;
             "Bing".metaData.hidden = true;
             "Wikipedia (en)".metaData.hidden = true;
           };
         };
-        userChrome = "";
+      };
+    };
+    policies = {
+      ExtensionSettings =
+        let extensions = installation_mode: builtins.mapAttrs (
+          _: slug: {
+            inherit installation_mode;
+            install_url = "https://addons.mozilla.org/en-US/firefox/downloads/latest/${slug}/latest.xpi";
+          }
+          );
+        in (extensions "normal_installed" {
+          "ATBC@EasonWong" = "adaptive-tab-bar-colour";
+          "{74145f27-f039-47ce-a470-a662b129930a}" = "clearurls";
+          "keepassxc-browser@keepassxc.org" = "keepassxc-browser";
+          "{3c078156-979c-498b-8990-85f7987dd929}" = "sidebery";
+          "sponsorBlocker@ajay.app" = "sponsorblock";
+          "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}" = "styl-us";
+          "{7be2ba16-0f1e-4d93-9ebc-5164397477a9}" = "videospeed";
+        }) // (extensions "blocked" {
+          "amazondotcom@search.mozilla.org" = "";
+          "bing@search.mozilla.org" = "";
+          "google@search.mozilla.org" = "";
+          "wikipedia@search.mozilla.org" = "";
+        });
+      Containers = {
+        Default = [
+          {
+            name = "Work";
+            color = "blue";
+            icon = "briefcase";
+          }
+          {
+            name = "Procrastination";
+            color = "red";
+            icon = "chill";
+          }
+        ];
       };
     };
   };
