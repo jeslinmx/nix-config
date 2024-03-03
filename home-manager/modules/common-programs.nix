@@ -39,13 +39,7 @@
     lazygit.enable = true; # config in chezmoi
     starship.enable = true; # config in chezmoi
 
-    vivaldi = {
-      enable = true;
-      package = unstable.vivaldi;
-      commandLineArgs = ["--force-dark-mode" "--enable-features=UseOzonePlatform" "--ozone-pltform=wayland"];
-    };
-    # not until we get custom keybinds
-    # firefox.enable = true; # config in dedicated module
+    firefox.enable = true; # config in dedicated module
     kitty.enable = true; # config in dedicated module
   };
 
