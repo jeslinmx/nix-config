@@ -18,29 +18,24 @@
   };
 
   programs = {
-    btop = {
+    home-manager.enable = true;
+    firefox.enable = true; # config in dedicated module
+    kitty.enable = true; # config in dedicated module
+
+    btop = { # btop overwrites its config, so it's annoying in chezmoi
       enable = true;
       settings = {
         color_theme = "catppuccin_mocha";
         theme_background = false;
       };
     };
-    tealdeer = {
-      enable = true;
-      # temporarily disabled until updateOnActivation is supported in a stable release
-      # updateOnActivation = false; # otherwise HM service errors due to lack of connectivity
-      # settings = {updates.auto_update = true;};
-    };
-    home-manager.enable = true;
     eza.enable = true; # config in chezmoi
     zoxide.enable = true; # config in chezmoi
     fzf.enable = true; # config in chezmoi
     ripgrep.enable = true; # config in chezmoi
+    tealdeer.enable = true; # config in chezmoi
     lazygit.enable = true; # config in chezmoi
     starship.enable = true; # config in chezmoi
-
-    firefox.enable = true; # config in dedicated module
-    kitty.enable = true; # config in dedicated module
   };
 
   # unnixed stuff
