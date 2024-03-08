@@ -94,6 +94,7 @@
           "{3c078156-979c-498b-8990-85f7987dd929}" = "sidebery";
           "sponsorBlocker@ajay.app" = "sponsorblock";
           "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}" = "styl-us";
+          "{b668a78c-4a97-473d-aac1-9b131e19015d}" = "teams-phone-fix";
           "{7be2ba16-0f1e-4d93-9ebc-5164397477a9}" = "videospeed";
         }) // (extensions "blocked" {
           "amazondotcom@search.mozilla.org" = "";
