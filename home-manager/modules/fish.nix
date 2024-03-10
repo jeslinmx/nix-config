@@ -6,7 +6,6 @@
     };
     shellAliases = {
       fetch = "neofetch --config ~/.config/neofetch/simple.conf";
-      sudo = "sudo -v; sudo -E";
     };
   };
   programs.fish = {
@@ -15,9 +14,12 @@
       v = "vim";
       "/" = "grep";
       cm = "chezmoi";
+      sudo = "sudo -v; sudo -E";
     };
     functions = {
       l = "for arg in $argv; test -d $arg; and ll $arg; or less $arg; end";
+      multicd = "echo (string repeat -n (math (string length -- $argv[1]) - 1) ../)";
+      last_history = "echo $history[1]";
     };
     interactiveShellInit = ''
       if [ $SHLVL -eq 1 ]
@@ -32,6 +34,9 @@
       set fish_cursor_visual block
       set fish_cursor_insert line
       set fish_cursor_replace_one underscore
+
+      abbr -a .. --position anywhere -r '^\.\.+$' -f multicd
+      abbr -a !! --position anywhere -f last_history
     '';
   };
 }
