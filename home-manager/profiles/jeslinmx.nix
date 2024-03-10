@@ -3,8 +3,10 @@
     aesthetics
     common-programs
     gnome-shell
+    colors
   ];
 
+  colors.scheme = "catppuccin-mocha";
   xdg.enable = true;
 
   home.packages = with pkgs; [
