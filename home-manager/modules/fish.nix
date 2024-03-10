@@ -1,12 +1,20 @@
 {
+  home = {
+    sessionVariables = {
+      EDITOR = "vim";
+      PAGER = "less -R";
+    };
+    shellAliases = {
+      fetch = "neofetch --config ~/.config/neofetch/simple.conf";
+      sudo = "sudo -v; sudo -E";
+    };
+  };
   programs.fish = {
     shellAbbrs = {
       g = "git";
       v = "vim";
       "/" = "grep";
       cm = "chezmoi";
-      fetch = "neofetch --config ~/.config/neofetch/simple.conf";
-      sudo = "sudo -v; sudo -E";
     };
     functions = {
       l = "for arg in $argv; test -d $arg; and ll $arg; or less $arg; end";
