@@ -9,7 +9,9 @@
   in
 {
   imports = with homeModules; [
+    btop
     firefox
+    fish
     kitty
   ];
 
@@ -22,14 +24,14 @@
     firefox.enable = true; # config in dedicated module
     kitty.enable = true; # config in dedicated module
 
-    btop = { # btop overwrites its config, so it's annoying in chezmoi
+    fish.enable = true;
+    btop.enable = true;
+    eza = {
       enable = true;
-      settings = {
-        color_theme = "catppuccin_mocha";
-        theme_background = false;
-      };
+      enableAliases = true;
+      git = true;
+      icons = true;
     };
-    eza.enable = true; # config in chezmoi
     zoxide.enable = true; # config in chezmoi
     fzf.enable = true; # config in chezmoi
     ripgrep.enable = true; # config in chezmoi

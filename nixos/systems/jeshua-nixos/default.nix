@@ -63,7 +63,8 @@ nixos-unstable.lib.nixosSystem {
       boot.kernel.sysctl = {"vm.swappiness" = 0;};
 
       ### USER SETUP ###
-      users.defaultUserShell = pkgs.bashInteractive;
+      users.defaultUserShell = pkgs.fish;
+      programs.fish.enable = true;
     })
   ];
 }

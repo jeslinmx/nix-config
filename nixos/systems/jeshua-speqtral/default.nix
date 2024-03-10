@@ -61,7 +61,8 @@ nixos-2311.lib.nixosSystem {
       environment.sessionVariables = {GDK_SCALE = "1.5";};
 
       ### USER SETUP ###
-      users.defaultUserShell = pkgs.bashInteractive;
+      users.defaultUserShell = pkgs.fish;
+      programs.fish.enable = true;
     })
   ];
 }
