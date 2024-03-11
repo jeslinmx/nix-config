@@ -24,13 +24,17 @@
     firefox.enable = true; # config in dedicated module
     kitty.enable = true; # config in dedicated module
 
-    fish.enable = true;
-    btop.enable = true;
+    fish.enable = true; # config in dedicated module
+    btop.enable = true; # config in dedicated module
     eza = {
       enable = true;
       enableAliases = true;
       git = true;
       icons = true;
+    };
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
     };
     zoxide.enable = true; # config in chezmoi
     fzf.enable = true; # config in chezmoi
