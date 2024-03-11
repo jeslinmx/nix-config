@@ -6,7 +6,7 @@
     colors
     rclone
     privateHomeModules.awscli
-    privateHomeModules.ssh-config
+    privateHomeModules.ssh-speqtral-hosts
   ];
 
   colors.scheme = "catppuccin-mocha";

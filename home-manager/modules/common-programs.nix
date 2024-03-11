@@ -36,6 +36,13 @@
       enable = true;
       nix-direnv.enable = true;
     };
+    ssh = {
+      enable = true;
+      hashKnownHosts = true;
+      controlMaster = "auto";
+      controlPersist = "3s";
+      includes = [ "~/.ssh/config.d/*.conf" ];
+    };
     zoxide.enable = true; # config in chezmoi
     fzf.enable = true; # config in chezmoi
     ripgrep.enable = true; # config in chezmoi
