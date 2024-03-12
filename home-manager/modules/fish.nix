@@ -12,10 +12,11 @@
     shellAbbrs = {
       g = "git";
       v = "vim";
-      "/" = "grep";
       f = "fuck";
+      S = "sudo -v; sudo -E";
+      s = "kitty +kitten ssh";
+      "/" = "grep";
       cm = "chezmoi";
-      sudo = "sudo -v; sudo -E";
     };
     functions = {
       l = "for arg in $argv; test -d $arg; and ll $arg; or less $arg; end";
