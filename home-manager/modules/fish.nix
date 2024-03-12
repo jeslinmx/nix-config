@@ -13,6 +13,7 @@
       g = "git";
       v = "vim";
       "/" = "grep";
+      f = "fuck";
       cm = "chezmoi";
       sudo = "sudo -v; sudo -E";
     };

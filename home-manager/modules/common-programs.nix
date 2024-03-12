@@ -26,6 +26,18 @@
 
     fish.enable = true; # config in dedicated module
     btop.enable = true; # config in dedicated module
+    atuin = {
+      enable = true;
+      settings = {
+        update_check = false;
+        style = "compact";
+        inline_height = 9 + 4; # header, current, input, preview
+        show_preview = true;
+        enter_accept = true;
+        exit_mode = "return-query";
+      };
+    };
+    thefuck.enable = true;
     eza = {
       enable = true;
       enableAliases = true;
@@ -35,6 +47,10 @@
     direnv = {
       enable = true;
       nix-direnv.enable = true;
+    };
+    yazi = {
+      enable = true;
+      enableFishIntegration = true;
     };
     ssh = {
       enable = true;
