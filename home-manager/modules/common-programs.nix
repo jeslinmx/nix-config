@@ -9,10 +9,12 @@
   in
 {
   imports = with homeModules; [
+    atuin
     btop
     firefox
     fish
     kitty
+    tmux
   ];
 
   services = {
@@ -21,43 +23,9 @@
 
   programs = {
     home-manager.enable = true;
-    firefox.enable = true; # config in dedicated module
-    kitty.enable = true; # config in dedicated module
-
-    fish.enable = true; # config in dedicated module
-    btop.enable = true; # config in dedicated module
     carapace.enable = true;
-    tmux = {
-      enable = true;
-      aggressiveResize = true;
-      baseIndex = 1;
-      clock24 = true;
-      customPaneNavigationAndResize = true;
-      keyMode = "vi";
-      mouse = true;
-      newSession = true;
-      secureSocket = true;
-      sensibleOnTop = true;
-      extraConfig = ''
-        # for kitty images
-        set -g allow-passthrough on
-        set -ga update-environment TERM
-        set -ga update-environment TERM_PROGRAM
-      '';
-    };
-    atuin = {
-      enable = true;
-      flags = [ "--disable-up-arrow" ];
-      settings = {
-        update_check = false;
-        style = "compact";
-        inline_height = 9 + 4; # header, current, input, preview
-        show_preview = true;
-        enter_accept = false;
-        exit_mode = "return-query";
-      };
-    };
     thefuck.enable = true;
+    yazi.enable = true;
     eza = {
       enable = true;
       enableAliases = true;
@@ -68,10 +36,6 @@
       enable = true;
       nix-direnv.enable = true;
     };
-    yazi = {
-      enable = true;
-      enableFishIntegration = true;
-    };
     ssh = {
       enable = true;
       hashKnownHosts = true;
@@ -79,12 +43,20 @@
       controlPersist = "3s";
       includes = [ "~/.ssh/config.d/*.conf" ];
     };
-    zoxide.enable = true; # config in chezmoi
-    fzf.enable = true; # config in chezmoi
-    ripgrep.enable = true; # config in chezmoi
-    tealdeer.enable = true; # config in chezmoi
-    lazygit.enable = true; # config in chezmoi
-    starship.enable = true; # config in chezmoi
+    # configured in dedicated modules
+    firefox.enable = true;
+    kitty.enable = true;
+    tmux.enable = true;
+    fish.enable = true;
+    atuin.enable = true;
+    btop.enable = true;
+    # configured in chezmoi
+    zoxide.enable = true;
+    fzf.enable = true;
+    ripgrep.enable = true;
+    tealdeer.enable = true;
+    lazygit.enable = true;
+    starship.enable = true;
   };
 
   # unnixed stuff
