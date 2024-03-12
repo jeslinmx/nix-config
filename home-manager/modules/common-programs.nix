@@ -28,12 +28,13 @@
     btop.enable = true; # config in dedicated module
     atuin = {
       enable = true;
+      flags = [ "--disable-up-arrow" ];
       settings = {
         update_check = false;
         style = "compact";
         inline_height = 9 + 4; # header, current, input, preview
         show_preview = true;
-        enter_accept = true;
+        enter_accept = false;
         exit_mode = "return-query";
       };
     };
