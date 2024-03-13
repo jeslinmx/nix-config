@@ -134,17 +134,25 @@
     },
     "home-configs": {
       "inputs": {
-        "home-manager-23.11": "home-manager-23.11",
-        "home-manager-unstable": "home-manager-unstable",
-        "nix-colors": "nix-colors",
+        "home-manager-2311": [
+          "home-manager-2311"
+        ],
+        "home-manager-unstable": [
+          "home-manager-unstable"
+        ],
+        "nix-colors": [
+          "nix-colors"
+        ],
         "nixpkgs": [
           "nixpkgs"
         ],
-        "private-config": "private-config"
+        "private-config": [
+          "private-config"
+        ]
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-UcCBHz3ATKqOJfBrvrPlV9Tl6iWkJaOPLT0Y4v1hOqw=",
+        "narHash": "sha256-yYWJcGI1KeL1PfGFmd/vSXSo+SS7mUJe5zDpOSY85Xk=",
         "path": "./home-manager",
         "type": "path"
       },
@@ -153,7 +161,7 @@
         "type": "path"
       }
     },
-    "home-manager-23.11": {
+    "home-manager-2311": {
       "inputs": {
         "nixpkgs": "nixpkgs"
       },
@@ -177,11 +185,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1710062421,
-        "narHash": "sha256-FiCNRfyUgJOLYIokLiFsfI7B+Zn9HDnOzFR3uVr5qsQ=",
+        "lastModified": 1710281778,
+        "narHash": "sha256-bvWr9vvBrAxb44kHM3H3cY/uQg+4pYP1BM/Nu3e/7V8=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "36f873dfc8e2b6b89936ff3e2b74803d50447e0a",
+        "rev": "49a266d2ca59df8a03249550e73a54626181b65d",
         "type": "github"
       },
       "original": {
@@ -389,11 +397,11 @@
     },
     "private-config": {
       "locked": {
-        "lastModified": 1710146001,
-        "narHash": "sha256-CSiMPXayGzMoR4oy3o5YgpFTCY8g5Ie8HeAsrC8QBow=",
+        "lastModified": 1710300897,
+        "narHash": "sha256-36NVOqj0fHBVs73kImPlj6sClEaXJRoNz/NTP31jiaU=",
         "ref": "refs/heads/main",
-        "rev": "bbc4a761555b9e2ef51a40effb63ef58d9716198",
-        "revCount": 3,
+        "rev": "b88824b9da136ca99090cef6ae4fb76583fe5362",
+        "revCount": 4,
         "type": "git",
         "url": "ssh://git@github.com/jeslinmx/nix-private-config"
       },
@@ -406,10 +414,14 @@
       "inputs": {
         "flake-utils": "flake-utils",
         "home-configs": "home-configs",
+        "home-manager-2311": "home-manager-2311",
+        "home-manager-unstable": "home-manager-unstable",
         "lanzaboote": "lanzaboote",
+        "nix-colors": "nix-colors",
         "nixos-2311": "nixos-2311",
         "nixos-unstable": "nixos-unstable",
-        "nixpkgs": "nixpkgs_4"
+        "nixpkgs": "nixpkgs_4",
+        "private-config": "private-config"
       }
     },
     "rust-overlay": {

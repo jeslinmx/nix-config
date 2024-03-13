@@ -6,8 +6,20 @@
     nixos-2311.url = "nixpkgs/nixos-23.11";
     flake-utils.url = "github:numtide/flake-utils";
     lanzaboote.url = "github:nix-community/lanzaboote";
-    home-configs.url = "path:./home-manager";
-    home-configs.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager-unstable.url = "github:nix-community/home-manager";
+    home-manager-2311.url = "github:nix-community/home-manager/release-23.11";
+    private-config.url = "git+ssh://git@github.com/jeslinmx/nix-private-config";
+    nix-colors.url = "github:misterio77/nix-colors";
+    home-configs = {
+      url = "path:./home-manager";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager-unstable.follows = "home-manager-unstable";
+        home-manager-2311.follows = "home-manager-2311";
+        private-config.follows = "private-config";
+        nix-colors.follows = "nix-colors";
+      };
+    };
   };
 
   outputs = {

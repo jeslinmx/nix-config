@@ -3,7 +3,7 @@
 
   inputs = {
     home-manager-unstable.url = "github:nix-community/home-manager";
-    "home-manager-23.11".url = "github:nix-community/home-manager/release-23.11";
+    home-manager-2311.url = "github:nix-community/home-manager/release-23.11";
     private-config.url = "git+ssh://git@github.com/jeslinmx/nix-private-config";
     nix-colors.url = "github:misterio77/nix-colors";
   };
@@ -43,8 +43,13 @@
       )
       profileFiles;
 
-    setup-module = branchName: users: { config, ... }: {
-      imports = [inputs."home-manager-${branchName}".nixosModules.home-manager];
+    setup-module = branchName: users: { config, ... }:
+    let hmReleases = with inputs; {
+      "23.11" = home-manager-2311;
+      "unstable" = home-manager-unstable;
+    };
+    in {
+      imports = [hmReleases.${branchName}.nixosModules.home-manager];
       config = with nixpkgs.lib; mkMerge
       ( [ { home-manager = {
         useUserPackages = true;
