@@ -397,11 +397,11 @@
     },
     "private-config": {
       "locked": {
-        "lastModified": 1710300897,
-        "narHash": "sha256-36NVOqj0fHBVs73kImPlj6sClEaXJRoNz/NTP31jiaU=",
+        "lastModified": 1710306219,
+        "narHash": "sha256-HsX+JQoXwGQ2R0MWXNSr8r+5DGi9qr7bGzkUPjwfkWU=",
         "ref": "refs/heads/main",
-        "rev": "b88824b9da136ca99090cef6ae4fb76583fe5362",
-        "revCount": 4,
+        "rev": "21c8e5a9c31b7ffcbd995762fe96e82868ce930d",
+        "revCount": 5,
         "type": "git",
         "url": "ssh://git@github.com/jeslinmx/nix-private-config"
       },
