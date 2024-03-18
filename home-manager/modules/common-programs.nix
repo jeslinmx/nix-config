@@ -68,7 +68,7 @@
       ### CLI TOOLS ###
       vim-full # config in chezmoi
       wl-clipboard
-      unstable.ollama
+      ( unstable.ollama.override { acceleration = "cuda"; } )
       dig
 
       ### GRAPHICAL ###
