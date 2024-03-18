@@ -28,6 +28,7 @@ nixos-unstable.lib.nixosSystem {
         ios-usb
         steam
         windows-fonts
+        docker
 
         ### SECURE BOOT ###
         lanzaboote.nixosModules.lanzaboote
@@ -38,7 +39,7 @@ nixos-unstable.lib.nixosSystem {
           jeslinmx = {
             uid = 1000;
             description = "Jeshy";
-            extraGroups = ["wheel" "scanner" "lp"];
+            extraGroups = ["wheel" "scanner" "lp" "docker"];
           };
         })
       ];
