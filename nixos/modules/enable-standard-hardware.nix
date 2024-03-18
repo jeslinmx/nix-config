@@ -7,6 +7,7 @@
     sane.extraBackends = [pkgs.sane-airscan]; # enable driverless scanning
   };
   services = {
+    fwupd.enable = true;
     xserver.libinput.enable = true;
     printing.enable = true;
     ipp-usb.enable = true; # enable usb driverless scanning
