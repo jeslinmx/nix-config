@@ -152,7 +152,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-yYWJcGI1KeL1PfGFmd/vSXSo+SS7mUJe5zDpOSY85Xk=",
+        "narHash": "sha256-2Mrq+zHNec4atduP2jrDRjam7/qHhue8RrXdYLJwKuU=",
         "path": "./home-manager",
         "type": "path"
       },
@@ -254,6 +254,21 @@
         "id": "nixpkgs",
         "ref": "nixos-23.11",
         "type": "indirect"
+      }
+    },
+    "nixos-hardware": {
+      "locked": {
+        "lastModified": 1710622004,
+        "narHash": "sha256-6zR642tXcZzzk3C8BHxlCrR0yh8z8zMXLiuXpWDIpX0=",
+        "owner": "nixos",
+        "repo": "nixos-hardware",
+        "rev": "968952f950a59dee9ed1e8799dda38c6dfa1bad3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixos-hardware",
+        "type": "github"
       }
     },
     "nixos-unstable": {
@@ -419,6 +434,7 @@
         "lanzaboote": "lanzaboote",
         "nix-colors": "nix-colors",
         "nixos-2311": "nixos-2311",
+        "nixos-hardware": "nixos-hardware",
         "nixos-unstable": "nixos-unstable",
         "nixpkgs": "nixpkgs_4",
         "private-config": "private-config"

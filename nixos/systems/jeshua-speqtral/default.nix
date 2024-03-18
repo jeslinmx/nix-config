@@ -1,6 +1,7 @@
 {
   nixosModules,
   nixos-2311,
+  nixos-hardware,
   lanzaboote,
   home-configs,
   ...
@@ -10,6 +11,9 @@ nixos-2311.lib.nixosSystem {
   modules = [
     ({pkgs, ...}: {
       imports = with nixosModules; [
+        nixos-hardware.nixosModules.dell-xps-15-9510
+        nixos-hardware.nixosModules.dell-xps-15-9510-nvidia
+
         ### SETTINGS ###
         ./hardware-configuration.nix
         enable-standard-hardware
