@@ -17,6 +17,7 @@
       s = "kitty +kitten ssh";
       "/" = "grep";
       cm = "chezmoi";
+      dc = "docker compose";
     };
     functions = {
       l = "for arg in $argv; test -d $arg; and ll $arg; or less $arg; end";

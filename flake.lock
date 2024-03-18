@@ -152,7 +152,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-2Mrq+zHNec4atduP2jrDRjam7/qHhue8RrXdYLJwKuU=",
+        "narHash": "sha256-dX1aLzJD7ASuPflyNLLnHlhCdhHrdcXYzoQzzhxOfMs=",
         "path": "./home-manager",
         "type": "path"
       },
