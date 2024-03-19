@@ -63,6 +63,10 @@
           force = true;
           default = "DuckDuckGo";
           engines = {
+            "MyNixOS" = {
+              urls = [{ template = "https://mynixos.com/search?q={searchTerms}"; }];
+              definedAliases = [ "mn" ];
+            };
             "SpeQtral SharePoint" = {
               urls = [{ template = "https://speqtralquantum.sharepoint.com/_layouts/15/search.aspx/?q={searchTerms}"; }];
               definedAliases = [ "q" ];
