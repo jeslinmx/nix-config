@@ -113,7 +113,7 @@ lib.mkIf (osConfig.services.xserver.desktopManager.gnome.enable or false) {
 
     "org/gnome/settings-daemon/plugins/color" = {
       night-light-enabled = true;
-      night-light-temperature = mkUint32 4700;
+      night-light-temperature = mkUint32 3700;
     };
 
     "org/gnome/settings-daemon/plugins/media-keys" = {
