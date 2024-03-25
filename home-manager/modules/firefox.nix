@@ -71,6 +71,10 @@
               urls = [{ template = "https://speqtralquantum.sharepoint.com/_layouts/15/search.aspx/?q={searchTerms}"; }];
               definedAliases = [ "q" ];
             };
+            "GitHub" = {
+              urls = [{ template = "https://github.com/{searchTerms}"; }];
+              definedAliases = [ "gh" ];
+            };
             "Lenovo PSREF" = {
               urls = [{ template = "https://psref.lenovo.com/Search?kw={searchTerms}"; }];
               definedAliases = [ "psref" ];
