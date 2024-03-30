@@ -32,6 +32,8 @@
       "/" = "grep";
       cm = "chezmoi";
       dc = "docker compose";
+      nr = "nix run nixpkgs#";
+      ns = "nix shell nixpkgs#";
     };
     functions = {
       l = "for arg in $argv; test -d $arg; and ll $arg; or less $arg; end";
