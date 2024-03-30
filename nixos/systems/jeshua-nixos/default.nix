@@ -63,6 +63,7 @@ nixos-unstable.lib.nixosSystem {
       ### ENVIRONMENT CUSTOMIZATION ###
       services.flatpak.enable = true;
       virtualisation.libvirtd.enable = true;
+      virtualisation.docker.enableNvidia = true;
       environment.sessionVariables = {GDK_SCALE = "1.5";};
       boot.supportedFilesystems = ["ntfs"];
       services.fprintd.enable = true;
