@@ -65,7 +65,7 @@ nixos-unstable.lib.nixosSystem {
       virtualisation.libvirtd.enable = true;
       environment.sessionVariables = {GDK_SCALE = "1.5";};
       boot.supportedFilesystems = ["ntfs"];
-      boot.kernel.sysctl = {"vm.swappiness" = 0;};
+      services.fprintd.enable = true;
 
       ### USER SETUP ###
       users.defaultUserShell = pkgs.fish;

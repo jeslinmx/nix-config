@@ -63,6 +63,7 @@ nixos-2311.lib.nixosSystem {
       services.flatpak.enable = true;
       virtualisation.libvirtd.enable = true;
       environment.sessionVariables = {GDK_SCALE = "1.5";};
+      services.fprintd.enable = true;
 
       ### USER SETUP ###
       users.defaultUserShell = pkgs.fish;
