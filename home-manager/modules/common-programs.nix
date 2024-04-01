@@ -26,6 +26,10 @@
     carapace.enable = true;
     thefuck.enable = true;
     yazi.enable = true;
+    bat = {
+      enable = true;
+      config.theme = "base16";
+    };
     eza = {
       enable = true;
       git = true;
@@ -63,7 +67,7 @@
       ### ESSENTIALS ###
       unstable.chezmoi
       neofetch
-      up
+      fd
 
       ### CLI TOOLS ###
       vim-full # config in chezmoi
