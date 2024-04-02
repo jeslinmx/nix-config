@@ -48,17 +48,12 @@ nixos-unstable.lib.nixosSystem {
         })
       ];
 
-      system.stateVersion = "23.05";
+      system.stateVersion = "23.11";
       networking.hostName = "jeshua-nixos";
       nixpkgs.config.allowUnfree = true;
 
       ### BOOT CUSTOMIZATION ###
-      boot.loader = {
-        timeout = 0;
-        efi.canTouchEfiVariables = true;
-        systemd-boot.netbootxyz.enable = true;
-      };
-      boot.initrd.luks.devices."luksroot".device = "/dev/disk/by-uuid/4931d933-81f1-45c3-87b5-6944e52703fd";
+      boot.initrd.luks.devices."luksroot".device = "/dev/disk/by-uuid/881257ae-d2e8-410c-8239-a2c834fba279";
 
       ### ENVIRONMENT CUSTOMIZATION ###
       virtualisation.libvirtd.enable = true;
