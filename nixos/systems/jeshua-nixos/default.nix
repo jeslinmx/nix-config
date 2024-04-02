@@ -61,12 +61,11 @@ nixos-unstable.lib.nixosSystem {
       boot.initrd.luks.devices."luksroot".device = "/dev/disk/by-uuid/4931d933-81f1-45c3-87b5-6944e52703fd";
 
       ### ENVIRONMENT CUSTOMIZATION ###
-      services.flatpak.enable = true;
       virtualisation.libvirtd.enable = true;
-      virtualisation.docker.enableNvidia = true;
-      environment.sessionVariables = {GDK_SCALE = "1.5";};
-      boot.supportedFilesystems = ["ntfs"];
-      services.fprintd.enable = true;
+      services = {
+        flatpak.enable = true;
+        fprintd.enable = true;
+      };
 
       ### USER SETUP ###
       users.defaultUserShell = pkgs.fish;

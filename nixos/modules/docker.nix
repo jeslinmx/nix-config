@@ -1,4 +1,4 @@
-{
+{ lib, config, ... }: {
   virtualisation.docker = {
     enable = true;
     enableOnBoot = true;
@@ -8,5 +8,6 @@
       dates = "weekly";
     };
     rootless.enable = true;
+    enableNvidia = lib.mkDefault (builtins.elem "nvidia" config.services.xserver.videoDrivers);
   };
 }
