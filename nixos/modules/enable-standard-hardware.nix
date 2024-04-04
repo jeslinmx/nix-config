@@ -1,21 +1,17 @@
-{pkgs, ...}: {
-  sound.enable = true;
-  hardware = {
-    pulseaudio.enable = true;
-    opengl.enable = true;
-    sane.enable = true;
-    sane.extraBackends = [pkgs.sane-airscan]; # enable driverless scanning
+{lib, pkgs, ...}: {
+  # AUDIO
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    pulse.enable = true;
   };
-  services = {
-    fwupd.enable = true;
-    xserver.libinput.enable = true;
-    printing.enable = true;
-    ipp-usb.enable = true; # enable usb driverless scanning
-    avahi = {
-      # enable network autodiscovery, particularly driverless printing
-      enable = true;
-      nssmdns = true;
-      openFirewall = true;
-    };
-  };
+  security.rtkit.enable = true; # optional recommendation for pipewire
+  # ALSA and PulseAudio must be disabled for Pipewire
+  sound.enable = lib.mkForce false;
+  hardware.pulseaudio.enable = lib.mkForce false;
+
+  # PRINTING AND SCANNING
+  services.ipp-usb.enable = true; # enable (driverless) scanning and printing; also enables CUPS and SANE automatically
+
+  services.fwupd.enable = true;
 }
