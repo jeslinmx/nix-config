@@ -5,9 +5,10 @@
   lanzaboote,
   home-configs,
   ...
-}:
+} @ inputs:
 nixos-unstable.lib.nixosSystem {
   system = "x86_64-linux";
+  specialArgs = inputs;
   modules = [
     ({pkgs, ...}: {
       imports = with nixosModules; [
@@ -27,6 +28,7 @@ nixos-unstable.lib.nixosSystem {
         ### FEATURES ###
         chinese-input
         cloudflare-warp
+        console
         enable-via-qmk
         gnome
         ios-usb

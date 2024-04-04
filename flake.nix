@@ -4,6 +4,7 @@
   inputs = {
     nixos-unstable.url = "nixpkgs/nixos-unstable";
     nixos-2311.url = "nixpkgs/nixos-23.11";
+    nixpkgs-patched.url = "github:jeslinmx/nixpkgs/patch-1";
     nixos-hardware.url = "github:nixos/nixos-hardware";
     flake-utils.url = "github:numtide/flake-utils";
     lanzaboote.url = "github:nix-community/lanzaboote";

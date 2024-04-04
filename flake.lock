@@ -317,6 +317,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-patched": {
+      "locked": {
+        "lastModified": 1712254036,
+        "narHash": "sha256-3CMaBbKabriGXifBwml/byJhW423wmHNa8jo2x3x8/E=",
+        "owner": "jeslinmx",
+        "repo": "nixpkgs",
+        "rev": "df9024beeeb8530bb512b2fa774278824f0077e4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jeslinmx",
+        "ref": "patch-1",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-stable": {
       "locked": {
         "lastModified": 1710695816,
@@ -437,6 +453,7 @@
         "nixos-hardware": "nixos-hardware",
         "nixos-unstable": "nixos-unstable",
         "nixpkgs": "nixpkgs_4",
+        "nixpkgs-patched": "nixpkgs-patched",
         "private-config": "private-config"
       }
     },
