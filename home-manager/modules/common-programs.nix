@@ -77,5 +77,6 @@
 
       ### GRAPHICAL ###
       virt-manager
+      helvum
     ];
 }

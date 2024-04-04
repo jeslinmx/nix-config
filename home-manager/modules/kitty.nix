@@ -13,8 +13,8 @@
     };
     settings = with config.colorScheme.palette; {
       remember_window_size = "no";
-      initial_window_width = "80c";
-      initial_window_height = "25c";
+      initial_window_width = "120c";
+      initial_window_height = "40c";
       window_padding_width = 8;
       hide_window_decorations = "yes";
 
