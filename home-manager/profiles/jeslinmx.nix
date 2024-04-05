@@ -14,7 +14,6 @@
       kjv
 
       ### GRAPHICAL ###
-      telegram-desktop # https://discourse.nixos.org/t/flatpak-telegram-desktop-desktop-entry-problems/31374
       prismlauncher
   ];
 }
