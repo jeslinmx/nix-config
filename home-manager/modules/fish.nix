@@ -30,6 +30,7 @@
       S = "sudo -v; sudo -E";
       s = "kitty +kitten ssh";
       "/" = "grep";
+      lg = "lazygit";
       cm = "chezmoi";
       dc = "docker compose";
       nr = "nix run nixpkgs#";
