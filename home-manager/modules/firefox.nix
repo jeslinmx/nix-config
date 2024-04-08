@@ -114,13 +114,18 @@
       Containers = {
         Default = [
           {
-            name = "Isolated";
+            name = "Microsoft Jail";
             color = "blue";
             icon = "briefcase";
           }
           {
-            name = "Procrastination";
+            name = "Google Jail";
             color = "red";
+            icon = "pet";
+          }
+          {
+            name = "Facebook Jail";
+            color = "toolbar";
             icon = "chill";
           }
         ];
