@@ -46,6 +46,30 @@ nixos-2311.lib.nixosSystem {
             uid = 1000;
             description = "Jeshua Lin";
             extraGroups = ["wheel" "scanner" "lp" "wireshark"];
+            hmCfg = {homeModules, privateHomeModules, pkgs, ...}: {
+              imports = with homeModules; [
+                aesthetics
+                common-programs
+                gnome-shell
+                colors
+                rclone
+                privateHomeModules.awscli
+                privateHomeModules.ssh-speqtral-hosts
+              ];
+
+              colors.scheme = "nord";
+              xdg.enable = true;
+
+              programs = {
+                vscode.enable = true; # natively handles config sync
+              };
+
+              home.packages = with pkgs; [
+                powershell
+                wimlib
+                ciscoPacketTracer8
+              ];
+            };
           };
         })
       ];
