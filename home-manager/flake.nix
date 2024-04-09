@@ -32,10 +32,9 @@
         fname: _: let username = (strings.removeSuffix ".nix" fname);
           in attrsets.nameValuePair
           username
-          ({ osConfig ? {}, ... }: {
+          ({
             imports = [ /${dir}/${fname} ];
             home = {
-              stateVersion = mkDefault (osConfig.system.stateVersion or "23.11");
               username = mkDefault username;
               homeDirectory = mkDefault "/home/${username}";
             };
@@ -61,16 +60,22 @@
           privateHomeModules = inputs.private-config.homeModules;
         };
       }; users.mutableUsers = true; } ] ++ (mapAttrsToList (
-        username: cfg: {
+        username: { hmCfg ? {}, ... } @ userCfg: {
           users.users.${username} = {
             initialHashedPassword = mkDefault "";
             isNormalUser = mkDefault true;
             group = mkIf config.users.users.${username}.isNormalUser (mkOverride 900 username);
-          } // cfg;
+          } // ( filterAttrs (k: _: k != "hmCfg") userCfg );
           users.groups.${username} = mkIf config.users.users.${username}.isNormalUser {};
-          home-manager.users.${username} = homeConfigurations.${username};
+          home-manager.users.${username} = { osConfig, ... }: {
+            imports = [
+              (attrByPath [username] {} homeConfigurations)
+              hmCfg
+            ];
+            home.stateVersion = mkDefault (osConfig.system.stateVersion or "23.11");
+          };
         }
-        ) users) );
+      ) users) );
     };
   };
 }
