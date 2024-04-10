@@ -69,6 +69,7 @@ lib.mkIf (osConfig.services.xserver.desktopManager.gnome.enable or false) {
 
     "org/gnome/desktop/wm/keybindings" = {
       activate-window-menu = [];
+      always-on-top = ["<Super><Alt>t"];
       maximize = ["<Super>Up"];
       move-to-workspace-1 = ["<Shift><Control><Super>1"];
       move-to-workspace-2 = ["<Shift><Control><Super>2"];
