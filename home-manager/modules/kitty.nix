@@ -12,6 +12,8 @@
       size = 8.5;
     };
     settings = with config.colorScheme.palette; {
+      shell = "tmux new-session";
+
       remember_window_size = "no";
       initial_window_width = "120c";
       initial_window_height = "40c";
