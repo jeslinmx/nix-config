@@ -24,7 +24,6 @@
   programs = {
     home-manager.enable = true;
     carapace.enable = true;
-    navi.enable = true;
     thefuck.enable = true;
     yazi.enable = true;
     bat = {

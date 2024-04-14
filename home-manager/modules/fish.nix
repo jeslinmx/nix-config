@@ -47,6 +47,12 @@
         end
         rm -f -- "$tmp"
       '';
+      fzfkjv = ''
+        fzf --query "$argv" \
+          --disabled --no-sort --multi --no-header --no-keep-right --layout=reverse-list --prompt "kjv " \
+          --bind "start:reload(kjv {q}),change:reload(kjv {q})" \
+          --preview "awk -F '  ' '{print \$2}' {+f}" --preview-window "down,wrap"
+      '';
       multicd = "echo (string repeat -n (math (string length -- $argv[1]) - 1) ../)";
       last_history = "echo $history[1]";
     };
