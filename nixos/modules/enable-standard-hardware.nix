@@ -12,6 +12,7 @@
 
   # PRINTING AND SCANNING
   services.ipp-usb.enable = true; # enable (driverless) scanning and printing; also enables CUPS and SANE automatically
+  services.avahi.nssmdns4 = true; # resolve .local addresses
 
   services.fwupd.enable = true;
 }
