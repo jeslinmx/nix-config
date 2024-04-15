@@ -34,8 +34,8 @@
       lg = "lazygit";
       cm = "chezmoi";
       dc = "docker compose";
-      nr = "nix run nixpkgs#";
-      ns = "nix shell nixpkgs#";
+      nr = "NIXPKGS_ALLOW_UNFREE=1 nix run --impure nixpkgs#";
+      ns = "NIXPKGS_ALLOW_UNFREE=1 nix shell --impure nixpkgs#";
     };
     functions = {
       l = "for arg in $argv; test -d $arg; and ll $arg; or less $arg; end";
