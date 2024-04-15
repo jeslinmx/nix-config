@@ -1,12 +1,12 @@
 {
   nixosModules,
-  nixos-2311,
+  nixos-unstable,
   nixos-hardware,
   lanzaboote,
   home-configs,
   ...
 } @ inputs:
-nixos-2311.lib.nixosSystem {
+nixos-unstable.lib.nixosSystem {
   system = "x86_64-linux";
   specialArgs = inputs;
   modules = [
@@ -41,7 +41,7 @@ nixos-2311.lib.nixosSystem {
         secure-boot
 
         ### USERS ###
-        (home-configs.setup-module "23.11" {
+        (home-configs.setup-module "unstable" {
           jeshua = {
             uid = 1000;
             description = "Jeshua Lin";
