@@ -15,5 +15,6 @@
 
       ### GRAPHICAL ###
       prismlauncher
+      godot_4
   ];
 }
