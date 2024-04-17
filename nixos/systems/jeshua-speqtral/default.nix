@@ -79,11 +79,7 @@ nixos-unstable.lib.nixosSystem {
       nixpkgs.config.allowUnfree = true;
 
       ### BOOT CUSTOMIZATION ###
-      boot.loader = {
-        timeout = 0;
-        efi.canTouchEfiVariables = true;
-        systemd-boot.netbootxyz.enable = true;
-      };
+      boot.initrd.luks.devices."luksroot".device = "/dev/disk/by-uuid/3e8a8385-7fba-4989-9cc5-29ee89fd8327";
 
       ### ENVIRONMENT CUSTOMIZATION ###
       virtualisation.libvirtd.enable = true;
