@@ -10,5 +10,14 @@
     loader.systemd-boot.enable = lib.mkForce false;
     lanzaboote.enable = true;
     lanzaboote.pkiBundle = "/etc/secureboot/";
+    # for TPM auto-unlocking
+    # note that when the boot environment changes (e.g. UEFI firmware update, new secure boot keys enrolled),
+    # the PCRs will be invalidated, and thus the TPM will stop dispensing the previously enrolled key
+    # the following command must be run to regenerate a new key and wipe the old one:
+    # systemd-cryptenroll <device name> --tpm2-device=auto --tpm2-pcrs=0,2,7 --wipe-slot=tpm2
+    initrd.systemd = {
+      enable = true;
+      enableTpm2 = true;
+    };
   };
 }
