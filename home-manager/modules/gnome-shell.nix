@@ -27,6 +27,7 @@ lib.mkIf (osConfig.services.xserver.desktopManager.gnome.enable or false) {
     task-widget
     tiling-assistant
     user-themes
+    wallpaper-switcher
   ];
 
   dconf.settings = with lib.hm.gvariant; {
@@ -134,6 +135,7 @@ lib.mkIf (osConfig.services.xserver.desktopManager.gnome.enable or false) {
       enabled-extensions = [
         "appindicatorsupport@rgcjonas.gmail.com"
         "autohide-battery@sitnik.ru"
+        "azwallpaper@azwallpaper.gitlab.com"
         "blur-my-shell@aunetx"
         "caffeine@patapon.info"
         "clipboard-indicator@tudmotu.com"
