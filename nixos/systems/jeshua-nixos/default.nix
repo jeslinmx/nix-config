@@ -1,4 +1,5 @@
 {
+  self,
   nixosModules,
   nixos-unstable,
   nixos-hardware,
@@ -10,7 +11,7 @@ nixos-unstable.lib.nixosSystem {
   system = "x86_64-linux";
   specialArgs = inputs;
   modules = [
-    ({pkgs, ...}: {
+    ({pkgs, config, ...}: {
       imports = with nixosModules; [
         nixos-hardware.nixosModules.dell-xps-15-9510
         nixos-hardware.nixosModules.dell-xps-15-9510-nvidia
@@ -56,6 +57,7 @@ nixos-unstable.lib.nixosSystem {
 
       ### BOOT CUSTOMIZATION ###
       boot.initrd.luks.devices."luksroot".device = "/dev/disk/by-uuid/881257ae-d2e8-410c-8239-a2c834fba279";
+      system.nixos.tags = [ config.networking.hostName (toString (self.shortRev or self.dirtyShortRev or self.lastModified or "unknown")) ];
 
       ### ENVIRONMENT CUSTOMIZATION ###
       virtualisation.libvirtd.enable = true;
