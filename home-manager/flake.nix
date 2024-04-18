@@ -60,18 +60,17 @@
           privateHomeModules = inputs.private-config.homeModules;
         };
       }; users.mutableUsers = true; } ] ++ (mapAttrsToList (
-        username: { hmCfg ? {}, ... } @ userCfg: {
+        username: { hmCfg ? {}, matchHmUsername ? true, ... } @ userCfg: {
           users.users.${username} = {
             initialHashedPassword = mkDefault "";
             isNormalUser = mkDefault true;
             group = mkIf config.users.users.${username}.isNormalUser (mkOverride 900 username);
-          } // ( filterAttrs (k: _: k != "hmCfg") userCfg );
+          } // ( filterAttrs (k: _: !(elem k ["hmCfg" "matchHmUsername"])) userCfg );
           users.groups.${username} = mkIf config.users.users.${username}.isNormalUser {};
           home-manager.users.${username} = { osConfig, ... }: {
             imports = [
-              (attrByPath [username] {} homeConfigurations)
               hmCfg
-            ];
+            ] ++ (if matchHmUsername then [(attrByPath [username] {} homeConfigurations)] else []);
             home.stateVersion = mkDefault (osConfig.system.stateVersion or "23.11");
           };
         }

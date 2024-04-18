@@ -37,6 +37,7 @@ nixos-unstable.lib.nixosSystem {
           jeslinmx = {
             uid = 1000;
             extraGroups = ["wheel" "scanner" "lp" "docker"];
+            matchHmUsername = false;
             hmCfg = {homeModules, pkgs, ...}: {
               imports = with homeModules; [
                 cli-programs
