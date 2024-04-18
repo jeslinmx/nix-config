@@ -1,10 +1,11 @@
-{homeModules, pkgs, ...}: {
+{homeModules, privateHomeModules, pkgs, ...}: {
   imports = with homeModules; [
     aesthetics
     cli-programs
     gui-programs
     gnome-shell
     colors
+    privateHomeModules.ssh-personal-hosts
   ];
 
   colors.scheme = "catppuccin-mocha";
