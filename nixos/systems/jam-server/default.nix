@@ -50,12 +50,12 @@ nixos-unstable.lib.nixosSystem {
       system.stateVersion = "23.11";
       networking.hostName = "jam-server";
       nixpkgs.config.allowUnfree = true;
+      nix.settings.trusted-users = [ "@wheel" ];
 
       ### BOOT CUSTOMIZATION ###
       boot.loader.timeout = 0;
 
       ### ENVIRONMENT CUSTOMIZATION ###
-      virtualisation.libvirtd.enable = true;
       services.openssh.enable = true;
 
       ### USER SETUP ###
