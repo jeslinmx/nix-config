@@ -49,7 +49,8 @@ nixos-unstable.lib.nixosSystem {
             hmCfg = {homeModules, privateHomeModules, pkgs, ...}: {
               imports = with homeModules; [
                 aesthetics
-                common-programs
+                cli-programs
+                gui-programs
                 gnome-shell
                 colors
                 rclone
@@ -59,6 +60,10 @@ nixos-unstable.lib.nixosSystem {
 
               colors.scheme = "nord";
               xdg.enable = true;
+
+              services = {
+                syncthing.enable = true;
+              };
 
               programs = {
                 vscode.enable = true; # natively handles config sync

@@ -11,19 +11,14 @@
   imports = with homeModules; [
     atuin
     btop
-    firefox
     fish
-    kitty
     tmux
   ];
-
-  services = {
-    syncthing.enable = true;
-  };
 
   programs = {
     home-manager.enable = true;
     carapace.enable = true;
+    nix-index.enable = true;
     thefuck.enable = true;
     yazi.enable = true;
     bat = {
@@ -47,36 +42,26 @@
       includes = [ "~/.ssh/config.d/*.conf" ];
     };
     # configured in dedicated modules
-    firefox.enable = true;
-    kitty.enable = true;
-    tmux.enable = true;
-    fish.enable = true;
     atuin.enable = true;
     btop.enable = true;
+    fish.enable = true;
+    tmux.enable = true;
     # configured in chezmoi
-    zoxide.enable = true;
     fzf.enable = true;
-    ripgrep.enable = true;
-    tealdeer.enable = true;
     lazygit.enable = true;
+    ripgrep.enable = true;
     starship.enable = true;
+    tealdeer.enable = true;
+    zoxide.enable = true;
   };
 
   # unnixed stuff
   home.packages = with pkgs; [
-      ### ESSENTIALS ###
       unstable.chezmoi
       neofetch
       fd
-
-      ### CLI TOOLS ###
       vim-full # config in chezmoi
-      wl-clipboard
       ( unstable.ollama.override { acceleration = "cuda"; } )
       dig
-
-      ### GRAPHICAL ###
-      virt-manager
-      helvum
     ];
 }

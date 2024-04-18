@@ -31,6 +31,20 @@ nixos-unstable.lib.nixosSystem {
         ### SECURE BOOT ###
         lanzaboote.nixosModules.lanzaboote
         secure-boot
+
+        ### USERS ###
+        (home-configs.setup-module "unstable" {
+          jeslinmx = {
+            uid = 1000;
+            extraGroups = ["wheel" "scanner" "lp" "docker"];
+            hmCfg = {homeModules, pkgs, ...}: {
+              imports = with homeModules; [
+                cli-programs
+                jeslinmx-authorized-keys
+              ];
+            };
+          };
+        })
       ];
 
       system.stateVersion = "23.11";
@@ -47,14 +61,6 @@ nixos-unstable.lib.nixosSystem {
       ### USER SETUP ###
       users.defaultUserShell = pkgs.fish;
       programs.fish.enable = true;
-      users.users.jeslinmx = {
-        isNormalUser = true;
-        extraGroups = ["wheel" "scanner" "lp" "docker"];
-        openssh.authorizedKeys.keys = lib.splitString "\n" (builtins.readFile (pkgs.fetchurl {
-          url = "https://github.com/jeslinmx.keys";
-          hash = "sha256-BwgEaDlwJqFyu0CMhKbGK6FTMYfgZCWnS8Arhny66Pg=";
-        }).outPath);
-      };
     })
   ];
 }
