@@ -13,7 +13,7 @@
     private-config.url = "git+ssh://git@github.com/jeslinmx/nix-private-config";
     nix-colors.url = "github:misterio77/nix-colors";
     home-configs = {
-      url = "path:./home-manager";
+      url = "path:home-manager";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         home-manager-unstable.follows = "home-manager-unstable";
