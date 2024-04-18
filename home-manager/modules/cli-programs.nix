@@ -61,7 +61,6 @@
       neofetch
       fd
       vim-full # config in chezmoi
-      ( unstable.ollama.override { acceleration = "cuda"; } )
       dig
     ];
 }

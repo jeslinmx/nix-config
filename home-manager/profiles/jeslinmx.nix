@@ -18,6 +18,7 @@
   home.packages = with pkgs; [
       ### CLI TOOLS ###
       kjv
+      ( unstable.ollama.override { acceleration = "cuda"; } )
 
       ### GRAPHICAL ###
       prismlauncher
