@@ -53,6 +53,13 @@
           --bind "start:reload(kjv {q}),change:reload(kjv {q})" \
           --preview "awk -F '  ' '{print \$2}' {+f}" --preview-window "down,wrap"
       '';
+      fzftar = ''
+        tar -tf "$argv" \
+        | grep -e '[^/]$' \
+        | fzf --multi --prompt=' ' --print0 \
+          --preview="tar -xf \"$argv\" --to-stdout {} | bat --file-name \"{}\" --color=always --style=numbers,rule,snip" \
+        | xargs --null --no-run-if-empty tar -xf $argv
+      '';
       multicd = "echo (string repeat -n (math (string length -- $argv[1]) - 1) ../)";
       last_history = "echo $history[1]";
     };
