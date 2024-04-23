@@ -5,7 +5,7 @@
       altCPreviewer = "eza --color=always --git --icons --group-directories-first -l --tree --level=1 {}";
       basicHeader = "ctrl-space: toggle preview window; ctrl-p/n: previous/next command";
       fdHeader = "ctrl-g: include .gitignore; ctrl-h: include dotfiles; ${basicHeader}";
-      basicBinds = "ctrl-space:toggle-preview,ctrl-p:prev-history,ctrl-n:next-history";
+      basicBinds = "ctrl-space:toggle-preview,ctrl-p:prev-history,ctrl-n:next-history,up:track,down:track";
       fdBinds = cmd: "ctrl-g:reload(${cmd} --no-ignore),ctrl-h:reload(${cmd} --hidden)";
     in rec {
       EDITOR = "vim";
@@ -13,7 +13,7 @@
       FZF_DEFAULT_COMMAND = "fd -c always";
       FZF_CTRL_T_COMMAND = "${FZF_DEFAULT_COMMAND} -t file";
       FZF_ALT_C_COMMAND  = "${FZF_DEFAULT_COMMAND} -t directory";
-      FZF_DEFAULT_OPTS = "--ansi --track --keep-right --info=inline-right --marker=◆ --ellipsis=… --bind='${basicBinds}' --header='${basicHeader}' --prompt='fzf '";
+      FZF_DEFAULT_OPTS = "--ansi --keep-right --info=inline-right --marker=◆ --ellipsis=… --bind='${basicBinds}' --header='${basicHeader}' --prompt='fzf '";
       FZF_CTRL_R_OPTS = "${FZF_DEFAULT_OPTS} --prompt=' ' --border=rounded";
       FZF_CTRL_T_OPTS = "${FZF_DEFAULT_OPTS} --prompt=' ' --preview-window=border-sharp --preview='${ctrlTPreviewer}' --header='${fdHeader}' --bind='${fdBinds FZF_CTRL_T_COMMAND}'";
       FZF_ALT_C_OPTS  = "${FZF_DEFAULT_OPTS} --prompt=' ' --preview-window=border-double --preview='${altCPreviewer}' --header='${fdHeader}' --bind='${fdBinds FZF_ALT_C_COMMAND}'";
