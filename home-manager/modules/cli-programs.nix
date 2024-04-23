@@ -19,6 +19,7 @@
     home-manager.enable = true;
     carapace.enable = true;
     nix-index.enable = true;
+    pandoc.enable = true;
     thefuck.enable = true;
     yazi.enable = true;
     bat = {
