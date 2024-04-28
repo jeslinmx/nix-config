@@ -41,7 +41,6 @@ nixos-unstable.lib.nixosSystem {
             hmCfg = {homeModules, pkgs, ...}: {
               imports = with homeModules; [
                 cli-programs
-                jeslinmx-authorized-keys
               ];
             };
           };
