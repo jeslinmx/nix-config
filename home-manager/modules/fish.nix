@@ -5,7 +5,7 @@
       altCPreviewer = "eza --color=always --git --icons --group-directories-first -l --tree --level=1 {}";
       basicHeader = "ctrl-space: toggle preview window; ctrl-p/n: previous/next command";
       fdHeader = "ctrl-g: include .gitignore; ctrl-h: include dotfiles; ${basicHeader}";
-      basicBinds = "ctrl-space:toggle-preview,ctrl-p:prev-history,ctrl-n:next-history,up:track,down:track";
+      basicBinds = "ctrl-space:toggle-preview,ctrl-p:prev-history,ctrl-n:next-history,up:track+up,down:track+down";
       fdBinds = cmd: "ctrl-g:reload(${cmd} --no-ignore),ctrl-h:reload(${cmd} --hidden)";
     in rec {
       EDITOR = "vim";
@@ -58,7 +58,7 @@
         | grep -e '[^/]$' \
         | fzf --multi --prompt=' ' --print0 \
           --preview="tar -xf \"$argv\" --to-stdout {} | bat --file-name \"{}\" --color=always --style=numbers,rule,snip" \
-        | xargs --null --no-run-if-empty tar -xf $argv
+        | xargs --null --no-run-if-empty tar -xOf $argv
       '';
       multicd = "echo (string repeat -n (math (string length -- $argv[1]) - 1) ../)";
       last_history = "echo $history[1]";
