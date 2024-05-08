@@ -35,6 +35,9 @@
       cursor_blink_interval = -1; # system default
       cursor_stop_blinking_after = 0;
       mouse_hide_wait = 0;
+      enable_audio_bell = "no";
+      visual_bell_duration = "0.1";
+      visual_bell_color = "#${base01}";
 
       foreground = "#${base05}";
       background = "#${base00}";
