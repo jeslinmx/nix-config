@@ -345,6 +345,7 @@ lib.mkIf (osConfig.services.xserver.desktopManager.gnome.enable or false) {
       brightness = 0.8;
       dimming-enabled = true;
       saturation = 1.0;
+      target-monitor = "primary";
       toggle-shortcut = ["<Super>g"];
     };
 
