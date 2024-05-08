@@ -189,7 +189,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-ByKPpB7pRm2iMUtRAhwGsQci8IW3CpWntpfeVYlmdoU=",
+        "narHash": "sha256-BeF3UCCUuOccOu5tHxjXn3LJUJxrZBiReSmis5mXgzg=",
         "path": "./home-manager",
         "type": "path"
       },
@@ -493,11 +493,11 @@
     },
     "private-config": {
       "locked": {
-        "lastModified": 1713474034,
-        "narHash": "sha256-IF+gLXUlrM6UA4HAMnN7qVyhsjKZHZarfO7cdQDRgoU=",
+        "lastModified": 1714812437,
+        "narHash": "sha256-isA1kgrzxf9zQvoVX5GFQGwdnUhjBwtM5Qk265I4O1g=",
         "ref": "refs/heads/main",
-        "rev": "cbef58f49d528f22171a1b2406d259e2c29235f3",
-        "revCount": 7,
+        "rev": "7f191b66c8b003496a726066362083411714b023",
+        "revCount": 8,
         "type": "git",
         "url": "ssh://git@github.com/jeslinmx/nix-private-config"
       },

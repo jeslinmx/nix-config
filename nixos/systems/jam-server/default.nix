@@ -27,6 +27,7 @@ nixos-unstable.lib.nixosSystem {
         ### FEATURES ###
         console
         docker
+        syncthing-server
 
         ### SECURE BOOT ###
         lanzaboote.nixosModules.lanzaboote
@@ -56,7 +57,14 @@ nixos-unstable.lib.nixosSystem {
       boot.loader.timeout = 0;
 
       ### ENVIRONMENT CUSTOMIZATION ###
-      services.openssh.enable = true;
+      services = {
+        openssh = {
+          enable = true;
+          settings = {
+            PasswordAuthentication = false;
+          };
+        };
+      };
 
       ### USER SETUP ###
       users.defaultUserShell = pkgs.fish;
