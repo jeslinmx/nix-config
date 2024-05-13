@@ -28,6 +28,7 @@ nixos-unstable.lib.nixosSystem {
         console
         docker
         syncthing-server
+        zerotier
 
         ### SECURE BOOT ###
         lanzaboote.nixosModules.lanzaboote

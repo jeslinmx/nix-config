@@ -36,6 +36,7 @@ nixos-unstable.lib.nixosSystem {
         steam
         windows-fonts
         docker
+        zerotier
 
         ### SECURE BOOT ###
         lanzaboote.nixosModules.lanzaboote
