@@ -73,6 +73,7 @@
           { package = nix-tree; category = "debug"; }
           { package = nix-melt; category = "debug"; }
         ];
+        packages = with pkgs; [ nixd ];
       };
     };
   });
