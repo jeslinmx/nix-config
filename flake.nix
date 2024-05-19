@@ -65,11 +65,11 @@
     perSystem = { system, pkgs, ... }: {
       formatter = pkgs.alejandra;
       devshells.default = {
-        commands = [
-          { package = pkgs.nurl; category = "dev"; }
-          { package = pkgs.nh; category = "build"; }
-          { package = pkgs.nix-tree; category = "debug"; }
-          { package = pkgs.nix-melt; category = "debug"; }
+        commands = with pkgs; [
+          { package = nurl; category = "dev"; }
+          { package = nh; category = "build"; }
+          { package = nix-tree; category = "debug"; }
+          { package = nix-melt; category = "debug"; }
         ];
       };
     };
