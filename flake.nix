@@ -63,6 +63,7 @@
 
     systems = [ "x86_64-linux" ];
     perSystem = { system, pkgs, ... }: {
+      packages.default = self.nixosConfigurations.jeshua-toolbelt.config.system.build.isoImage;
       formatter = pkgs.alejandra;
       devshells.default = {
         commands = with pkgs; [
