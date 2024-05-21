@@ -11,6 +11,7 @@
   imports = with homeModules; [
     atuin
     fish
+    lazygit
     tmux
   ];
 
@@ -42,10 +43,10 @@
     atuin.enable = true;
     btop.enable = true;
     fish.enable = true;
+    lazygit.enable = true;
     tmux.enable = true;
     # configured in chezmoi
     fzf.enable = true;
-    lazygit.enable = true;
     ripgrep.enable = true;
     starship.enable = true;
     tealdeer.enable = true;
