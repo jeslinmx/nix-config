@@ -5,7 +5,6 @@
     home-manager-unstable.url = "github:nix-community/home-manager";
     home-manager-2311.url = "github:nix-community/home-manager/release-23.11";
     private-config.url = "git+ssh://git@github.com/jeslinmx/nix-private-config";
-    nix-colors.url = "github:misterio77/nix-colors";
   };
 
   outputs = {nixpkgs, ...} @ inputs: rec {
@@ -56,7 +55,6 @@
         extraSpecialArgs = {
           nixpkgs-unstable = nixpkgs;
           inherit homeModules;
-          inherit (inputs) nix-colors;
           privateHomeModules = inputs.private-config.homeModules;
         };
       }; users.mutableUsers = true; } ] ++ (mapAttrsToList (

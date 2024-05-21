@@ -15,7 +15,9 @@
     # NixOS modules
     lanzaboote.url = "github:nix-community/lanzaboote";
     nixos-hardware.url = "github:nixos/nixos-hardware";
-    nix-colors.url = "github:misterio77/nix-colors";
+    stylix.url = "github:danth/stylix";
+    tt-schemes.url = "github:tinted-theming/schemes";
+    tt-schemes.flake = false;
     home-manager-unstable.url = "github:nix-community/home-manager";
     home-manager-2311.url = "github:nix-community/home-manager/release-23.11";
     home-configs.url = "path:./home-manager";
@@ -24,7 +26,6 @@
       home-manager-unstable.follows = "home-manager-unstable";
       home-manager-2311.follows = "home-manager-2311";
       private-config.follows = "private-config";
-      nix-colors.follows = "nix-colors";
     };
     private-config.url = "git+ssh://git@github.com/jeslinmx/nix-private-config";
   };

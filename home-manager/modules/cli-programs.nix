@@ -10,7 +10,6 @@
 {
   imports = with homeModules; [
     atuin
-    btop
     fish
     tmux
   ];
@@ -22,10 +21,7 @@
     pandoc.enable = true;
     thefuck.enable = true;
     yazi.enable = true;
-    bat = {
-      enable = true;
-      config.theme = "base16";
-    };
+    bat.enable = true;
     eza = {
       enable = true;
       git = true;

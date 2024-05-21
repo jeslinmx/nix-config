@@ -36,15 +36,11 @@ lib.mkIf (osConfig.services.xserver.desktopManager.gnome.enable or false) {
     };
 
     "org/gnome/desktop/interface" = {
-      color-scheme = "prefer-dark";
-      document-font-name = "Cantarell 10";
       enable-animations = true;
       enable-hot-corners = false;
       font-antialiasing = "grayscale";
       font-hinting = "slight";
-      font-name = "Cantarell 10";
       locate-pointer = false;
-      monospace-font-name = "Cascadia Code 8";
       show-battery-percentage = true;
     };
 

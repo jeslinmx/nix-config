@@ -1,16 +1,19 @@
 {
+  self,
   nixosModules,
   nixos-unstable,
   nixos-hardware,
   lanzaboote,
   home-configs,
+  stylix,
+  tt-schemes,
   ...
 } @ inputs:
 nixos-unstable.lib.nixosSystem {
   system = "x86_64-linux";
   specialArgs = inputs;
   modules = [
-    ({pkgs, ...}: {
+    ({pkgs, config, ...}: {
       imports = with nixosModules; [
         nixos-hardware.nixosModules.dell-xps-15-9510
         nixos-hardware.nixosModules.dell-xps-15-9510-nvidia
@@ -35,6 +38,7 @@ nixos-unstable.lib.nixosSystem {
         ios-usb
         windows-fonts
         wireshark
+        stylix.nixosModules.stylix
 
         ### SECURE BOOT ###
         lanzaboote.nixosModules.lanzaboote
@@ -52,13 +56,11 @@ nixos-unstable.lib.nixosSystem {
                 cli-programs
                 gui-programs
                 gnome-shell
-                colors
                 rclone
                 privateHomeModules.awscli
                 privateHomeModules.ssh-speqtral-hosts
               ];
 
-              colors.scheme = "nord";
               xdg.enable = true;
 
               services = {
@@ -85,6 +87,7 @@ nixos-unstable.lib.nixosSystem {
 
       ### BOOT CUSTOMIZATION ###
       boot.initrd.luks.devices."luksroot".device = "/dev/disk/by-uuid/3e8a8385-7fba-4989-9cc5-29ee89fd8327";
+      system.nixos.tags = [ config.networking.hostName (toString (self.shortRev or self.dirtyShortRev or self.lastModified or "unknown")) ];
 
       ### ENVIRONMENT CUSTOMIZATION ###
       virtualisation.libvirtd.enable = true;
@@ -96,6 +99,35 @@ nixos-unstable.lib.nixosSystem {
       ### USER SETUP ###
       users.defaultUserShell = pkgs.fish;
       programs.fish.enable = true;
+      stylix = {
+        image = ./wallpaper.png;
+        base16Scheme = "${tt-schemes}/base16/catppuccin-mocha.yaml";
+        polarity = "dark";
+        fonts = {
+          sansSerif = {
+            name = "Cantarell";
+            package = pkgs.cantarell-fonts;
+          };
+          serif = {
+            name = "CaskaydiaCove NF";
+            package = pkgs.cantarell-fonts;
+          };
+          monospace = {
+            name = "CaskaydiaCove NF";
+            package = pkgs.nerdfonts.override { fonts = ["CascadiaCode"]; };
+          };
+          sizes = {
+            applications = 10;
+            desktop = 10;
+            popups = 10;
+            terminal = 10;
+          };
+        };
+        cursor = {
+          name = "Bibata-Modern-Classic";
+          package = pkgs.bibata-cursors;
+        };
+      };
     })
   ];
 }

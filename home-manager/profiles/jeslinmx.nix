@@ -4,11 +4,9 @@
     cli-programs
     gui-programs
     gnome-shell
-    colors
     privateHomeModules.ssh-personal-hosts
   ];
 
-  colors.scheme = "catppuccin-mocha";
   xdg.enable = true;
 
   services = {
