@@ -56,7 +56,6 @@ nixos-unstable.lib.nixosSystem {
                 cli-programs
                 gui-programs
                 gnome-shell
-                rclone
                 privateHomeModules.awscli
                 privateHomeModules.ssh-speqtral-hosts
               ];
