@@ -11,8 +11,9 @@ lib.mkIf (osConfig.services.xserver.desktopManager.gnome.enable or false) {
     blur-my-shell
     caffeine
     clipboard-indicator
-    desktop-icons-ng-ding
+    dash-to-dock
     dim-background-windows
+    gtk4-desktop-icons-ng-ding
     middle-click-to-close-in-overview
     quick-settings-tweaker
     removable-drive-menu
@@ -109,9 +110,11 @@ lib.mkIf (osConfig.services.xserver.desktopManager.gnome.enable or false) {
         "blur-my-shell@aunetx"
         "caffeine@patapon.info"
         "clipboard-indicator@tudmotu.com"
+        "dash-to-dock@micxgx.gmail.com"
         "dim-background-windows@stephane-13.github.com"
         "ding@rastersoft.com"
         "drive-menu@gnome-shell-extensions.gcampax.github.com"
+        "gtk4-ding@smedius.gitlab.com"
         "middleclickclose@paolo.tranquilli.gmail.com"
         "quick-settings-tweaks@qwreey"
         "syncthing@gnome.2nv2u.com"
@@ -159,9 +162,29 @@ lib.mkIf (osConfig.services.xserver.desktopManager.gnome.enable or false) {
       topbar-preview-size = 10;
     };
 
+    "org/gnome/shell/extensions/dash-to-dock" = {
+      dash-max-icon-size = 32;
+      dock-fixed = true;
+      dock-position = "LEFT";
+      icon-size-fixed = true;
+      middle-click-action = "quit";
+      running-indicator-dominant-color = true;
+      running-indicator-style = "DOTS";
+      shift-click-action = "previews";
+      show-mounts = false;
+      show-trash = false;
+    };
+
     "org/gnome/shell/extensions/dim-background-windows" = {
       # saturation = 1.0;
       target-monitor = "primary";
+    };
+
+    "org/gnome/shell/extensions/gtk4-ding" = {
+      show-home = false;
+      show-network-volumes = true;
+      show-trash = true;
+      show-volumes = true;
     };
 
     "org/gnome/shell/extensions/quick-settings-tweaks" = {
