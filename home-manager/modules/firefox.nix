@@ -56,8 +56,8 @@
           "media.block-play-until-visible" = true;
         };
         userChrome = builtins.readFile (pkgs.fetchurl {
-          url = "https://raw.githubusercontent.com/christorange/VerticalFox/v1.4.0/windows/userChrome.css";
-          hash = "sha256-YvGtSYlyKdDuRyY2d/t4xV6SfiQFjoQ9ZNcaw4SOvp8=";
+          url = "https://raw.githubusercontent.com/christorange/VerticalFox/v1.4.1/windows/userChrome.css";
+          hash = "sha256-YLMR2Jf/AaJ5Ap/O+zQayKS4HNjD2E7LTWOQESRg3bw=";
         });
         search = {
           force = true;
