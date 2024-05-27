@@ -67,6 +67,10 @@
               urls = [{ template = "https://mynixos.com/search?q={searchTerms}"; }];
               definedAliases = [ "mn" ];
             };
+            "Nixpkgs Versions" = {
+              urls = [{ template = "https://lazamar.co.uk/nix-versions/?channel=nixpkgs-unstable&package={searchTerms}"; }];
+              definedAliases = [ "nixver" ];
+            };
             "SpeQtral SharePoint" = {
               urls = [{ template = "https://speqtralquantum.sharepoint.com/_layouts/15/search.aspx/?q={searchTerms}"; }];
               definedAliases = [ "q" ];
