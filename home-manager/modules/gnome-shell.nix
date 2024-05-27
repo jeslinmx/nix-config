@@ -11,7 +11,7 @@ lib.mkIf (osConfig.services.xserver.desktopManager.gnome.enable or false) {
     blur-my-shell
     caffeine
     clipboard-indicator
-    dash-to-dock
+    dash-to-panel
     dim-background-windows
     gtk4-desktop-icons-ng-ding
     middle-click-to-close-in-overview
@@ -111,7 +111,7 @@ lib.mkIf (osConfig.services.xserver.desktopManager.gnome.enable or false) {
         "blur-my-shell@aunetx"
         "caffeine@patapon.info"
         "clipboard-indicator@tudmotu.com"
-        "dash-to-dock@micxgx.gmail.com"
+        "dash-to-panel@jderose9.github.com"
         "dim-background-windows@stephane-13.github.com"
         "ding@rastersoft.com"
         "drive-menu@gnome-shell-extensions.gcampax.github.com"
@@ -164,22 +164,52 @@ lib.mkIf (osConfig.services.xserver.desktopManager.gnome.enable or false) {
       topbar-preview-size = 10;
     };
 
-    "org/gnome/shell/extensions/dash-to-dock" = {
-      autohide-in-fullscreen = true;
-      customize-alphas = true;
-      dash-max-icon-size = 48;
-      disable-overview-on-startup = true;
-      dock-position = "BOTTOM";
-      icon-size-fixed = true;
-      max-alpha = 1;
-      min-alpha = 0;
-      middle-click-action = "quit";
-      running-indicator-dominant-color = true;
-      running-indicator-style = "DOTS";
-      shift-click-action = "previews";
-      show-mounts = false;
-      show-trash = false;
-      transparency-mode = "DYNAMIC";
+    "org/gnome/shell/extensions/dash-to-panel" = {
+      appicon-margin = 0;
+      appicon-padding = 6;
+      available-monitors = [ 0 ];
+      click-action = "TOGGLE-CYCLE";
+      dot-color-dominant = true;
+      dot-color-override = false;
+      dot-size = 1;
+      dot-style-focused = "METRO";
+      dot-style-unfocused = "DASHES";
+      focus-highlight-dominant = true;
+      focus-highlight-opacity = 15;
+      hide-overview-on-startup = true;
+      hot-keys = true;
+      isolate-workspaces = true;
+      leftbox-padding = -1;
+      middle-click-action = "QUIT";
+      overview-click-to-exit = true;
+      panel-element-positions = ''
+        {"0":[{"element":"showAppsButton","visible":false,"position":"stackedTL"},{"element":"activitiesButton","visible":true,"position":"stackedTL"},{"element":"leftBox","visible":true,"position":"stackedTL"},{"element":"taskbar","visible":true,"position":"stackedTL"},{"element":"centerBox","visible":true,"position":"stackedBR"},{"element":"dateMenu","visible":true,"position":"stackedBR"},{"element":"rightBox","visible":true,"position":"stackedBR"},{"element":"systemMenu","visible":true,"position":"stackedBR"},{"element":"desktopButton","visible":true,"position":"stackedBR"}]}
+      '';
+      panel-sizes = ''
+        {"0":36}
+      '';
+      primary-monitor = 0;
+      shift-click-action = "LAUNCH";
+      shift-middle-click-action = "QUIT";
+      shortcut-previews = false;
+      show-showdesktop-delay = 500;
+      show-showdesktop-hover = true;
+      show-showdesktop-time = 200;
+      show-window-previews-timeout = 250;
+      showdesktop-button-width = 4;
+      status-icon-padding = -1;
+      stockgs-force-hotcorner = false;
+      stockgs-panelbtn-click-only = false;
+      trans-dynamic-anim-target = 1;
+      trans-dynamic-distance = 1;
+      trans-panel-opacity = 0;
+      trans-use-custom-opacity = true;
+      trans-use-dynamic-opacity = true;
+      tray-padding = 6;
+      window-preview-animation-time = 100;
+      window-preview-padding = 0;
+      window-preview-show-title = false;
+      window-preview-size = 160;
     };
 
     "org/gnome/shell/extensions/dim-background-windows" = {
