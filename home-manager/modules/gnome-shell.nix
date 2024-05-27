@@ -21,6 +21,7 @@ lib.mkIf (osConfig.services.xserver.desktopManager.gnome.enable or false) {
     task-widget
     tiling-assistant
     wallpaper-switcher
+    windownavigator
   ];
 
   dconf.settings = with lib.hm.gvariant; {
@@ -121,6 +122,7 @@ lib.mkIf (osConfig.services.xserver.desktopManager.gnome.enable or false) {
         "task-widget@juozasmiskinis.gitlab.io"
         "tiling-assistant@leleat-on-github"
         "WallpapserSwitcher@Rishu"
+        "windowsNavigator@gnome-shell-extensions.gcampax.github.com"
       ];
     };
 
@@ -163,16 +165,21 @@ lib.mkIf (osConfig.services.xserver.desktopManager.gnome.enable or false) {
     };
 
     "org/gnome/shell/extensions/dash-to-dock" = {
-      dash-max-icon-size = 32;
-      dock-fixed = true;
-      dock-position = "LEFT";
+      autohide-in-fullscreen = true;
+      customize-alphas = true;
+      dash-max-icon-size = 48;
+      disable-overview-on-startup = true;
+      dock-position = "BOTTOM";
       icon-size-fixed = true;
+      max-alpha = 1;
+      min-alpha = 0;
       middle-click-action = "quit";
       running-indicator-dominant-color = true;
       running-indicator-style = "DOTS";
       shift-click-action = "previews";
       show-mounts = false;
       show-trash = false;
+      transparency-mode = "DYNAMIC";
     };
 
     "org/gnome/shell/extensions/dim-background-windows" = {
