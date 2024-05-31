@@ -14,7 +14,6 @@ let extensions = [
   "cloudflare-warp-toggle@khaled.is-a.dev"
   "dash-to-panel@jderose9.github.com"
   "dim-background-windows@stephane-13.github.com"
-  "ding@rastersoft.com"
   "drive-menu@gnome-shell-extensions.gcampax.github.com"
   "gtk4-ding@smedius.gitlab.com"
   "middleclickclose@paolo.tranquilli.gmail.com"
