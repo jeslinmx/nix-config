@@ -4,25 +4,30 @@
   pkgs,
   ...
 }:
-lib.mkIf (osConfig.services.xserver.desktopManager.gnome.enable or false) {
-  home.packages = with pkgs.gnomeExtensions; [
-    appindicator
-    autohide-battery
-    blur-my-shell
-    caffeine
-    clipboard-indicator
-    dash-to-panel
-    dim-background-windows
-    gtk4-desktop-icons-ng-ding
-    middle-click-to-close-in-overview
-    quick-settings-tweaker
-    removable-drive-menu
-    syncthing-indicator
-    task-widget
-    tiling-assistant
-    wallpaper-switcher
-    windownavigator
-  ];
+let extensions = [
+  "appindicatorsupport@rgcjonas.gmail.com"
+  "autohide-battery@sitnik.ru"
+  "Bluetooth-Battery-Meter@maniacx.github.com"
+  "blur-my-shell@aunetx"
+  "caffeine@patapon.info"
+  "clipboard-indicator@tudmotu.com"
+  "cloudflare-warp-toggle@khaled.is-a.dev"
+  "dash-to-panel@jderose9.github.com"
+  # "dim-background-windows@stephane-13.github.com"
+  "ding@rastersoft.com"
+  "drive-menu@gnome-shell-extensions.gcampax.github.com"
+  "gtk4-ding@smedius.gitlab.com"
+  "middleclickclose@paolo.tranquilli.gmail.com"
+  # "quick-settings-tweaks@qwreey"
+  "syncthing@gnome.2nv2u.com"
+  "task-widget@juozasmiskinis.gitlab.io"
+  "tiling-assistant@leleat-on-github"
+  # "WallpapserSwitcher@Rishu"
+  "windowsNavigator@gnome-shell-extensions.gcampax.github.com"
+  "window-thumbnails@G-dH.github.com"
+];
+in lib.mkIf (osConfig.services.xserver.desktopManager.gnome.enable or false) {
+  home.packages = lib.attrVals extensions pkgs.gnome46Extensions;
 
   dconf.settings = with lib.hm.gvariant; {
     "org/gnome/desktop/datetime" = {
@@ -105,25 +110,7 @@ lib.mkIf (osConfig.services.xserver.desktopManager.gnome.enable or false) {
 
     "org/gnome/shell" = {
       disable-user-extensions = false;
-      enabled-extensions = [
-        "appindicatorsupport@rgcjonas.gmail.com"
-        "autohide-battery@sitnik.ru"
-        "blur-my-shell@aunetx"
-        "caffeine@patapon.info"
-        "clipboard-indicator@tudmotu.com"
-        "dash-to-panel@jderose9.github.com"
-        "dim-background-windows@stephane-13.github.com"
-        "ding@rastersoft.com"
-        "drive-menu@gnome-shell-extensions.gcampax.github.com"
-        "gtk4-ding@smedius.gitlab.com"
-        "middleclickclose@paolo.tranquilli.gmail.com"
-        "quick-settings-tweaks@qwreey"
-        "syncthing@gnome.2nv2u.com"
-        "task-widget@juozasmiskinis.gitlab.io"
-        "tiling-assistant@leleat-on-github"
-        "WallpapserSwitcher@Rishu"
-        "windowsNavigator@gnome-shell-extensions.gcampax.github.com"
-      ];
+      enabled-extensions = extensions;
     };
 
     "org/gnome/shell/app-switcher" = {
@@ -138,6 +125,12 @@ lib.mkIf (osConfig.services.xserver.desktopManager.gnome.enable or false) {
 
     "org/gnome/shell/extensions/autohide-battery" = {
       hide-on = 95;
+    };
+
+    "org/gnome/shell/extensions/Bluetooth-Battery-Meter" = {
+      enable-battery-indicator = true;
+      enable-battery-level-icon = false;
+      enable-battery-level-text = true;
     };
 
     "org/gnome/shell/extensions/blur-my-shell/applications" = {
@@ -181,6 +174,7 @@ lib.mkIf (osConfig.services.xserver.desktopManager.gnome.enable or false) {
       isolate-workspaces = true;
       leftbox-padding = -1;
       middle-click-action = "QUIT";
+      multi-monitors = false;
       overview-click-to-exit = true;
       panel-element-positions = ''
         {"0":[{"element":"showAppsButton","visible":false,"position":"stackedTL"},{"element":"activitiesButton","visible":true,"position":"stackedTL"},{"element":"leftBox","visible":true,"position":"stackedTL"},{"element":"taskbar","visible":true,"position":"stackedTL"},{"element":"centerBox","visible":true,"position":"stackedBR"},{"element":"dateMenu","visible":true,"position":"stackedBR"},{"element":"rightBox","visible":true,"position":"stackedBR"},{"element":"systemMenu","visible":true,"position":"stackedBR"},{"element":"desktopButton","visible":true,"position":"stackedBR"}]}
@@ -281,6 +275,10 @@ lib.mkIf (osConfig.services.xserver.desktopManager.gnome.enable or false) {
       toggle-always-on-top = [];
       toggle-tiling-popup = [];
       window-gap = 10;
+    };
+
+    "org/gnome/shell/extensions/window-thumbnails" = {
+      hide-focused = true;
     };
 
     "org/gnome/tweaks" = {
