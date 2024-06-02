@@ -71,6 +71,7 @@ nixos-unstable.lib.nixosSystem {
       ### USER SETUP ###
       users.defaultUserShell = pkgs.fish;
       programs.fish.enable = true;
+      stylix.image = ./wallpaper.jpg;
     })
   ];
 }
