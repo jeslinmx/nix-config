@@ -1,16 +1,13 @@
 {
   homeModules,
   pkgs,
-  nixpkgs-unstable,
   ...
 }: let
-    nixpkgs-config = {inherit (pkgs) system config;};
-    unstable = import nixpkgs-unstable nixpkgs-config;
   in
 {
   imports = with homeModules; [
-    kitty
     firefox
+    kitty
   ];
 
   programs = {
@@ -23,5 +20,6 @@
       wl-clipboard
       virt-manager
       helvum
+      beeper
     ];
 }
