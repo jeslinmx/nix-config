@@ -30,13 +30,14 @@ nixos-unstable.lib.nixosSystem {
         chinese-input
         cloudflare-warp
         console
+        docker
         enable-via-qmk
         gnome
         ios-usb
         steam
         stylix
+        virtualisation
         windows-fonts
-        docker
         zerotier
 
         ### SECURE BOOT ###
@@ -48,7 +49,7 @@ nixos-unstable.lib.nixosSystem {
           jeslinmx = {
             uid = 1000;
             description = "Jeshy";
-            extraGroups = ["wheel" "scanner" "lp" "docker"];
+            extraGroups = ["wheel" "scanner" "lp" "docker" "libvirtd"];
           };
         })
       ];
@@ -62,7 +63,6 @@ nixos-unstable.lib.nixosSystem {
       system.nixos.tags = [ config.networking.hostName (toString (self.shortRev or self.dirtyShortRev or self.lastModified or "unknown")) ];
 
       ### ENVIRONMENT CUSTOMIZATION ###
-      virtualisation.libvirtd.enable = true;
       services = {
         flatpak.enable = true;
         fprintd.enable = true;
