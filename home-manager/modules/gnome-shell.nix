@@ -7,6 +7,7 @@
 let extensions = [
   "appindicatorsupport@rgcjonas.gmail.com"
   "autohide-battery@sitnik.ru"
+  "azwallpaper@azwallpaper.gitlab.com"
   "Bluetooth-Battery-Meter@maniacx.github.com"
   "blur-my-shell@aunetx"
   "caffeine@patapon.info"
@@ -21,7 +22,6 @@ let extensions = [
   "syncthing@gnome.2nv2u.com"
   "task-widget@juozasmiskinis.gitlab.io"
   "tiling-assistant@leleat-on-github"
-  # "WallpapserSwitcher@Rishu"
   "windowsNavigator@gnome-shell-extensions.gcampax.github.com"
   "window-thumbnails@G-dH.github.com"
 ];
@@ -126,6 +126,10 @@ in lib.mkIf (osConfig.services.xserver.desktopManager.gnome.enable or false) {
       hide-on = 95;
     };
 
+    "org/gnome/shell/extensions/azwallpaper" = {
+      slideshow-use-absolute-time-for-duration = true;
+    };
+
     "org/gnome/shell/extensions/Bluetooth-Battery-Meter" = {
       enable-battery-indicator = true;
       enable-battery-level-icon = false;
@@ -208,13 +212,6 @@ in lib.mkIf (osConfig.services.xserver.desktopManager.gnome.enable or false) {
     "org/gnome/shell/extensions/dim-background-windows" = {
       # saturation = 1.0;
       target-monitor = "primary";
-    };
-
-    "org/gnome/shell/extensions/gtk4-ding" = {
-      show-home = false;
-      show-network-volumes = true;
-      show-trash = true;
-      show-volumes = true;
     };
 
     "org/gnome/shell/extensions/quick-settings-tweaks" = {
