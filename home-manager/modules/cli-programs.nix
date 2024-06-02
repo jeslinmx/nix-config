@@ -14,6 +14,7 @@
     fzf
     lazygit
     tmux
+    vim
   ];
 
   programs = {
@@ -47,6 +48,7 @@
     fzf.enable = true;
     lazygit.enable = true;
     tmux.enable = true;
+    vim.enable = true;
     # configured in chezmoi
     ripgrep.enable = true;
     starship.enable = true;
@@ -59,7 +61,6 @@
       unstable.chezmoi
       neofetch
       fd
-      vim-full # config in chezmoi
       dig
     ];
 }
