@@ -334,11 +334,11 @@
       "locked": {
         "lastModified": 1,
         "narHash": "sha256-+8ZqzH+Rlfv20KBnbKXw1P6lnlsQ2BovbqKxZ2XpyLI=",
-        "path": "./home-manager",
+        "path": "home-manager",
         "type": "path"
       },
       "original": {
-        "path": "./home-manager",
+        "path": "home-manager",
         "type": "path"
       }
     },
