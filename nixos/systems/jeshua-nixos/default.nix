@@ -34,6 +34,7 @@ nixos-unstable.lib.nixosSystem {
         gnome
         ios-usb
         steam
+        stylix
         windows-fonts
         docker
         zerotier

@@ -5,8 +5,6 @@
   nixos-hardware,
   lanzaboote,
   home-configs,
-  stylix,
-  tt-schemes,
   ...
 } @ inputs:
 nixos-unstable.lib.nixosSystem {
@@ -38,7 +36,7 @@ nixos-unstable.lib.nixosSystem {
         ios-usb
         windows-fonts
         wireshark
-        stylix.nixosModules.stylix
+        stylix
 
         ### SECURE BOOT ###
         lanzaboote.nixosModules.lanzaboote
@@ -98,35 +96,7 @@ nixos-unstable.lib.nixosSystem {
       ### USER SETUP ###
       users.defaultUserShell = pkgs.fish;
       programs.fish.enable = true;
-      stylix = {
-        image = ./wallpaper.png;
-        base16Scheme = "${tt-schemes}/base16/catppuccin-mocha.yaml";
-        polarity = "dark";
-        fonts = {
-          sansSerif = {
-            name = "Cantarell";
-            package = pkgs.cantarell-fonts;
-          };
-          serif = {
-            name = "CaskaydiaCove NF";
-            package = pkgs.cantarell-fonts;
-          };
-          monospace = {
-            name = "CaskaydiaCove NF";
-            package = pkgs.nerdfonts.override { fonts = ["CascadiaCode"]; };
-          };
-          sizes = {
-            applications = 10;
-            desktop = 10;
-            popups = 10;
-            terminal = 10;
-          };
-        };
-        cursor = {
-          name = "Bibata-Modern-Classic";
-          package = pkgs.bibata-cursors;
-        };
-      };
+      stylix.image = ./wallpaper.png;
     })
   ];
 }
