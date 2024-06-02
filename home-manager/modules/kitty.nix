@@ -1,6 +1,5 @@
 {
   programs.kitty = {
-      shell = "tmux new-session";
     settings = {
       remember_window_size = "no";
       initial_window_width = "120c";
