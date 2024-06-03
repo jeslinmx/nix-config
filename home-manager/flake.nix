@@ -5,9 +5,10 @@
     home-manager-unstable.url = "github:nix-community/home-manager";
     home-manager-2311.url = "github:nix-community/home-manager/release-23.11";
     private-config.url = "git+ssh://git@github.com/jeslinmx/nix-private-config";
+    nixvim.url = "github:nix-community/nixvim";
   };
 
-  outputs = {nixpkgs, ...} @ inputs: rec {
+  outputs = {nixpkgs, nixvim, ...} @ inputs: rec {
     homeModules = with builtins; with nixpkgs.lib; let
       dir = ./modules;
       dirContents = readDir dir;
@@ -68,6 +69,8 @@
           home-manager.users.${username} = { osConfig, ... }: {
             imports = [
               hmCfg
+              # due to https://github.com/gmodena/nix-flatpak/issues/25
+              nixvim.homeManagerModules.nixvim
             ] ++ (if matchHmUsername then [(attrByPath [username] {} homeConfigurations)] else []);
             home.stateVersion = mkDefault (osConfig.system.stateVersion or "23.11");
           };
