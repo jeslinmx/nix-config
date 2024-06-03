@@ -1,0 +1,60 @@
+{
+  nixosModules,
+  nixos-unstable,
+  nixos-generators,
+  home-configs,
+  ...
+} @ inputs:
+nixos-unstable.lib.nixosSystem {
+  system = "x86_64-linux";
+  specialArgs = inputs;
+  modules = [
+    ({pkgs, modulesPath, ...}: {
+      imports = with nixosModules; [
+        (modulesPath + "/virtualisation/proxmox-lxc.nix")
+        nixos-generators.nixosModules.all-formats
+        ### SETTINGS ###
+        locale-sg
+        nix-enable-flakes
+        nix-gc
+        sudo-disable-timeout
+
+        ### FEATURES ###
+        enable-via-qmk
+        stylix
+        wireshark
+
+        ### USERS ###
+        (home-configs.setup-module "unstable" {
+          jeshua = {
+            uid = 1000;
+            description = "Jeshua Lin";
+            extraGroups = ["wheel" "scanner" "lp" "wireshark"];
+            hmCfg = {homeModules, privateHomeModules, pkgs, ...}: {
+              imports = with homeModules; [
+                cli-programs
+                privateHomeModules.awscli
+              ];
+
+              xdg.enable = true;
+
+              home.packages = with pkgs; [
+                powershell
+                wimlib
+              ];
+            };
+          };
+        })
+      ];
+
+      system.stateVersion = "23.11";
+      networking.hostName = "jeshua-devbox";
+      nixpkgs.config.allowUnfree = true;
+
+      ### USER SETUP ###
+      users.defaultUserShell = pkgs.fish;
+      programs.fish.enable = true;
+      stylix.image = ../jeshua-speqtral/wallpaper.png;
+    })
+  ];
+}
