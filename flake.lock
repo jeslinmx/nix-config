@@ -333,7 +333,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-uLy5902+5yviONqnataiyHHmxD3szZPn6UDd1/sWaVc=",
+        "narHash": "sha256-0yWXtWaaiaZMOGqtf3JiO3GD4ZGNJharnh4Ny03wuhQ=",
         "path": "home-manager",
         "type": "path"
       },

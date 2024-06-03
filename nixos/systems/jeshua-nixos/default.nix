@@ -30,7 +30,7 @@ nixos-unstable.lib.nixosSystem {
         chinese-input
         cloudflare-warp
         console
-        docker
+        containers
         enable-via-qmk
         gnome
         ios-usb
@@ -49,7 +49,7 @@ nixos-unstable.lib.nixosSystem {
           jeslinmx = {
             uid = 1000;
             description = "Jeshy";
-            extraGroups = ["wheel" "scanner" "lp" "docker" "libvirtd"];
+            extraGroups = ["wheel" "scanner" "lp" "podman" "libvirtd"];
           };
         })
       ];

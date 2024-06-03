@@ -26,7 +26,7 @@ nixos-unstable.lib.nixosSystem {
 
         ### FEATURES ###
         console
-        docker
+        containers
         syncthing-server
         zerotier
 
@@ -38,7 +38,7 @@ nixos-unstable.lib.nixosSystem {
         (home-configs.setup-module "unstable" {
           jeslinmx = {
             uid = 1000;
-            extraGroups = ["wheel" "scanner" "lp" "docker"];
+            extraGroups = ["wheel" "scanner" "lp" "podman"];
             matchHmUsername = false;
             hmCfg = {homeModules, pkgs, ...}: {
               imports = with homeModules; [

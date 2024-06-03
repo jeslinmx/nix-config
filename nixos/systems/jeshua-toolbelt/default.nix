@@ -24,12 +24,13 @@ nixos-unstable.lib.nixosSystem {
         ### FEATURES ###
         cloudflare-warp
         console
+        containers
         ios-usb
-        docker
 
         ### USERS ###
         (home-configs.setup-module "unstable" {
           nixos = {
+            extraGroups = ["podman"];
             hmCfg = {homeModules, pkgs, ...}: {
               imports = with homeModules; [
                 cli-programs
