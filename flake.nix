@@ -15,6 +15,7 @@
     # NixOS modules
     lanzaboote.url = "github:nix-community/lanzaboote";
     nixos-hardware.url = "github:nixos/nixos-hardware";
+    nixos-generators.url = "github:nix-community/nixos-generators";
     stylix.url = "github:danth/stylix";
     tt-schemes.url = "github:tinted-theming/schemes";
     tt-schemes.flake = false;
@@ -54,7 +55,7 @@
         (import /${dir}/${fname})
         )
         moduleFiles;
-        nixosConfigurations = with builtins; with lib; let
+      nixosConfigurations = with builtins; with lib; let
           dir = ./nixos/systems;
           dirContents = readDir dir;
           configFiles = filterAttrs (fname: type: type == "directory") dirContents;
@@ -64,7 +65,10 @@
 
     systems = [ "x86_64-linux" ];
     perSystem = { system, pkgs, ... }: {
-      packages.default = self.nixosConfigurations.jeshua-toolbelt.config.system.build.isoImage;
+      packages = {
+        default = self.nixosConfigurations.jeshua-toolbelt.config.system.build.isoImage;
+        jeshua-devbox = self.nixosConfigurations.jeshua-devbox.config.formats.proxmox-lxc;
+      };
       formatter = pkgs.alejandra;
       devshells.default = {
         commands = with pkgs; [

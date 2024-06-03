@@ -64,10 +64,6 @@ nixos-unstable.lib.nixosSystem {
                 syncthing.enable = true;
               };
 
-              programs = {
-                vscode.enable = true; # natively handles config sync
-              };
-
               home.packages = with pkgs; [
                 powershell
                 wimlib
