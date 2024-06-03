@@ -163,7 +163,6 @@ in lib.mkIf (osConfig.services.xserver.desktopManager.gnome.enable or false) {
     "org/gnome/shell/extensions/dash-to-panel" = {
       appicon-margin = 0;
       appicon-padding = 6;
-      available-monitors = [ 0 ];
       click-action = "TOGGLE-CYCLE";
       dot-color-dominant = true;
       dot-color-override = false;
@@ -177,15 +176,20 @@ in lib.mkIf (osConfig.services.xserver.desktopManager.gnome.enable or false) {
       isolate-workspaces = true;
       leftbox-padding = -1;
       middle-click-action = "QUIT";
-      multi-monitors = false;
+      multi-monitors = true;
       overview-click-to-exit = true;
-      panel-element-positions = ''
-        {"0":[{"element":"showAppsButton","visible":false,"position":"stackedTL"},{"element":"activitiesButton","visible":true,"position":"stackedTL"},{"element":"leftBox","visible":true,"position":"stackedTL"},{"element":"taskbar","visible":true,"position":"stackedTL"},{"element":"centerBox","visible":true,"position":"stackedBR"},{"element":"dateMenu","visible":true,"position":"stackedBR"},{"element":"rightBox","visible":true,"position":"stackedBR"},{"element":"systemMenu","visible":true,"position":"stackedBR"},{"element":"desktopButton","visible":true,"position":"stackedBR"}]}
+      panel-element-positions = let
+        value = ''
+          [{"element":"showAppsButton","visible":false,"position":"stackedTL"},{"element":"activitiesButton","visible":true,"position":"stackedTL"},{"element":"leftBox","visible":true,"position":"stackedTL"},{"element":"taskbar","visible":true,"position":"stackedTL"},{"element":"centerBox","visible":true,"position":"stackedBR"},{"element":"dateMenu","visible":true,"position":"stackedBR"},{"element":"rightBox","visible":true,"position":"stackedBR"},{"element":"systemMenu","visible":true,"position":"stackedBR"},{"element":"desktopButton","visible":true,"position":"stackedBR"}]
+        '';
+      in ''
+        {"0":${value},"1":${value},"2":${value},"3":${value}}
       '';
-      panel-sizes = ''
-        {"0":36}
+      panel-sizes = let
+        value = "36";
+      in ''
+        {"0":${value},"1":${value},"2":${value},"3":${value}}
       '';
-      primary-monitor = 0;
       shift-click-action = "LAUNCH";
       shift-middle-click-action = "QUIT";
       shortcut-previews = false;
