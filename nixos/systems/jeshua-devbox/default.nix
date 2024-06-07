@@ -30,6 +30,12 @@ nixos-unstable.lib.nixosSystem {
             uid = 1000;
             description = "Jeshua Lin";
             extraGroups = ["wheel" "scanner" "lp" "wireshark"];
+            openssh.authorizedKeys.keyFiles = [
+              (pkgs.fetchurl {
+                url = "https://github.com/jeslinmx.keys";
+                hash = "sha256-iMuMcvz+q3BPKtsv0ZXBzy6Eps4uh9Fj7z92wdONZq4=";
+              }).outPath
+            ];
             hmCfg = {homeModules, privateHomeModules, pkgs, ...}: {
               imports = with homeModules; [
                 cli-programs
