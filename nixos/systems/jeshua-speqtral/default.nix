@@ -13,8 +13,8 @@ nixos-unstable.lib.nixosSystem {
   modules = [
     ({pkgs, config, ...}: {
       imports = with nixosModules; [
-        nixos-hardware.nixosModules.dell-xps-15-9510
-        nixos-hardware.nixosModules.dell-xps-15-9510-nvidia
+        nixos-hardware.nixosModules.lenovo-thinkpad-p1
+        nixos-hardware.nixosModules.lenovo-thinkpad-p1-gen3
 
         ### SETTINGS ###
         ./hardware-configuration.nix
@@ -34,9 +34,9 @@ nixos-unstable.lib.nixosSystem {
         enable-via-qmk
         gnome
         ios-usb
+        stylix
         windows-fonts
         wireshark
-        stylix
 
         ### SECURE BOOT ###
         lanzaboote.nixosModules.lanzaboote
@@ -79,15 +79,12 @@ nixos-unstable.lib.nixosSystem {
       nixpkgs.config.allowUnfree = true;
 
       ### BOOT CUSTOMIZATION ###
-      boot.initrd.luks.devices."luksroot".device = "/dev/disk/by-uuid/3e8a8385-7fba-4989-9cc5-29ee89fd8327";
+      boot.initrd.luks.devices."luksroot".device = "/dev/disk/by-uuid/f20dd278-e1f7-4044-b452-f8340571270f";
       system.nixos.tags = [ config.networking.hostName (toString (self.shortRev or self.dirtyShortRev or self.lastModified or "unknown")) ];
 
       ### ENVIRONMENT CUSTOMIZATION ###
       virtualisation.libvirtd.enable = true;
-      services = {
-        flatpak.enable = true;
-        fprintd.enable = true;
-      };
+      services.flatpak.enable = true;
 
       ### USER SETUP ###
       users.defaultUserShell = pkgs.fish;

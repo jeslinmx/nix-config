@@ -13,8 +13,8 @@ nixos-unstable.lib.nixosSystem {
   modules = [
     ({pkgs, config, ...}: {
       imports = with nixosModules; [
-        nixos-hardware.nixosModules.dell-xps-15-9510
-        nixos-hardware.nixosModules.dell-xps-15-9510-nvidia
+        nixos-hardware.nixosModules.lenovo-thinkpad-p1
+        nixos-hardware.nixosModules.lenovo-thinkpad-p1-gen3
 
         ### SETTINGS ###
         ./hardware-configuration.nix
@@ -63,10 +63,7 @@ nixos-unstable.lib.nixosSystem {
       system.nixos.tags = [ config.networking.hostName (toString (self.shortRev or self.dirtyShortRev or self.lastModified or "unknown")) ];
 
       ### ENVIRONMENT CUSTOMIZATION ###
-      services = {
-        flatpak.enable = true;
-        fprintd.enable = true;
-      };
+      services.flatpak.enable = true;
 
       ### USER SETUP ###
       users.defaultUserShell = pkgs.fish;
