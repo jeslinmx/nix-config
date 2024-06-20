@@ -21,7 +21,7 @@
     tt-schemes.flake = false;
     home-manager-unstable.url = "github:nix-community/home-manager";
     home-manager-2311.url = "github:nix-community/home-manager/release-23.11";
-    home-configs.url = "path:home-manager";
+    home-configs.url = "path:./home-manager";
     home-configs.inputs = {
       nixpkgs.follows = "nixpkgs";
       home-manager-unstable.follows = "home-manager-unstable";
