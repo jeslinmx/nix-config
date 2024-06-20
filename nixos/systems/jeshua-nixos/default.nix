@@ -22,6 +22,7 @@ nixos-unstable.lib.nixosSystem {
         locale-sg
         nix-enable-flakes
         nix-gc
+        plymouth
         power-management
         quirks-iwlwifi
         sudo-disable-timeout
