@@ -58,6 +58,7 @@
           inherit homeModules;
           privateHomeModules = inputs.private-config.homeModules;
         };
+        backupFileExtension = "hmbak";
       }; users.mutableUsers = true; } ] ++ (mapAttrsToList (
         username: { hmCfg ? {}, matchHmUsername ? true, ... } @ userCfg: {
           users.users.${username} = {

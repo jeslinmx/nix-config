@@ -74,6 +74,5 @@
       neofetch
       fd
       dig
-      vim-full
     ];
 }
