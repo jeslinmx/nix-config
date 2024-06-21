@@ -3,7 +3,7 @@
   nixos-unstable,
   nixos-hardware,
   lanzaboote,
-  home-configs,
+  setup-hm,
   ...
 } @ inputs:
 nixos-unstable.lib.nixosSystem {
@@ -31,7 +31,7 @@ nixos-unstable.lib.nixosSystem {
         nixos-hardware.nixosModules.common-pc-ssd
         nixos-hardware.nixosModules.common-cpu-intel
         lanzaboote.nixosModules.lanzaboote
-        (home-configs.setup-module "unstable" {
+        (setup-hm "unstable" {
           jeslinmx = {
             uid = 1000;
             extraGroups = ["wheel" "scanner" "lp" "podman"];

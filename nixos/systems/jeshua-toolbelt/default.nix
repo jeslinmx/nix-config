@@ -2,7 +2,7 @@
   self,
   nixosModules,
   nixos-unstable,
-  home-configs,
+  setup-hm,
   ...
 } @ inputs:
 nixos-unstable.lib.nixosSystem {
@@ -26,7 +26,7 @@ nixos-unstable.lib.nixosSystem {
         ios-usb
       ;}) ++ [
         (modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix")
-        (home-configs.setup-module "unstable" {
+        (setup-hm "unstable" {
           nixos = {
             extraGroups = ["podman"];
             hmCfg = {homeModules, pkgs, ...}: {

@@ -4,7 +4,7 @@
   nixos-unstable,
   nixos-hardware,
   lanzaboote,
-  home-configs,
+  setup-hm,
   ...
 } @ inputs:
 nixos-unstable.lib.nixosSystem {
@@ -39,7 +39,7 @@ nixos-unstable.lib.nixosSystem {
         nixos-hardware.nixosModules.lenovo-thinkpad-p1
         nixos-hardware.nixosModules.lenovo-thinkpad-p1-gen3
         lanzaboote.nixosModules.lanzaboote
-        (home-configs.setup-module "unstable" {
+        (setup-hm "unstable" {
           jeshua = {
             uid = 1000;
             description = "Jeshua Lin";

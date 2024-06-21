@@ -2,7 +2,7 @@
   nixosModules,
   nixos-unstable,
   nixos-generators,
-  home-configs,
+  setup-hm,
   ...
 } @ inputs:
 nixos-unstable.lib.nixosSystem {
@@ -24,7 +24,7 @@ nixos-unstable.lib.nixosSystem {
       ; }) ++ [
         (modulesPath + "/virtualisation/proxmox-lxc.nix")
         nixos-generators.nixosModules.all-formats
-        (home-configs.setup-module "unstable" {
+        (setup-hm "unstable" {
           jeshua = {
             uid = 1000;
             description = "Jeshua Lin";
