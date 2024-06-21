@@ -43,41 +43,41 @@
 
     flake = {
       inherit (home-configs.outputs) homeModules homeConfigurations;
-      nixosModules = with builtins; with lib; let
+      nixosModules = let
         dir = ./nixos/modules;
-        dirContents = readDir dir;
-        moduleFiles = filterAttrs (fname: type: (type == "regular") && (strings.hasSuffix ".nix" fname)) dirContents;
+        dirContents = builtins.readDir dir;
+        moduleFiles = lib.filterAttrs (fname: type: (type == "regular") && (lib.hasSuffix ".nix" fname)) dirContents;
       in
-      mapAttrs' (
+      lib.mapAttrs' (
         fname: _:
-        attrsets.nameValuePair
-        (strings.removeSuffix ".nix" fname)
+        lib.nameValuePair
+        (lib.removeSuffix ".nix" fname)
         (import /${dir}/${fname})
         )
         moduleFiles;
-      nixosConfigurations = with builtins; with lib; let
+      nixosConfigurations = let
           dir = ./nixos/systems;
-          dirContents = readDir dir;
-          configFiles = filterAttrs (fname: type: type == "directory") dirContents;
+          dirContents = builtins.readDir dir;
+          configFiles = lib.filterAttrs (fname: type: type == "directory") dirContents;
         in
-        mapAttrs (fname: _: (import /${dir}/${fname}) (inputs // {inherit (self) nixosModules;})) configFiles;
+        lib.mapAttrs (fname: _: (import /${dir}/${fname}) (inputs // {inherit (self) nixosModules;})) configFiles;
     };
 
     systems = [ "x86_64-linux" ];
-    perSystem = { system, pkgs, ... }: {
+    perSystem = { pkgs, ... }: {
       packages = {
         default = self.nixosConfigurations.jeshua-toolbelt.config.system.build.isoImage;
         jeshua-devbox = self.nixosConfigurations.jeshua-devbox.config.formats.proxmox-lxc;
       };
       formatter = pkgs.alejandra;
       devshells.default = {
-        commands = with pkgs; [
-          { package = nurl; category = "dev"; }
-          { package = nh; category = "build"; }
-          { package = nix-tree; category = "debug"; }
-          { package = nix-melt; category = "debug"; }
+        commands = [
+          { package = pkgs.nurl; category = "dev"; }
+          { package = pkgs.nh; category = "build"; }
+          { package = pkgs.nix-tree; category = "debug"; }
+          { package = pkgs.nix-melt; category = "debug"; }
         ];
-        packages = with pkgs; [ nixd ];
+        packages = [ pkgs.nixd ];
       };
     };
   });

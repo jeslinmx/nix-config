@@ -1,11 +1,10 @@
 {homeModules, privateHomeModules, pkgs, ...}: {
-  imports = with homeModules; [
+  imports = (builtins.attrValues { inherit (homeModules)
     aesthetics
     cli-programs
     gui-programs
     gnome-shell
-    privateHomeModules.ssh-personal-hosts
-  ];
+  ;}) ++ [privateHomeModules.ssh-personal-hosts];
 
   xdg.enable = true;
 
@@ -13,13 +12,14 @@
     syncthing.enable = true;
   };
 
-  home.packages = with pkgs; [
-      ### CLI TOOLS ###
-      kjv
-      ( ollama.override { acceleration = "cuda"; } )
+  home.packages = (builtins.attrValues { inherit (pkgs)
+    ### CLI TOOLS ###
+    kjv
 
-      ### GRAPHICAL ###
-      prismlauncher
-      godot_4
+    ### GRAPHICAL ###
+    prismlauncher
+    godot_4
+  ;}) ++ [
+    ( pkgs.ollama.override { acceleration = "cuda"; } )
   ];
 }

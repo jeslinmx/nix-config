@@ -10,9 +10,7 @@ nixos-unstable.lib.nixosSystem {
   specialArgs = inputs;
   modules = [
     ({pkgs, config, modulesPath, ...}: {
-      imports = with nixosModules; [
-        (modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix")
-
+      imports = (builtins.attrValues { inherit (nixosModules)
         ### SETTINGS ###
         enable-standard-hardware
         locale-sg
@@ -26,23 +24,23 @@ nixos-unstable.lib.nixosSystem {
         console
         containers
         ios-usb
-
-        ### USERS ###
+      ;}) ++ [
+        (modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix")
         (home-configs.setup-module "unstable" {
           nixos = {
             extraGroups = ["podman"];
             hmCfg = {homeModules, pkgs, ...}: {
-              imports = with homeModules; [
+              imports = builtins.attrValues { inherit (homeModules)
                 cli-programs
                 colors
-              ];
+              ;};
 
               xdg.enable = true;
 
-              home.packages = with pkgs; [
+              home.packages = builtins.attrValues { inherit (pkgs)
                 powershell
                 wimlib
-              ];
+              ;};
             };
           };
         })

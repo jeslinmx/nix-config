@@ -9,34 +9,36 @@
   };
 
   outputs = {nixpkgs, nixvim, ...} @ inputs: rec {
-    homeModules = with builtins; with nixpkgs.lib; let
+    homeModules = let
+      inherit (nixpkgs) lib;
       dir = ./modules;
-      dirContents = readDir dir;
-      moduleFiles = filterAttrs (fname: type: (type == "regular") && (strings.hasSuffix ".nix" fname)) dirContents;
+      dirContents = builtins.readDir dir;
+      moduleFiles = lib.filterAttrs (fname: type: (type == "regular") && (lib.hasSuffix ".nix" fname)) dirContents;
     in
-      mapAttrs' (
+      lib.mapAttrs' (
         fname: _:
-          attrsets.nameValuePair
-          (strings.removeSuffix ".nix" fname)
+          lib.nameValuePair
+          (lib.removeSuffix ".nix" fname)
 
           (import /${dir}/${fname})
       )
       moduleFiles;
 
-    homeConfigurations = with builtins; with nixpkgs.lib; let
+    homeConfigurations = let
+      inherit (nixpkgs) lib;
       dir = ./profiles;
-      dirContents = readDir dir;
-      profileFiles = filterAttrs (fname: type: (type == "regular") && (strings.hasSuffix ".nix" fname)) dirContents;
+      dirContents = builtins.readDir dir;
+      profileFiles = lib.filterAttrs (fname: type: (type == "regular") && (lib.hasSuffix ".nix" fname)) dirContents;
     in
-      mapAttrs' (
-        fname: _: let username = (strings.removeSuffix ".nix" fname);
-          in attrsets.nameValuePair
+      lib.mapAttrs' (
+        fname: _: let username = (lib.removeSuffix ".nix" fname);
+          in lib.nameValuePair
           username
           ({
             imports = [ /${dir}/${fname} ];
             home = {
-              username = mkDefault username;
-              homeDirectory = mkDefault "/home/${username}";
+              username = lib.mkDefault username;
+              homeDirectory = lib.mkDefault "/home/${username}";
             };
           })
       )
@@ -49,7 +51,7 @@
     };
     in {
       imports = [hmReleases.${branchName}.nixosModules.home-manager];
-      config = with nixpkgs.lib; mkMerge
+      config = let inherit (nixpkgs) lib; in lib.mkMerge
       ( [ { home-manager = {
         useUserPackages = true;
         useGlobalPkgs = true;
@@ -59,21 +61,21 @@
           privateHomeModules = inputs.private-config.homeModules;
         };
         backupFileExtension = "hmbak";
-      }; users.mutableUsers = true; } ] ++ (mapAttrsToList (
+      }; users.mutableUsers = true; } ] ++ (lib.mapAttrsToList (
         username: { hmCfg ? {}, matchHmUsername ? true, ... } @ userCfg: {
           users.users.${username} = {
-            initialHashedPassword = mkDefault "";
-            isNormalUser = mkDefault true;
-            group = mkIf config.users.users.${username}.isNormalUser (mkOverride 900 username);
-          } // ( filterAttrs (k: _: !(elem k ["hmCfg" "matchHmUsername"])) userCfg );
-          users.groups.${username} = mkIf config.users.users.${username}.isNormalUser {};
+            initialHashedPassword = lib.mkDefault "";
+            isNormalUser = lib.mkDefault true;
+            group = lib.mkIf config.users.users.${username}.isNormalUser (lib.mkOverride 900 username);
+          } // ( lib.filterAttrs (k: _: !(builtins.elem k ["hmCfg" "matchHmUsername"])) userCfg );
+          users.groups.${username} = lib.mkIf config.users.users.${username}.isNormalUser {};
           home-manager.users.${username} = { osConfig, ... }: {
             imports = [
               hmCfg
               # due to https://github.com/gmodena/nix-flatpak/issues/25
               nixvim.homeManagerModules.nixvim
-            ] ++ (if matchHmUsername then [(attrByPath [username] {} homeConfigurations)] else []);
-            home.stateVersion = mkDefault (osConfig.system.stateVersion or "23.11");
+            ] ++ (if matchHmUsername then [(lib.attrByPath [username] {} homeConfigurations)] else []);
+            home.stateVersion = lib.mkDefault (osConfig.system.stateVersion or "23.11");
           };
         }
       ) users) );

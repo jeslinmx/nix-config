@@ -3,9 +3,9 @@
     enable = true;
     package = pkgs.usbmuxd2;
   };
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = builtins.attrValues { inherit (pkgs)
     libimobiledevice
     ifuse
     idevicerestore
-  ];
+  ;};
 }

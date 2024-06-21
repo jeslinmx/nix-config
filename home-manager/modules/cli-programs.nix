@@ -8,7 +8,7 @@
     unstable = import nixpkgs-unstable nixpkgs-config;
   in
 {
-  imports = with homeModules; [
+  imports = builtins.attrValues { inherit (homeModules)
     atuin
     fish
     fzf
@@ -17,7 +17,7 @@
     starship
     tmux
     vim
-  ];
+  ;};
 
   programs = {
     home-manager.enable = true;
@@ -69,10 +69,10 @@
   };
 
   # unnixed stuff
-  home.packages = with pkgs; [
-      unstable.chezmoi
+  home.packages = builtins.attrValues { inherit (pkgs)
+      chezmoi
       neofetch
       fd
       dig
-    ];
+    ;};
 }

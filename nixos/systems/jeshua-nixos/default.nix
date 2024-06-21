@@ -12,12 +12,8 @@ nixos-unstable.lib.nixosSystem {
   specialArgs = inputs;
   modules = [
     ({pkgs, config, ...}: {
-      imports = with nixosModules; [
-        nixos-hardware.nixosModules.lenovo-thinkpad-p1
-        nixos-hardware.nixosModules.lenovo-thinkpad-p1-gen3
-
+      imports = (builtins.attrValues { inherit (nixosModules)
         ### SETTINGS ###
-        ./hardware-configuration.nix
         enable-standard-hardware
         locale-sg
         nix-enable-flakes
@@ -35,17 +31,17 @@ nixos-unstable.lib.nixosSystem {
         enable-via-qmk
         gnome
         ios-usb
+        secure-boot
         steam
         stylix
         virtualisation
         windows-fonts
         zerotier
-
-        ### SECURE BOOT ###
+      ;}) ++ [
+        ./hardware-configuration.nix
+        nixos-hardware.nixosModules.lenovo-thinkpad-p1
+        nixos-hardware.nixosModules.lenovo-thinkpad-p1-gen3
         lanzaboote.nixosModules.lanzaboote
-        secure-boot
-
-        ### USERS ###
         (home-configs.setup-module "unstable" {
           jeslinmx = {
             uid = 1000;

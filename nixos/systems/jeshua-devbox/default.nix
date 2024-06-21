@@ -10,9 +10,7 @@ nixos-unstable.lib.nixosSystem {
   specialArgs = inputs;
   modules = [
     ({pkgs, modulesPath, ...}: {
-      imports = with nixosModules; [
-        (modulesPath + "/virtualisation/proxmox-lxc.nix")
-        nixos-generators.nixosModules.all-formats
+      imports = ( builtins.attrValues { inherit (nixosModules)
         ### SETTINGS ###
         locale-sg
         nix-enable-flakes
@@ -23,8 +21,9 @@ nixos-unstable.lib.nixosSystem {
         enable-via-qmk
         stylix
         wireshark
-
-        ### USERS ###
+      ; }) ++ [
+        (modulesPath + "/virtualisation/proxmox-lxc.nix")
+        nixos-generators.nixosModules.all-formats
         (home-configs.setup-module "unstable" {
           jeshua = {
             uid = 1000;
@@ -37,17 +36,17 @@ nixos-unstable.lib.nixosSystem {
               }).outPath
             ];
             hmCfg = {homeModules, privateHomeModules, pkgs, ...}: {
-              imports = with homeModules; [
-                cli-programs
+              imports = [
+                homeModules.cli-programs
                 privateHomeModules.awscli
               ];
 
               xdg.enable = true;
 
-              home.packages = with pkgs; [
+              home.packages = builtins.attrValues { inherit (pkgs)
                 powershell
                 wimlib
-              ];
+              ;};
             };
           };
         })

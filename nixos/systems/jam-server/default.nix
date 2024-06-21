@@ -10,14 +10,9 @@ nixos-unstable.lib.nixosSystem {
   system = "x86_64-linux";
   specialArgs = inputs;
   modules = [
-    ({lib, pkgs, ...}: {
-      imports = with nixosModules; [
-        nixos-hardware.nixosModules.common-pc
-        nixos-hardware.nixosModules.common-pc-ssd
-        nixos-hardware.nixosModules.common-cpu-intel
-
+    ({ pkgs, ...}: {
+      imports = (builtins.attrValues { inherit (nixosModules)
         ### SETTINGS ###
-        ./hardware-configuration.nix
         enable-standard-hardware
         locale-sg
         nix-enable-flakes
@@ -27,23 +22,22 @@ nixos-unstable.lib.nixosSystem {
         ### FEATURES ###
         console
         containers
+        secure-boot
         syncthing-server
         zerotier
-
-        ### SECURE BOOT ###
+      ;}) ++ [
+        ./hardware-configuration.nix
+        nixos-hardware.nixosModules.common-pc
+        nixos-hardware.nixosModules.common-pc-ssd
+        nixos-hardware.nixosModules.common-cpu-intel
         lanzaboote.nixosModules.lanzaboote
-        secure-boot
-
-        ### USERS ###
         (home-configs.setup-module "unstable" {
           jeslinmx = {
             uid = 1000;
             extraGroups = ["wheel" "scanner" "lp" "podman"];
             matchHmUsername = false;
-            hmCfg = {homeModules, pkgs, ...}: {
-              imports = with homeModules; [
-                cli-programs
-              ];
+            hmCfg = {homeModules, ...}: {
+              imports = [ homeModules.cli-programs ];
             };
           };
         })

@@ -1,7 +1,7 @@
 { pkgs, lib, ... }: {
   programs.vim = {
     defaultEditor = true;
-    plugins = with pkgs.vimPlugins; let
+    plugins = let
       easyjump = pkgs.vimUtils.buildVimPlugin {
         name = "easyjump.vim";
         src = pkgs.fetchFromGitHub {
@@ -38,7 +38,7 @@
           hash = "sha256-i3I3pk7ngd5RN6a0ADGQu7vt/dU1nFcPtkWWS5TiVTU=";
         };
       };
-    in [
+    in (builtins.attrValues { inherit (pkgs.vimPlugins)
       # Editing
       vim-sensible
       vim-repeat
@@ -51,12 +51,9 @@
       auto-pairs
       vim-highlightedyank
       ReplaceWithRegister
-      easyjump
       undotree
       Recover-vim
       rainbow
-      vim-templates
-      vim-coloresque
       # LSP/code completion/formatting
       vim-lsp
       vim-lsp-settings
@@ -78,11 +75,15 @@
       devdocs-vim
       vim-startify
       vim-devicons
-      autosuggest
       zoomwintab-vim
-    ];
-    extraConfig = with builtins; concatStringsSep "\n" (
-      map readFile (lib.filesystem.listFilesRecursive ./vimrc)
+      ;}) ++ [
+        easyjump
+        vim-templates
+        vim-coloresque
+        autosuggest
+      ];
+    extraConfig = builtins.concatStringsSep "\n" (
+      map builtins.readFile (lib.filesystem.listFilesRecursive ./vimrc)
     );
   };
 }

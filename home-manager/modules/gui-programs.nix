@@ -5,10 +5,9 @@
 }: let
   in
 {
-  imports = with homeModules; [
-    firefox
-    kitty
-  ];
+  imports = builtins.attrValues {
+    inherit (homeModules) firefox kitty;
+  };
 
   programs = {
     firefox.enable = true;
@@ -16,10 +15,10 @@
   };
 
   # unnixed stuff
-  home.packages = with pkgs; [
-      wl-clipboard
-      virt-manager
-      helvum
-      beeper
-    ];
+  home.packages = builtins.attrValues { inherit (pkgs)
+    wl-clipboard
+    virt-manager
+    helvum
+    beeper
+  ;};
 }

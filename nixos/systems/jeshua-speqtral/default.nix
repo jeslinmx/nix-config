@@ -12,12 +12,8 @@ nixos-unstable.lib.nixosSystem {
   specialArgs = inputs;
   modules = [
     ({pkgs, config, ...}: {
-      imports = with nixosModules; [
-        nixos-hardware.nixosModules.lenovo-thinkpad-p1
-        nixos-hardware.nixosModules.lenovo-thinkpad-p1-gen3
-
+      imports = (builtins.attrValues { inherit (nixosModules)
         ### SETTINGS ###
-        ./hardware-configuration.nix
         enable-standard-hardware
         locale-sg
         nix-enable-flakes
@@ -26,7 +22,6 @@ nixos-unstable.lib.nixosSystem {
         power-management
         quirks-iwlwifi
         sudo-disable-timeout
-
         ### FEATURES ###
         chinese-input
         cloudflare-warp
@@ -34,29 +29,31 @@ nixos-unstable.lib.nixosSystem {
         enable-via-qmk
         gnome
         ios-usb
+        secure-boot
         stylix
         windows-fonts
         wireshark
 
-        ### SECURE BOOT ###
+      ;}) ++ [
+        ./hardware-configuration.nix
+        nixos-hardware.nixosModules.lenovo-thinkpad-p1
+        nixos-hardware.nixosModules.lenovo-thinkpad-p1-gen3
         lanzaboote.nixosModules.lanzaboote
-        secure-boot
-
-        ### USERS ###
         (home-configs.setup-module "unstable" {
           jeshua = {
             uid = 1000;
             description = "Jeshua Lin";
             extraGroups = ["wheel" "scanner" "lp" "wireshark"];
             hmCfg = {homeModules, privateHomeModules, pkgs, ...}: {
-              imports = with homeModules; [
+              imports = (builtins.attrValues { inherit (homeModules)
                 aesthetics
                 cli-programs
                 gui-programs
                 gnome-shell
-                privateHomeModules.awscli
-                privateHomeModules.ssh-speqtral-hosts
-              ];
+              ;}) ++ (builtins.attrValues { inherit (privateHomeModules)
+                awscli
+                ssh-speqtral-hosts
+              ;});
 
               xdg.enable = true;
 
@@ -64,11 +61,11 @@ nixos-unstable.lib.nixosSystem {
                 syncthing.enable = true;
               };
 
-              home.packages = with pkgs; [
+              home.packages = builtins.attrValues { inherit (pkgs)
                 powershell
                 wimlib
                 ciscoPacketTracer8
-              ];
+              ;};
             };
           };
         })

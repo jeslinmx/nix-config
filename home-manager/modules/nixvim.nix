@@ -1,5 +1,5 @@
 { pkgs, ... }: {
-  home.packages = with pkgs; [ zig ];
+  home.packages = [ pkgs.zig ];
   programs.nixvim = {
   };
 }

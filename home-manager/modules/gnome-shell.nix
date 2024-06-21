@@ -28,7 +28,7 @@ let extensions = [
 in lib.mkIf (osConfig.services.xserver.desktopManager.gnome.enable or false) {
   home.packages = lib.attrVals extensions pkgs.gnome46Extensions;
 
-  dconf.settings = with lib.hm.gvariant; {
+  dconf.settings = {
     "org/gnome/desktop/datetime" = {
       automatic-timezone = true;
     };
@@ -94,7 +94,7 @@ in lib.mkIf (osConfig.services.xserver.desktopManager.gnome.enable or false) {
 
     "org/gnome/settings-daemon/plugins/color" = {
       night-light-enabled = true;
-      night-light-temperature = mkUint32 3700;
+      night-light-temperature = lib.hm.gvariant.mkUint32 3700;
     };
 
     "org/gnome/settings-daemon/plugins/media-keys" = {
