@@ -1,4 +1,4 @@
-{lib, ...}: {
+{lib, pkgs, ...}: {
   # For secure boot to work, you must do the following steps:
   # 0. reboot into UEFI menu and set Secure Boot to Setup Mode
   # 1. create signing keys using `nix run nixpkgs#sbctl create-keys`
@@ -20,4 +20,5 @@
       enableTpm2 = true;
     };
   };
+  environment.systemPackages = [ pkgs.sbctl ];
 }
