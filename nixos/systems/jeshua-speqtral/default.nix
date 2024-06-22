@@ -38,6 +38,7 @@ nixos-unstable.lib.nixosSystem {
         ./hardware-configuration.nix
         nixos-hardware.nixosModules.lenovo-thinkpad-p1
         nixos-hardware.nixosModules.lenovo-thinkpad-p1-gen3
+        nixos-hardware.nixosModules.dell-xps-15-9510-nvidia # the thinkpad nvidia module lacks some stuff
         lanzaboote.nixosModules.lanzaboote
         (setup-hm "unstable" {
           jeshua = {
@@ -77,7 +78,17 @@ nixos-unstable.lib.nixosSystem {
 
       ### BOOT CUSTOMIZATION ###
       boot.initrd.luks.devices."luksroot".device = "/dev/disk/by-uuid/f20dd278-e1f7-4044-b452-f8340571270f";
+      boot.loader.timeout = 0;
       system.nixos.tags = [ config.networking.hostName (toString (self.shortRev or self.dirtyShortRev or self.lastModified or "unknown")) ];
+      stylix.targets.plymouth = {
+        logo = "${(pkgs.fetchFromGitHub {
+          owner = "speqtral";
+          repo = "branding";
+          rev = "95229a6373635d3826b8ba4ed22986c6aa906712";
+          hash = "sha256-gGq5VS0YvRM4HPJkXLC3pSQANyjIdEwn1jjFINg15yY=";
+        }).outPath}/logos/symbol/light.png";
+        logoAnimated = false;
+      };
 
       ### ENVIRONMENT CUSTOMIZATION ###
       virtualisation.libvirtd.enable = true;
