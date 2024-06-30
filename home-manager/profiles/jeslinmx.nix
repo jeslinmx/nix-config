@@ -4,6 +4,7 @@
     cli-programs
     gui-programs
     gnome-shell
+    termshark
   ;}) ++ [privateHomeModules.ssh-personal-hosts];
 
   xdg.enable = true;

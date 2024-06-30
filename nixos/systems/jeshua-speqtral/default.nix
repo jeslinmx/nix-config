@@ -32,7 +32,6 @@ nixos-unstable.lib.nixosSystem {
         secure-boot
         stylix
         windows-fonts
-        wireshark
 
       ;}) ++ [
         ./hardware-configuration.nix
@@ -51,6 +50,7 @@ nixos-unstable.lib.nixosSystem {
                 cli-programs
                 gui-programs
                 gnome-shell
+                termshark
               ;}) ++ (builtins.attrValues { inherit (privateHomeModules)
                 awscli
                 ssh-speqtral-hosts
@@ -93,6 +93,7 @@ nixos-unstable.lib.nixosSystem {
       ### ENVIRONMENT CUSTOMIZATION ###
       virtualisation.libvirtd.enable = true;
       services.flatpak.enable = true;
+      programs.wireshark.enable = true;
 
       ### USER SETUP ###
       users.defaultUserShell = pkgs.fish;

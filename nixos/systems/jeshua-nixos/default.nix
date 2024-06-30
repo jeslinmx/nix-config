@@ -46,7 +46,7 @@ nixos-unstable.lib.nixosSystem {
           jeslinmx = {
             uid = 1000;
             description = "Jeshy";
-            extraGroups = ["wheel" "scanner" "lp" "podman" "libvirtd"];
+            extraGroups = ["wheel" "scanner" "lp" "podman" "libvirtd" "wireshark"];
           };
         })
       ];
@@ -61,6 +61,7 @@ nixos-unstable.lib.nixosSystem {
 
       ### ENVIRONMENT CUSTOMIZATION ###
       services.flatpak.enable = true;
+      programs.wireshark.enable = true;
 
       ### USER SETUP ###
       users.defaultUserShell = pkgs.fish;
