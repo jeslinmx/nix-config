@@ -39,6 +39,7 @@ nixos-unstable.lib.nixosSystem {
         zerotier
       ;}) ++ [
         ./hardware-configuration.nix
+        nixos-hardware.nixosModules.common-gpu-nvidia
         nixos-hardware.nixosModules.lenovo-thinkpad-p1
         nixos-hardware.nixosModules.lenovo-thinkpad-p1-gen3
         lanzaboote.nixosModules.lanzaboote
@@ -57,6 +58,7 @@ nixos-unstable.lib.nixosSystem {
 
       ### BOOT CUSTOMIZATION ###
       boot.initrd.luks.devices."luksroot".device = "/dev/disk/by-uuid/881257ae-d2e8-410c-8239-a2c834fba279";
+      boot.loader.timeout = 0;
       system.nixos.tags = [ config.networking.hostName (toString (self.shortRev or self.dirtyShortRev or self.lastModified or "unknown")) ];
 
       ### ENVIRONMENT CUSTOMIZATION ###

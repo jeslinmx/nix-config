@@ -22,22 +22,25 @@ nixos-unstable.lib.nixosSystem {
         power-management
         quirks-iwlwifi
         sudo-disable-timeout
+
         ### FEATURES ###
         chinese-input
         cloudflare-warp
         console
+        containers
         enable-via-qmk
         gnome
         ios-usb
         secure-boot
         stylix
+        virtualisation
         windows-fonts
 
       ;}) ++ [
         ./hardware-configuration.nix
+        nixos-hardware.nixosModules.common-gpu-nvidia
         nixos-hardware.nixosModules.lenovo-thinkpad-p1
         nixos-hardware.nixosModules.lenovo-thinkpad-p1-gen3
-        nixos-hardware.nixosModules.dell-xps-15-9510-nvidia # the thinkpad nvidia module lacks some stuff
         lanzaboote.nixosModules.lanzaboote
         (setup-hm "unstable" {
           jeshua = {
@@ -91,7 +94,6 @@ nixos-unstable.lib.nixosSystem {
       };
 
       ### ENVIRONMENT CUSTOMIZATION ###
-      virtualisation.libvirtd.enable = true;
       services.flatpak.enable = true;
       programs.wireshark.enable = true;
 
