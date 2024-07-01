@@ -8,6 +8,7 @@
   imports = [ stylix.nixosModules.stylix ];
 
   stylix = lib.mkDefault {
+    enable = true;
     base16Scheme = "${tt-schemes}/base16/catppuccin-mocha.yaml";
     polarity = "dark";
     fonts = {
