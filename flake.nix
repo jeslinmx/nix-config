@@ -5,6 +5,7 @@
     # flake helpers
     flake-parts.url = "github:hercules-ci/flake-parts";
     devshell.url = "github:numtide/devshell";
+    devshell.inputs.nixpkgs.follows = "nixpkgs";
 
     # nixpkgs
     nixpkgs.url = "nixpkgs";
@@ -14,16 +15,33 @@
 
     # NixOS modules
     lanzaboote.url = "github:nix-community/lanzaboote";
+    lanzaboote.inputs = {
+      nixpkgs.follows = "nixpkgs";
+      flake-parts.follows = "flake-parts";
+    };
     nixos-hardware.url = "github:nixos/nixos-hardware";
     nixos-generators.url = "github:nix-community/nixos-generators";
+    nixos-generators.inputs.nixpkgs.follows = "nixpkgs";
     nixvim.url = "github:nix-community/nixvim";
+    nixvim.inputs = {
+      devshell.follows = "devshell";
+      flake-parts.follows = "flake-parts";
+      home-manager.follows = "home-manager-unstable";
+      nixpkgs.follows = "nixpkgs";
+    };
     stylix.url = "github:danth/stylix";
+    stylix.inputs = {
+      nixpkgs.follows = "nixpkgs";
+      home-manager.follows = "home-manager-unstable";
+    };
     tt-schemes.url = "github:tinted-theming/schemes";
     tt-schemes.flake = false;
 
     # Home Manager
     home-manager-unstable.url = "github:nix-community/home-manager";
+    home-manager-unstable.inputs.nixpkgs.follows = "nixos-unstable";
     home-manager-2311.url = "github:nix-community/home-manager/release-23.11";
+    home-manager-2311.inputs.nixpkgs.follows = "nixos-2311";
     private-config.url = "git+ssh://git@github.com/jeslinmx/nix-private-config";
   };
 
