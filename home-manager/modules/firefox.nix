@@ -55,10 +55,12 @@
           "media.block-play-until-document-interaction" = true;
           "media.block-play-until-visible" = true;
         };
-        userChrome = builtins.readFile (pkgs.fetchurl {
-          url = "https://raw.githubusercontent.com/christorange/VerticalFox/v1.4.1/windows/userChrome.css";
-          hash = "sha256-YLMR2Jf/AaJ5Ap/O+zQayKS4HNjD2E7LTWOQESRg3bw=";
-        });
+        userChrome = let verticalfox = pkgs.fetchFromGitHub {
+          owner = "christorange";
+          repo = "VerticalFox";
+          rev = "v1.4.1";
+          hash = "sha256-Ff9VGBdBqEW+crM3qpl8c/lLfiYJ9gvwt4P8GE4p4AE=";
+        }; in builtins.readFile (verticalfox.outPath + "/windows/userChrome.css");
         search = {
           force = true;
           default = "DuckDuckGo";
