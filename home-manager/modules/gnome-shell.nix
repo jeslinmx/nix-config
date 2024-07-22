@@ -6,29 +6,29 @@
   ...
 }:
 let
-  extensions = [
-    "appindicatorsupport@rgcjonas.gmail.com"
-    "autohide-battery@sitnik.ru"
-    "azwallpaper@azwallpaper.gitlab.com"
-    "Bluetooth-Battery-Meter@maniacx.github.com"
-    "blur-my-shell@aunetx"
-    "caffeine@patapon.info"
-    "clipboard-indicator@tudmotu.com"
-    "dash-to-panel@jderose9.github.com"
-    "dim-background-windows@stephane-13.github.com"
-    "drive-menu@gnome-shell-extensions.gcampax.github.com"
-    "gtk4-ding@smedius.gitlab.com"
-    "middleclickclose@paolo.tranquilli.gmail.com"
-    "quick-settings-tweaks@qwreey"
-    "syncthing@gnome.2nv2u.com"
-    "task-widget@juozasmiskinis.gitlab.io"
-    "tiling-assistant@leleat-on-github"
-    "windowsNavigator@gnome-shell-extensions.gcampax.github.com"
-    "window-thumbnails@G-dH.github.com"
-  ];
   pkgs-unstable = import nixpkgs-unstable { inherit (pkgs) system; };
+  extensions = lib.attrValues { inherit (pkgs-unstable.gnomeExtensions)
+    appindicator
+    autohide-battery
+    wallpaper-slideshow
+    bluetooth-battery-meter
+    blur-my-shell
+    caffeine
+    clipboard-indicator
+    dash-to-panel
+    dim-background-windows
+    removable-drive-menu
+    gtk4-desktop-icons-ng-ding
+    middle-click-to-close-in-overview
+    quick-settings-tweaker
+    syncthing-indicator
+    task-widget
+    tiling-assistant
+    windownavigator
+    wtmb-window-thumbnails
+  ;};
 in lib.mkIf (osConfig.services.xserver.desktopManager.gnome.enable or false) {
-  home.packages = lib.attrVals extensions pkgs-unstable.gnome46Extensions;
+  home.packages = extensions;
 
   dconf.settings = {
     "org/gnome/desktop/datetime" = {
@@ -111,7 +111,7 @@ in lib.mkIf (osConfig.services.xserver.desktopManager.gnome.enable or false) {
 
     "org/gnome/shell" = {
       disable-user-extensions = false;
-      enabled-extensions = extensions;
+      enabled-extensions = builtins.map (x: x.extensionUuid) extensions;
     };
 
     "org/gnome/shell/app-switcher" = {
