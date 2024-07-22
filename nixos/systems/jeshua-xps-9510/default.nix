@@ -84,7 +84,6 @@ nixpkgs.lib.nixosSystem {
     {
       specialisation.personal.configuration = {
         imports = [
-          nixosModules.steam
           nixosModules.zerotier
           (mkHmUsers {
             jeslinmx = {
@@ -115,26 +114,32 @@ nixpkgs.lib.nixosSystem {
               extraGroups = ["wheel" "scanner" "lp" "wireshark"];
               hmCfg = {homeModules, private-config, pkgs, ...}: {
                 imports = (builtins.attrValues { inherit (homeModules)
-                aesthetics
-                cli-programs
-                gui-programs
-                gnome-shell
-                termshark
+                  aesthetics
+                  cli-programs
+                  gui-programs
+                  gnome-shell
+                  termshark
                 ;}) ++ (builtins.attrValues { inherit (private-config.homeModules)
-                awscli
-                ssh-speqtral-hosts
+                  awscli
+                  ssh-speqtral-hosts
                 ;});
 
                 xdg.enable = true;
 
                 services = {
                   syncthing.enable = true;
+                  flatpak.packages = [
+                    "com.github.IsmaelMartinez.teams_for_linux"
+                    "io.github.mahmoudbahaa.outlook_for_linux"
+                    "us.zoom.Zoom"
+                    "com.jgraph.drawio.desktop"
+                  ];
                 };
 
                 home.packages = builtins.attrValues { inherit (pkgs)
-                powershell
-                wimlib
-                ciscoPacketTracer8
+                  powershell
+                  wimlib
+                  ciscoPacketTracer8
                 ;};
               };
             };

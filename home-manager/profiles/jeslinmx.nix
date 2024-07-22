@@ -11,6 +11,16 @@
 
   services = {
     syncthing.enable = true;
+    flatpak.packages = [
+      "md.obsidian.Obsidian"
+      "de.haeckerfelix.Fragments"
+      "org.godotengine.Godot"
+      "net.lutris.Lutris"
+      "com.valvesoftware.Steam"
+      "io.itch.itch"
+      "org.prismlauncher.PrismLauncher"
+      "dev.vencord.Vesktop"
+    ];
   };
 
   home.packages = (builtins.attrValues { inherit (pkgs)
@@ -18,8 +28,6 @@
     kjv
 
     ### GRAPHICAL ###
-    prismlauncher
-    godot_4
   ;}) ++ [
     ( pkgs.ollama.override { acceleration = "cuda"; } )
   ];

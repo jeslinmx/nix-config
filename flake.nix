@@ -50,6 +50,7 @@
         home-manager.follows = "home-manager";
       };
     };
+    nix-flatpak.url = "github:gmodena/nix-flatpak";
     tt-schemes = {
       url = "github:tinted-theming/schemes";
       flake = false;
@@ -139,8 +140,10 @@
             home-manager.users.${username} = { osConfig, ... }: {
               imports = [
                 hmCfg
-                # due to https://github.com/gmodena/nix-flatpak/issues/25
+                # due to https://github.com/nix-community/nixvim/issues/83
                 inputs.nixvim.homeManagerModules.nixvim
+                # due to https://github.com/gmodena/nix-flatpak/issues/25
+                inputs.nix-flatpak.homeManagerModules.nix-flatpak
               ] ++ (if matchHmUsername then [(lib.attrByPath [username] {} self.homeConfigurations)] else []);
               home.stateVersion = lib.mkDefault (osConfig.system.stateVersion or "24.05");
             };
