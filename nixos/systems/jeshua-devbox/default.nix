@@ -1,11 +1,11 @@
 {
   nixosModules,
-  nixos-unstable,
+  nixpkgs,
   nixos-generators,
   setup-hm,
   ...
 } @ inputs:
-nixos-unstable.lib.nixosSystem {
+nixpkgs.lib.nixosSystem {
   system = "x86_64-linux";
   specialArgs = inputs;
   modules = [
@@ -24,7 +24,7 @@ nixos-unstable.lib.nixosSystem {
       ; }) ++ [
         (modulesPath + "/virtualisation/proxmox-lxc.nix")
         nixos-generators.nixosModules.all-formats
-        (setup-hm "unstable" {
+        (setup-hm {
           jeshua = {
             uid = 1000;
             description = "Jeshua Lin";

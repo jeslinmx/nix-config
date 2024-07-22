@@ -1,11 +1,11 @@
-{homeModules, privateHomeModules, pkgs, ...}: {
+{homeModules, private-config, pkgs, ...}: {
   imports = (builtins.attrValues { inherit (homeModules)
     aesthetics
     cli-programs
     gui-programs
     gnome-shell
     termshark
-  ;}) ++ [privateHomeModules.ssh-personal-hosts];
+  ;}) ++ [private-config.homeModules.ssh-personal-hosts];
 
   xdg.enable = true;
 

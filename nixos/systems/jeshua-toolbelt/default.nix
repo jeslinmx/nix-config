@@ -1,11 +1,11 @@
 {
   self,
   nixosModules,
-  nixos-unstable,
+  nixpkgs,
   setup-hm,
   ...
 } @ inputs:
-nixos-unstable.lib.nixosSystem {
+nixpkgs.lib.nixosSystem {
   system = "x86_64-linux";
   specialArgs = inputs;
   modules = [
@@ -26,13 +26,12 @@ nixos-unstable.lib.nixosSystem {
         ios-usb
       ;}) ++ [
         (modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix")
-        (setup-hm "unstable" {
+        (setup-hm {
           nixos = {
             extraGroups = ["podman"];
             hmCfg = {homeModules, pkgs, ...}: {
               imports = builtins.attrValues { inherit (homeModules)
                 cli-programs
-                colors
               ;};
 
               xdg.enable = true;

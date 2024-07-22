@@ -4,67 +4,55 @@
   inputs = {
     # flake helpers
     flake-parts.url = "github:hercules-ci/flake-parts";
-    devshell.url = "github:numtide/devshell";
-    devshell.inputs.nixpkgs.follows = "nixpkgs";
+    devshell = {
+      url = "github:numtide/devshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # nixpkgs
-    nixpkgs.url = "nixpkgs";
-    nixos-unstable.url = "nixpkgs/nixos-unstable";
-    nixos-2405.url = "nixpkgs/nixos-24.05";
-    nixos-2311.url = "nixpkgs/nixos-23.11";
+    nixpkgs.url = "nixpkgs/release-24.05";
+    nixpkgs-unstable.url = "nixpkgs";
+    nixpkgs-nixos-stable.url = "nixpkgs/nixos-24.05";
     nixpkgs-patched.url = "github:jeslinmx/nixpkgs/patch-1";
 
     # NixOS modules
-    lanzaboote.url = "github:nix-community/lanzaboote";
-    lanzaboote.inputs = {
-      nixpkgs.follows = "nixpkgs";
-      flake-parts.follows = "flake-parts";
-    };
     nixos-hardware.url = "github:nixos/nixos-hardware";
-    nixos-generators.url = "github:nix-community/nixos-generators";
-    nixos-generators.inputs.nixpkgs.follows = "nixpkgs";
-    nixvim-unstable = {
-      url = "github:nix-community/nixvim";
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote";
       inputs = {
-        devshell.follows = "devshell";
         flake-parts.follows = "flake-parts";
-        home-manager.follows = "home-manager-unstable";
-        nixpkgs.follows = "nixos-unstable";
+        nixpkgs.follows = "nixpkgs";
       };
     };
-    nixvim-2405 = {
+
+    # Home Manager
+    home-manager = {
+      url = "github:nix-community/home-manager/release-24.05";
+      inputs.nixpkgs.follows = "nixpkgs-nixos-stable";
+    };
+    nixvim = {
       url = "github:nix-community/nixvim/nixos-24.05";
       inputs = {
         devshell.follows = "devshell";
         flake-parts.follows = "flake-parts";
-        home-manager.follows = "home-manager-unstable";
-        nixpkgs.follows = "nixos-2405";
+        home-manager.follows = "home-manager";
+        nixpkgs.follows = "nixpkgs";
       };
     };
-    nixvim-2311 = {
-      url = "github:nix-community/nixvim/nixos-23.11";
-      inputs.nixpkgs.follows = "nixos-2311";
+    stylix = {
+      url = "github:danth/stylix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
     };
-    stylix.url = "github:danth/stylix";
-    stylix.inputs = {
-      nixpkgs.follows = "nixpkgs";
-      home-manager.follows = "home-manager-unstable";
-    };
-    tt-schemes.url = "github:tinted-theming/schemes";
-    tt-schemes.flake = false;
-
-    # Home Manager
-    home-manager-unstable = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    home-manager-2405 = {
-      url = "github:nix-community/home-manager/release-24.05";
-      inputs.nixpkgs.follows = "nixos-2405";
-    };
-    home-manager-2311 = {
-      url = "github:nix-community/home-manager/release-23.11";
-      inputs.nixpkgs.follows = "nixos-2311";
+    tt-schemes = {
+      url = "github:tinted-theming/schemes";
+      flake = false;
     };
     private-config.url = "git+ssh://git@github.com/jeslinmx/nix-private-config";
   };
@@ -132,29 +120,13 @@
         )
         profileFiles;
 
-      setup-hm = branchName: users: { config, ... }:
-      let
-        hmReleases = with inputs; {
-          "23.11" = home-manager-2311;
-          "24.05" = home-manager-2405;
-          "unstable" = home-manager-unstable;
-        };
-        nixvimReleases = with inputs; {
-          "23.11" = nixvim-2311;
-          "24.05" = nixvim-2405;
-          "unstable" = nixvim-unstable;
-        };
-      in {
-        imports = [hmReleases.${branchName}.nixosModules.home-manager];
+      setup-hm = users: { config, ... }: {
+        imports = [inputs.home-manager.nixosModules.home-manager];
         config = lib.mkMerge
         ( [ { home-manager = {
           useUserPackages = true;
           useGlobalPkgs = true;
-          extraSpecialArgs = {
-            nixpkgs-unstable = inputs.nixpkgs;
-            inherit (self) homeModules;
-            privateHomeModules = inputs.private-config.homeModules;
-          };
+          extraSpecialArgs = inputs // { inherit (self) homeModules; };
           backupFileExtension = "hmbak";
         }; users.mutableUsers = true; } ] ++ (lib.mapAttrsToList (
           username: { hmCfg ? {}, matchHmUsername ? true, ... } @ userCfg: {
@@ -168,9 +140,9 @@
               imports = [
                 hmCfg
                 # due to https://github.com/gmodena/nix-flatpak/issues/25
-                nixvimReleases.${branchName}.homeManagerModules.nixvim
+                inputs.nixvim.homeManagerModules.nixvim
               ] ++ (if matchHmUsername then [(lib.attrByPath [username] {} self.homeConfigurations)] else []);
-              home.stateVersion = lib.mkDefault (osConfig.system.stateVersion or "23.11");
+              home.stateVersion = lib.mkDefault (osConfig.system.stateVersion or "24.05");
             };
           }
         ) users) );

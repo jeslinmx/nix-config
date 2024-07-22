@@ -6,8 +6,7 @@
     pulse.enable = true;
   };
   security.rtkit.enable = true; # optional recommendation for pipewire
-  # ALSA and PulseAudio must be disabled for Pipewire
-  sound.enable = lib.mkForce false;
+  # PulseAudio must be disabled for Pipewire
   hardware.pulseaudio.enable = lib.mkForce false;
 
   # PRINTING AND SCANNING
