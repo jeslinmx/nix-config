@@ -85,7 +85,7 @@
           dirContents = builtins.readDir dir;
           configFiles = lib.filterAttrs (fname: type: type == "directory") dirContents;
         in
-        lib.mapAttrs (fname: _: (import /${dir}/${fname}) (inputs // {inherit (self) nixosModules setup-hm;})) configFiles;
+        lib.mapAttrs (fname: _: (import /${dir}/${fname}) (inputs // {inherit (self) nixosModules mkHmUsers;})) configFiles;
 
       homeModules = let
         dir = ./home-manager/modules;
@@ -120,7 +120,7 @@
         )
         profileFiles;
 
-      setup-hm = users: { config, ... }: {
+      mkHmUsers = users: { config, ... }: {
         imports = [inputs.home-manager.nixosModules.home-manager];
         config = lib.mkMerge
         ( [ { home-manager = {

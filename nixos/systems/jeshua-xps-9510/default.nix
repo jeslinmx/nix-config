@@ -4,7 +4,7 @@
   nixpkgs,
   nixos-hardware,
   lanzaboote,
-  setup-hm,
+  mkHmUsers,
   ...
 } @ inputs:
 nixpkgs.lib.nixosSystem {
@@ -86,7 +86,7 @@ nixpkgs.lib.nixosSystem {
         imports = [
           nixosModules.steam
           nixosModules.zerotier
-          (setup-hm {
+          (mkHmUsers {
             jeslinmx = {
               uid = 1000;
               description = "Jeshy";
@@ -108,7 +108,7 @@ nixpkgs.lib.nixosSystem {
     ({ pkgs, ... }: {
       specialisation.speqtral.configuration = {
         imports = [
-          (setup-hm {
+          (mkHmUsers {
             jeshua = {
               uid = 1000;
               description = "Jeshua Lin";
