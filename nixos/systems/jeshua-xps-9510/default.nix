@@ -28,7 +28,6 @@ in nixpkgs.lib.nixosSystem {
     windows-fonts
   ;}) ++ [
     nixos-hardware.nixosModules.dell-xps-15-9510
-    nixos-hardware.nixosModules.dell-xps-15-9510-nvidia
     lanzaboote.nixosModules.lanzaboote
     ({pkgs, config, ...}: {
       system.stateVersion = "24.05";
@@ -76,6 +75,7 @@ in nixpkgs.lib.nixosSystem {
     {
       specialisation.personal.configuration = {
         imports = [
+          nixos-hardware.nixosModules.dell-xps-15-9510-nvidia
           flake.nixosModules.zerotier
         ];
         networking.hostName = "jeshua-nixos";
@@ -84,12 +84,14 @@ in nixpkgs.lib.nixosSystem {
           { device = "/dev/personal/home";
           fsType = "ext4";
         };
+        # TODO: remove when https://github.com/danth/stylix/issues/442 goes through
         stylix.image = ./wallpaper.jpg;
 
         hmUsers.jeslinmx = {
           uid = 1000;
           description = "Jeshy";
           extraGroups = ["wheel" "scanner" "lp" "podman" "libvirtd" "wireshark"];
+          hashedPassword = "$y$j9T$Y1nDY/UdDZ6g//Kz84SaL/$N1pm904Az.rHaZu3GjQHIRY02sAUdUlkq5QaBsenZ.D";
           hmModules = (builtins.attrValues { inherit (flake.homeModules)
             aesthetics
             ai
@@ -121,8 +123,8 @@ in nixpkgs.lib.nixosSystem {
     }
 
     ### jeshua-speqtral specialisation ###
-    ({ pkgs, ... }: {
-      specialisation.speqtral.configuration = {
+    ({ lib, config, pkgs, ... }: {
+      config = lib.mkIf (config.specialisation != {}) {
         networking.hostName = "jeshua-speqtral";
         stylix = {
           image = ./speqtral.png;
@@ -141,6 +143,7 @@ in nixpkgs.lib.nixosSystem {
           uid = 1000;
           description = "Jeshua Lin";
           extraGroups = ["wheel" "scanner" "lp" "wireshark"];
+          hashedPassword = "$y$j9T$oXg5n5hIIpz9JZG8QvTLr1$MKjw1m695.YQcJeaXcrbIItHaM8FvMYiAz4USTL4Vl1";
           hmModules = (builtins.attrValues { inherit (flake.homeModules)
             aesthetics
             cli-programs
