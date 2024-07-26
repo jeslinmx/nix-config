@@ -1,16 +1,10 @@
-{
-  self,
-  nixosModules,
-  nixpkgs,
-  nixos-hardware,
-  lanzaboote,
-  mkHmUsers,
-  ...
-} @ inputs:
-nixpkgs.lib.nixosSystem {
+flake: let inherit (flake.inputs) nixpkgs nixos-hardware lanzaboote;
+in nixpkgs.lib.nixosSystem {
   system = "x86_64-linux";
-  specialArgs = inputs;
-  modules = (builtins.attrValues { inherit (nixosModules)
+  specialArgs = { inherit flake; };
+  modules = (builtins.attrValues { inherit (flake.nixosModules)
+    home-manager-users
+
     ### SETTINGS ###
     enable-standard-hardware
     locale-sg
@@ -34,7 +28,6 @@ nixpkgs.lib.nixosSystem {
     virtualisation
     windows-fonts
   ;}) ++ [
-    ./hardware-configuration.nix
     nixos-hardware.nixosModules.dell-xps-15-9510
     nixos-hardware.nixosModules.dell-xps-15-9510-nvidia
     lanzaboote.nixosModules.lanzaboote
@@ -51,7 +44,7 @@ nixpkgs.lib.nixosSystem {
         };
         kernelModules = [ "kvm-intel" ];
       };
-      system.nixos.label = "${config.networking.hostName}:${toString (self.shortRev or self.dirtyShortRev or self.lastModified or "(unknown rev)")}";
+      system.nixos.label = "${config.networking.hostName}:${toString (flake.shortRev or flake.dirtyShortRev or flake.lastModified or "(unknown rev)")}";
 
       fileSystems."/" =
         { device = "/dev/speqtral/nixos";
@@ -84,14 +77,7 @@ nixpkgs.lib.nixosSystem {
     {
       specialisation.personal.configuration = {
         imports = [
-          nixosModules.zerotier
-          (mkHmUsers {
-            jeslinmx = {
-              uid = 1000;
-              description = "Jeshy";
-              extraGroups = ["wheel" "scanner" "lp" "podman" "libvirtd" "wireshark"];
-            };
-          })
+          flake.nixosModules.zerotier
         ];
         networking.hostName = "jeshua-nixos";
         boot.initrd.luks.devices."personal".device = "/dev/disk/by-partlabel/personal-luks";
@@ -100,51 +86,44 @@ nixpkgs.lib.nixosSystem {
           fsType = "ext4";
         };
         stylix.image = ./wallpaper.jpg;
+
+        hmUsers.jeslinmx = {
+          uid = 1000;
+          description = "Jeshy";
+          extraGroups = ["wheel" "scanner" "lp" "podman" "libvirtd" "wireshark"];
+          hmModules = (builtins.attrValues { inherit (flake.homeModules)
+            aesthetics
+            ai
+            cli-programs
+            gui-programs
+            gnome-shell
+            termshark
+          ;}) ++ (builtins.attrValues { inherit (flake.inputs.private-config.homeModules)
+            ssh-personal-hosts
+          ;}) ++ [{
+            xdg.enable = true;
+
+            services = {
+              syncthing.enable = true;
+              flatpak.packages = [
+                "md.obsidian.Obsidian"
+                "de.haeckerfelix.Fragments"
+                "org.godotengine.Godot"
+                "net.lutris.Lutris"
+                "com.valvesoftware.Steam"
+                "io.itch.itch"
+                "org.prismlauncher.PrismLauncher"
+                "dev.vencord.Vesktop"
+              ];
+            };
+          }];
+        };
       };
     }
 
     ### jeshua-speqtral specialisation ###
     ({ pkgs, ... }: {
       specialisation.speqtral.configuration = {
-        imports = [
-          (mkHmUsers {
-            jeshua = {
-              uid = 1000;
-              description = "Jeshua Lin";
-              extraGroups = ["wheel" "scanner" "lp" "wireshark"];
-              hmCfg = {homeModules, private-config, pkgs, ...}: {
-                imports = (builtins.attrValues { inherit (homeModules)
-                  aesthetics
-                  cli-programs
-                  gui-programs
-                  gnome-shell
-                  termshark
-                ;}) ++ (builtins.attrValues { inherit (private-config.homeModules)
-                  awscli
-                  ssh-speqtral-hosts
-                ;});
-
-                xdg.enable = true;
-
-                services = {
-                  syncthing.enable = true;
-                  flatpak.packages = [
-                    "com.github.IsmaelMartinez.teams_for_linux"
-                    "io.github.mahmoudbahaa.outlook_for_linux"
-                    "us.zoom.Zoom"
-                    "com.jgraph.drawio.desktop"
-                  ];
-                };
-
-                home.packages = builtins.attrValues { inherit (pkgs)
-                  powershell
-                  wimlib
-                  ciscoPacketTracer8
-                ;};
-              };
-            };
-          })
-        ];
         networking.hostName = "jeshua-speqtral";
         stylix = {
           image = ./speqtral.png;
@@ -157,6 +136,40 @@ nixpkgs.lib.nixosSystem {
             }).outPath}/logos/symbol/light.png";
             logoAnimated = false;
           };
+        };
+
+        hmUsers.jeshua = {
+          uid = 1000;
+          description = "Jeshua Lin";
+          extraGroups = ["wheel" "scanner" "lp" "wireshark"];
+          hmModules = (builtins.attrValues { inherit (flake.homeModules)
+            aesthetics
+            cli-programs
+            gui-programs
+            gnome-shell
+            termshark
+          ;}) ++ (builtins.attrValues { inherit (flake.inputs.private-config.homeModules)
+            awscli
+            ssh-speqtral-hosts
+          ;}) ++ [{
+            xdg.enable = true;
+
+            services = {
+              syncthing.enable = true;
+              flatpak.packages = [
+                "com.github.IsmaelMartinez.teams_for_linux"
+                "io.github.mahmoudbahaa.outlook_for_linux"
+                "us.zoom.Zoom"
+                "com.jgraph.drawio.desktop"
+              ];
+            };
+
+            home.packages = builtins.attrValues { inherit (pkgs)
+              powershell
+              wimlib
+              ciscoPacketTracer8
+            ;};
+          }];
         };
       };
     })

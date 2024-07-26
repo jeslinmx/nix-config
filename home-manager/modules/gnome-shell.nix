@@ -2,11 +2,11 @@
   lib,
   osConfig ? {},
   pkgs,
-  nixpkgs-unstable,
+  flake,
   ...
 }:
 let
-  pkgs-unstable = import nixpkgs-unstable { inherit (pkgs) system; };
+  pkgs-unstable = import flake.inputs.nixpkgs-unstable { inherit (pkgs) system; };
   extensions = lib.attrValues { inherit (pkgs-unstable.gnomeExtensions)
     appindicator
     autohide-battery

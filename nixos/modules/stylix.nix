@@ -1,10 +1,10 @@
 {
+  flake,
   pkgs,
   lib,
-  stylix,
-  tt-schemes,
   ...
-}: {
+}: let inherit (flake.inputs) stylix tt-schemes;
+in{
   imports = [ stylix.nixosModules.stylix ];
 
   stylix = lib.mkDefault {

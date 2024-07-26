@@ -1,12 +1,12 @@
 {
-  homeModules,
+  flake,
   pkgs,
   ...
 }: let
   in
 {
   imports = builtins.attrValues {
-    inherit (homeModules) firefox kitty;
+    inherit (flake.homeModules) firefox kitty;
   };
 
   programs = {

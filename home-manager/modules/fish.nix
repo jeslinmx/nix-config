@@ -1,4 +1,4 @@
-{
+{pkgs, ...}: {
   home = {
     sessionVariables = {
       EDITOR = "vim";
@@ -67,4 +67,5 @@
       abbr -a !! --position anywhere -f last_history
     '';
   };
+  home.packages = [ pkgs.kjv ];
 }

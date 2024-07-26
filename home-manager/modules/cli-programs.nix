@@ -1,14 +1,13 @@
 {
-  homeModules,
+  flake,
   pkgs,
-  nixpkgs-unstable,
   ...
 }: let
     nixpkgs-config = {inherit (pkgs) system config;};
-    unstable = import nixpkgs-unstable nixpkgs-config;
+    unstable = import flake.inputs.nixpkgs-unstable nixpkgs-config;
   in
 {
-  imports = builtins.attrValues { inherit (homeModules)
+  imports = builtins.attrValues { inherit (flake.homeModules)
     atuin
     fish
     fzf
