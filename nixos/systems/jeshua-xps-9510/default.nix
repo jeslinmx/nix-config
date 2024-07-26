@@ -3,8 +3,6 @@ in nixpkgs.lib.nixosSystem {
   system = "x86_64-linux";
   specialArgs = { inherit flake; };
   modules = (builtins.attrValues { inherit (flake.nixosModules)
-    home-manager-users
-
     ### SETTINGS ###
     enable-standard-hardware
     locale-sg
@@ -22,6 +20,7 @@ in nixpkgs.lib.nixosSystem {
     containers
     enable-via-qmk
     gnome
+    home-manager-users
     ios-usb
     secure-boot
     stylix
@@ -46,20 +45,20 @@ in nixpkgs.lib.nixosSystem {
       };
       system.nixos.label = "${config.networking.hostName}:${toString (flake.shortRev or flake.dirtyShortRev or flake.lastModified or "(unknown rev)")}";
 
-      fileSystems."/" =
-        { device = "/dev/speqtral/nixos";
+      fileSystems = {
+        "/" =
+          { device = "/dev/speqtral/nixos";
           fsType = "ext4";
         };
 
-      fileSystems."/boot" =
-        { device = "/dev/disk/by-partlabel/speqtral-boot";
+        "/boot" =
+          { device = "/dev/disk/by-partlabel/speqtral-boot";
           fsType = "vfat";
           options = [ "fmask=0022" "dmask=0022" ];
         };
+      };
 
-      swapDevices =
-        [ { device = "/dev/speqtral/swap"; }
-        ];
+      swapDevices = [ { device = "/dev/speqtral/swap"; } ];
 
       ### ENVIRONMENT CUSTOMIZATION ###
       nixpkgs.hostPlatform = "x86_64-linux";
@@ -98,7 +97,7 @@ in nixpkgs.lib.nixosSystem {
             gui-programs
             gnome-shell
             termshark
-          ;}) ++ (builtins.attrValues { inherit (flake.inputs.private-config.homeModules)
+          ; inherit (flake.inputs.private-config.homeModules)
             ssh-personal-hosts
           ;}) ++ [{
             xdg.enable = true;
@@ -148,7 +147,7 @@ in nixpkgs.lib.nixosSystem {
             gui-programs
             gnome-shell
             termshark
-          ;}) ++ (builtins.attrValues { inherit (flake.inputs.private-config.homeModules)
+          ; inherit (flake.inputs.private-config.homeModules)
             awscli
             ssh-speqtral-hosts
           ;}) ++ [{

@@ -15,7 +15,7 @@
   environment.systemPackages = (builtins.attrValues { inherit (pkgs)
     gnome-connections
     unoconv # allows sushi to open Office files without crashing
-  ;}) ++ (builtins.attrValues { inherit (pkgs.gnome)
+  ; inherit (pkgs.gnome)
     dconf-editor
     eog
     gnome-calculator
