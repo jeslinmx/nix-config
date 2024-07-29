@@ -73,5 +73,6 @@
       neofetch
       fd
       dig
+      unzip
     ;};
 }
