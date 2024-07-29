@@ -165,7 +165,7 @@ in lib.mkIf (osConfig.services.xserver.desktopManager.gnome.enable or false) {
     "org/gnome/shell/extensions/dash-to-panel" = {
       appicon-margin = 0;
       appicon-padding = 6;
-      click-action = "TOGGLE-CYCLE";
+      click-action = "CYCLE";
       dot-color-dominant = true;
       dot-color-override = false;
       dot-size = 1;
