@@ -160,7 +160,6 @@ in nixpkgs.lib.nixosSystem {
               syncthing.enable = true;
               flatpak.packages = [
                 "com.github.IsmaelMartinez.teams_for_linux"
-                "io.github.mahmoudbahaa.outlook_for_linux"
                 "us.zoom.Zoom"
                 "com.jgraph.drawio.desktop"
               ];
