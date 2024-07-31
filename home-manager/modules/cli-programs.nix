@@ -69,10 +69,11 @@
 
   # unnixed stuff
   home.packages = builtins.attrValues { inherit (pkgs)
-      chezmoi
-      neofetch
       fd
       dig
       unzip
+      visidata
+      httpie
+      mitmproxy
     ;};
 }
