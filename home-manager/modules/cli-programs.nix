@@ -13,9 +13,9 @@
     fzf
     git
     lazygit
+    nixvim
     starship
     tmux
-    vim
   ;};
 
   programs = {
@@ -62,6 +62,7 @@
     fzf.enable = true;
     git.enable = true;
     lazygit.enable = true;
+    nixvim.enable = true;
     starship.enable = true;
     tmux.enable = true;
     vim.enable = true;

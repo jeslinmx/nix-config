@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   home = {
     sessionVariables = {
-      EDITOR = "vim";
+      EDITOR = "nvim";
       PAGER = "less -R";
     };
     shellAliases = {
@@ -10,7 +10,8 @@
   programs.fish = {
     shellAbbrs = {
       g = "git";
-      v = "vim";
+      v = "nvim";
+      vi = "nvim";
       f = "fuck";
       S = "sudo -v; sudo -E";
       s = "kitty +kitten ssh";
