@@ -1,13 +1,14 @@
-{ pkgs, ... }: {
+{ config, pkgs, ... }: {
   home.packages = [ pkgs.zig ];
-  programs.nixvim = {
+  programs.nixvim = let
+    inherit (config.nixvim) helpers;
+  in {
     autoCmd = [];
     autoGroups = {};
     editorconfig = {
       enable = true;
     };
     globalOpts = {
-      cmdheight = 0;
       listchars = "trail:◦,multispace:◦,leadmultispace:\ ,nbsp:⍽,tab:-->,precedes:«,extends:»";
       sidescroll = 5;
       timeoutlen = 300;
@@ -26,12 +27,12 @@
       { key = "<Leader>~"; action = "<Cmd>Alpha<CR>"; options.desc = "Open start screen (Alpha)"; }
 
       { key = "<Leader>b"; action = ""; options.desc = "+buffer"; }
+      { key = "<Leader>bn"; action = "<Cmd>enew<CR>"; options.desc = "New"; }
       { key = "<Leader>bb"; action = "<Cmd>BufferLinePick<CR>"; options.desc = "Jump to buffer..."; }
       { key = "<Leader>bp"; action = "<Cmd>BufferLineTogglePin<CR>"; options.desc = "Pin"; }
       { key = "<Leader>b<"; action = "<Cmd>BufferLineMovePrev<CR>"; options.desc = "Move left"; }
       { key = "<Leader>b>"; action = "<Cmd>BufferLineMoveNext<CR>"; options.desc = "Move right"; }
-      { key = "<Leader>bx"; action = "<Cmd>Bdelete<CR>"; options.desc = "Close"; }
-      { key = "<Leader>bX"; action = "<Cmd>Bdelete!<CR>"; options.desc = "Close!"; }
+      { key = "<Leader>bx"; action = "<Cmd>lua MiniBufremove.delete()<CR>"; options.desc = "Close"; }
       { key = "<Leader>b<C-x>"; action = "<Cmd>BufferLineCloseOthers<CR>"; options.desc = "Close all"; }
 
       { key = "<Leader>bs"; action = ""; options.desc = "+sort"; }
@@ -44,7 +45,7 @@
       mini = {
         enable = true;
         modules = {
-          basics = {
+          basics = { # vim-sensible
             options = {
               extra_ui = true;
               win_borders = "single";
@@ -57,8 +58,33 @@
               relnum_in_visual_mode = true;
             };
           };
-          animate = {
-            cursor.enable = false;};
+          animate = { # neoscroll
+            cursor.enable = false;
+            scroll.subscroll = helpers.mkRaw ''
+              require('mini.animate').gen_subscroll.equal({ predicate = function(total_scroll) return total_scroll > 3 end })
+            '';
+          };
+          ai = {}; # more text objects
+          operators = {}; # ReplaceWithRegister (and others)
+          bufremove = {}; # vim-bbye
+          pairs = {}; # auto-pairs
+          surround = {
+            mappings = {
+              add = "ys";
+              delete = "ds";
+              replace = "cs";
+              find = ""; find_left = ""; highlight = ""; update_n_lines = "";
+            };
+          };
+          indentscope = {
+            draw = {
+              delay = 0;
+              animation = helpers.mkRaw ''
+                require('mini.indentscope').gen_animation.none()
+              '';
+            };
+          };
+          diff = {}; # gitsigns
         };
       };
       better-escape = {}; # jj
@@ -119,26 +145,35 @@
       };
       bufferline = {
         enable = true;
-        closeCommand = "BDelete! %d";
+        closeCommand = "lua MiniBufremove.delete(0, false)";
+        rightMouseCommand = "";
       };
       fidget = { enable = true; }; # minimalist notifications and LSP messages
       lualine = { enable = true; };
-      oil = { enable = true; }; # filesystem buffers
+      oil = { enable = true; };
       statuscol = { enable = true; };
       telescope = { enable = true; };
       todo-comments = { enable = true; };
       toggleterm = { enable = true; };
       trouble = { enable = true; }; # problems pane
       twilight = { enable = true; }; # dims inactive code blocks using TS
-      which-key = { enable = true; };
+      which-key = {
+        enable = true;
+        operators = {
+          gh = "Hunks to apply";
+          gH = "Hunks to reset";
+        };
+      };
       wilder = { enable = true; }; # fancier :-menu
-      vim-bbye = { enable = true; };
       zen-mode = { enable = true; };
 
       # Integrations
       neocord = {};
       nix-develop = {}; # switch to devshell without exiting nvim
       obsidian = {};
+    };
+    extraPlugins = builtins.attrValues {
+      inherit (pkgs.vimPlugins) vim-sleuth vim-numbertoggle;
     };
   };
 }
