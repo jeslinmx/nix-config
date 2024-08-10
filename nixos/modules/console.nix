@@ -4,6 +4,6 @@ in {
   console = {
     earlySetup = true;
     packages = [ pkgs-patched.cozette ];
-    font = "${pkgs-patched.cozette}/share/fonts/misc/cozette.psf";
+    font = "${pkgs-patched.cozette}/share/consolefonts/cozette.psf";
   };
 }
