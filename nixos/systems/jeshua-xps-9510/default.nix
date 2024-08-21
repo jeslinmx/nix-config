@@ -28,6 +28,7 @@ in nixpkgs.lib.nixosSystem {
     windows-fonts
   ;}) ++ [
     nixos-hardware.nixosModules.dell-xps-15-9510
+    nixos-hardware.nixosModules.dell-xps-15-9510-nvidia
     lanzaboote.nixosModules.lanzaboote
     ({pkgs, config, ...}: {
       system.stateVersion = "24.05";
@@ -75,7 +76,6 @@ in nixpkgs.lib.nixosSystem {
     {
       specialisation.personal.configuration = {
         imports = [
-          nixos-hardware.nixosModules.dell-xps-15-9510-nvidia
           flake.nixosModules.zerotier
         ];
         networking.hostName = "jeshua-nixos";
