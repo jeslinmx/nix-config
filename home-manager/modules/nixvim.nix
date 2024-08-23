@@ -68,6 +68,9 @@
       { key = "<Leader>bse"; action = "<Cmd>BufferLineSortByExtension<CR>"; options.desc = "...by extension"; }
       { key = "<Leader>bsr"; action = "<Cmd>BufferLineSortByRelativeDirectory<CR>"; options.desc = "...by relative directory"; }
       { key = "<Leader>bst"; action = "<Cmd>BufferLineSortByTabs<CR>"; options.desc = "...by tab"; }
+
+      { key = "<Leader>?"; action = ""; options.desc = "+docs"; }
+      { key = "<Leader>?n"; action = "<Cmd>Telescope manix<CR>"; options.desc = "NixOS options"; }
     ];
     plugins = {
       mini = {
@@ -259,6 +262,10 @@
             path_display = "filename_first";
           };
         };
+        extensions = {
+          undo.enable = true;
+        };
+        enabledExtensions = [ "manix" ];
       };
       todo-comments = { enable = true; };
       toggleterm = { enable = true; };
@@ -281,7 +288,10 @@
       obsidian = {};
     };
     extraPlugins = builtins.attrValues {
-      inherit (pkgs.vimPlugins) vim-sleuth vim-numbertoggle;
+      inherit (pkgs.vimPlugins) telescope-manix vim-sleuth vim-numbertoggle;
+    };
+    extraPackages = builtins.attrValues {
+      inherit (pkgs) manix;
     };
   };
 }
