@@ -14,5 +14,8 @@
     };
   };
   hardware.nvidia-container-toolkit.enable = lib.mkDefault (builtins.elem "nvidia" config.services.xserver.videoDrivers);
-  environment.systemPackages= [ pkgs.podman-compose ];
+  environment.systemPackages = builtins.attrValues { inherit (pkgs)
+    podman-compose
+    lazydocker
+  ;};
 }

@@ -142,7 +142,7 @@ in nixpkgs.lib.nixosSystem {
         hmUsers.jeshua = {
           uid = 1000;
           description = "Jeshua Lin";
-          extraGroups = ["wheel" "scanner" "lp" "wireshark"];
+          extraGroups = ["wheel" "scanner" "lp" "podman" "libvirtd" "wireshark"];
           hashedPassword = "$y$j9T$oXg5n5hIIpz9JZG8QvTLr1$MKjw1m695.YQcJeaXcrbIItHaM8FvMYiAz4USTL4Vl1";
           hmModules = (builtins.attrValues { inherit (flake.homeModules)
             aesthetics
