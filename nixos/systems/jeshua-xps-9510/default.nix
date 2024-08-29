@@ -22,6 +22,7 @@ in nixpkgs.lib.nixosSystem {
     gnome
     home-manager-users
     ios-usb
+    sshd
     secure-boot
     stylix
     virtualisation
@@ -73,7 +74,7 @@ in nixpkgs.lib.nixosSystem {
     })
 
     ### jeshua-nixos specialisation ###
-    {
+    ({ lib, pkgs, ... }: {
       specialisation.personal.configuration = {
         imports = [
           flake.nixosModules.zerotier
@@ -84,6 +85,7 @@ in nixpkgs.lib.nixosSystem {
           { device = "/dev/personal/home";
           fsType = "ext4";
         };
+        services.openssh.listenAddresses = [ { addr = "192.168.222.51"; } ];
         # TODO: remove when https://github.com/danth/stylix/issues/442 goes through
         stylix.image = ./wallpaper.jpg;
 
@@ -92,6 +94,10 @@ in nixpkgs.lib.nixosSystem {
           description = "Jeshy";
           extraGroups = ["wheel" "scanner" "lp" "podman" "libvirtd" "wireshark"];
           hashedPassword = "$y$j9T$Y1nDY/UdDZ6g//Kz84SaL/$N1pm904Az.rHaZu3GjQHIRY02sAUdUlkq5QaBsenZ.D";
+          openssh.authorizedKeys.keys = lib.splitString "\n" ( lib.readFile ( pkgs.fetchurl {
+              url = "https://github.com/jeslinmx.keys";
+              hash = "sha256-iMuMcvz+q3BPKtsv0ZXBzy6Eps4uh9Fj7z92wdONZq4=";
+          }));
           hmModules = (builtins.attrValues { inherit (flake.homeModules)
             aesthetics
             ai
@@ -120,12 +126,13 @@ in nixpkgs.lib.nixosSystem {
           }];
         };
       };
-    }
+    })
 
     ### jeshua-speqtral specialisation ###
     ({ lib, config, pkgs, ... }: {
       config = lib.mkIf (config.specialisation != {}) {
         networking.hostName = "jeshua-speqtral";
+        services.openssh.authorizedKeysInHomedir = lib.mkForce true;
         stylix = {
           image = ./speqtral.png;
           targets.plymouth = {
@@ -144,6 +151,10 @@ in nixpkgs.lib.nixosSystem {
           description = "Jeshua Lin";
           extraGroups = ["wheel" "scanner" "lp" "podman" "libvirtd" "wireshark"];
           hashedPassword = "$y$j9T$oXg5n5hIIpz9JZG8QvTLr1$MKjw1m695.YQcJeaXcrbIItHaM8FvMYiAz4USTL4Vl1";
+          openssh.authorizedKeys.keys = lib.splitString "\n" ( lib.readFile ( pkgs.fetchurl {
+              url = "https://github.com/jeslinmx.keys";
+              hash = "sha256-iMuMcvz+q3BPKtsv0ZXBzy6Eps4uh9Fj7z92wdONZq4=";
+          }));
           hmModules = (builtins.attrValues { inherit (flake.homeModules)
             aesthetics
             cli-programs
