@@ -5,19 +5,21 @@
   in {
     autoCmd = [];
     autoGroups = {};
-    editorconfig = {
-      enable = true;
-    };
+    clipboard.register = "unnamedplus";
+    editorconfig.enable = true;
     globalOpts = {
       listchars = "trail:◦,multispace:◦,leadmultispace:\ ,nbsp:⍽,tab:-->,precedes:«,extends:»";
       sidescroll = 5;
       timeoutlen = 300;
+      foldmethod = "indent";
     };
     globals = {
       mapleader = " ";
     };
     highlight = {};
-    keymaps = [
+    keymaps = let
+      group = key: desc: { inherit key; action = "<Cmd>WhichKey ${key}<CR>"; options.desc = desc; };
+    in [
       { key = "-"; action = "<Cmd>Oil<CR>"; mode = [ "n" ]; }
       { key = "jj"; action = "<Esc>"; mode = [ "i" ]; }
       { key = "jj"; action = "<C-\\><C-N>"; mode = [ "t" ]; }
@@ -26,7 +28,33 @@
 
       { key = "<Leader>~"; action = "<Cmd>Alpha<CR>"; options.desc = "Open start screen (Alpha)"; }
 
-      { key = "<Leader>b"; action = ""; options.desc = "+buffer"; }
+      ( group "<Leader><Leader>" "+scope" )
+      { key = "<Leader><Leader>a"; action = "<Cmd>Telescope autocommands<CR>"; options.desc = "autocommands"; }
+      { key = "<Leader><Leader>b"; action = "<Cmd>Telescope buffers<CR>"; options.desc = "buffers"; }
+      { key = "<Leader><Leader>c"; action = "<Cmd>Telescope commands<CR>"; options.desc = "commands"; }
+      { key = "<Leader><Leader>f"; action = "<Cmd>Telescope find_files<CR>"; options.desc = "files"; }
+      { key = "<Leader><Leader>r"; action = "<Cmd>Telescope live_grep<CR>"; options.desc = "ripgrep"; }
+      { key = "<Leader><Leader>:"; action = "<Cmd>Telescope command_history<CR>"; options.desc = ":-history"; }
+      { key = "<Leader><Leader>h"; action = "<Cmd>Telescope help_tags<CR>"; options.desc = "help"; }
+      { key = "<Leader><Leader>j"; action = "<Cmd>Telescope jumplist<CR>"; options.desc = "jumps"; }
+      { key = "<Leader><Leader>m"; action = "<Cmd>Telescope man_pages<CR>"; options.desc = "man"; }
+      { key = "<Leader><Leader>x"; action = "<Cmd>Telescope oldfiles<CR>"; options.desc = "recently closed"; }
+      { key = "<Leader><Leader>o"; action = "<Cmd>Telescope vim_options<CR>"; options.desc = "options"; }
+      { key = "<Leader><Leader>t"; action = "<Cmd>Telescope filetypes<CR>"; options.desc = "filetypes"; }
+      { key = "<Leader><Leader>'"; action = "<Cmd>Telescope marks<CR>"; options.desc = "marks"; }
+      { key = "<Leader><Leader>\""; action = "<Cmd>Telescope registers<CR>"; options.desc = "registers"; }
+      { key = "<Leader><Leader>/"; action = "<Cmd>Telescope current_buffer_fuzzy_find<CR>"; options.desc = "current buffer (fuzzy)"; }
+
+      ( group "<Leader><Leader>g" "+git" )
+      { key = "<Leader><Leader>gc"; action = "<Cmd>Telescope git_bcommits<CR>"; options.desc = "commits (current file)"; }
+      { key = "<Leader><Leader>gc"; action = "<Cmd>Telescope git_bcommits_range<CR>"; options.desc = "commits (range)"; mode = ["o" "v"]; }
+      { key = "<Leader><Leader>gC"; action = "<Cmd>Telescope git_commits<CR>"; options.desc = "commits (working dir)"; }
+      { key = "<Leader><Leader>gb"; action = "<Cmd>Telescope git_branches<CR>"; options.desc = "branches"; }
+      { key = "<Leader><Leader>gf"; action = "<Cmd>Telescope git_files<CR>"; options.desc = "files"; }
+      { key = "<Leader><Leader>gs"; action = "<Cmd>Telescope git_stash<CR>"; options.desc = "stash"; }
+      { key = "<Leader><Leader>gd"; action = "<Cmd>Telescope git_status<CR>"; options.desc = "diff/status"; }
+
+      ( group "<Leader>b" "+buffer" )
       { key = "<Leader>bn"; action = "<Cmd>enew<CR>"; options.desc = "New"; }
       { key = "<Leader>bb"; action = "<Cmd>BufferLinePick<CR>"; options.desc = "Jump to buffer..."; }
       { key = "<Leader>bp"; action = "<Cmd>BufferLineTogglePin<CR>"; options.desc = "Pin"; }
@@ -35,7 +63,7 @@
       { key = "<Leader>bx"; action = "<Cmd>lua MiniBufremove.delete()<CR>"; options.desc = "Close"; }
       { key = "<Leader>b<C-x>"; action = "<Cmd>BufferLineCloseOthers<CR>"; options.desc = "Close all"; }
 
-      { key = "<Leader>bs"; action = ""; options.desc = "+sort"; }
+      ( group "<Leader>bs" "+sort" )
       { key = "<Leader>bsd"; action = "<Cmd>BufferLineSortByDirectory<CR>"; options.desc = "...by directory"; }
       { key = "<Leader>bse"; action = "<Cmd>BufferLineSortByExtension<CR>"; options.desc = "...by extension"; }
       { key = "<Leader>bsr"; action = "<Cmd>BufferLineSortByRelativeDirectory<CR>"; options.desc = "...by relative directory"; }
@@ -149,10 +177,89 @@
         rightMouseCommand = "";
       };
       fidget = { enable = true; }; # minimalist notifications and LSP messages
-      lualine = { enable = true; };
+      lualine = {
+        enable = true;
+        extensions = [];
+        sections = {
+          lualine_a = [
+            {
+              name = "mode";
+              separator.left = "";
+              fmt = ''
+                function(str) return ({
+                  NORMAL = "",
+                  INSERT = "󰏫",
+                  COMMAND = ":",
+                  VISUAL = "󰛐",
+                  ['V-LINE'] = "󱀧",
+                  ['V-BLOCK'] = "󱈝",
+                  SELECT = "",
+                  ['S-LINE'] = "",
+                  ['S-BLOCK'] = "󰒅",
+                  REPLACE = "󰯍",
+                  ['V-REPLACE'] = "󰾵",
+                  TERMINAL = "",
+                  ['O-PENDING'] = "…",
+                  EX = "E",
+                  MORE = "",
+                  CONFIRM = "",
+                  SHELL = ""
+                })[str] end
+              '';
+            }
+          ];
+          lualine_b = [
+            "branch"
+            "diff"
+          ];
+          lualine_c = [
+            { name = "filetype"; padding = { left = 1; right = 0; }; extraConfig = { icon_only = true; draw_empty = true; }; }
+            { name = "filename";
+              padding = { left = 0; right = 1; };
+              extraConfig = {
+                newfile_status = true;
+                path = 1;
+                symbols = {
+                  modified = "󰏫";
+                  readonly = "󰏯";
+                  newfile = "";
+                };
+              }; }
+            "encoding"
+            "fileformat"
+          ];
+          lualine_x = [
+            "searchcount"
+            "selectioncount"
+          ];
+          lualine_y = [
+            "progress"
+            "location"
+          ];
+          lualine_z = [
+            { name = "diagnostics"; separator.right = ""; extraConfig.draw_empty = true; }
+          ];
+        };
+        sectionSeparators = {
+          left = "";
+          right = "";
+        };
+        componentSeparators = {
+          left = "";
+          right = "";
+        };
+      };
       oil = { enable = true; };
       statuscol = { enable = true; };
-      telescope = { enable = true; };
+      telescope = {
+        enable = true;
+        settings = {
+          defaults = {
+            sorting_strategy = "ascending";
+            path_display = "filename_first";
+          };
+        };
+      };
       todo-comments = { enable = true; };
       toggleterm = { enable = true; };
       trouble = { enable = true; }; # problems pane
@@ -163,6 +270,7 @@
           gh = "Hunks to apply";
           gH = "Hunks to reset";
         };
+        triggersNoWait = [ "<leader>" ];
       };
       wilder = { enable = true; }; # fancier :-menu
       zen-mode = { enable = true; };
