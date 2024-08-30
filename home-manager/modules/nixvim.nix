@@ -12,6 +12,7 @@
       sidescroll = 5;
       timeoutlen = 300;
       foldmethod = "indent";
+      foldlevelstart = 99;
     };
     globals = {
       mapleader = " ";
@@ -98,15 +99,6 @@
           ai = {}; # more text objects
           operators = {}; # ReplaceWithRegister (and others)
           bufremove = {}; # vim-bbye
-          pairs = {}; # auto-pairs
-          surround = {
-            mappings = {
-              add = "ys";
-              delete = "ds";
-              replace = "cs";
-              find = ""; find_left = ""; highlight = ""; update_n_lines = "";
-            };
-          };
           indentscope = {
             draw = {
               delay = 0;
@@ -145,7 +137,6 @@
       leap = {};
       mark-radar = {}; # highlight marks
       multicursors = {};
-      nvim-autopairs = {};
       nvim-colorizer = {};
       nvim-lightbulb = {}; # code action available indicator
       nvim-ufo = {}; # better folds
@@ -153,6 +144,7 @@
       rainbow-delimiters = {};
       refactoring = {};
       spider = {}; # better word movements
+      surround = { enable = true; };
       trim = {}; # trailing whitespace and lines
       yanky = {}; # yank ring and history
 
@@ -187,14 +179,15 @@
           lualine_a = [
             {
               name = "mode";
-              separator.left = "";
+              padding = 0;
+              separator = { left = ""; right = " "; };
               fmt = ''
                 function(str) return ({
                   NORMAL = "",
                   INSERT = "󰏫",
                   COMMAND = ":",
-                  VISUAL = "󰛐",
-                  ['V-LINE'] = "󱀧",
+                  VISUAL = "󰈈",
+                  ['V-LINE'] = "󱀦",
                   ['V-BLOCK'] = "󱈝",
                   SELECT = "",
                   ['S-LINE'] = "",
@@ -204,30 +197,31 @@
                   TERMINAL = "",
                   ['O-PENDING'] = "…",
                   EX = "E",
-                  MORE = "",
-                  CONFIRM = "",
-                  SHELL = ""
+                  MORE = "",
+                  CONFIRM = ">",
+                  SHELL = "$"
                 })[str] end
               '';
             }
           ];
           lualine_b = [
-            "branch"
+            { name = "branch"; separator.left = ""; }
             "diff"
           ];
           lualine_c = [
-            { name = "filetype"; padding = { left = 1; right = 0; }; extraConfig = { icon_only = true; draw_empty = true; }; }
+            {
+              name = "filetype";
+              padding = { left = 1; right = 0; };
+              extraConfig = { icon_only = true; draw_empty = true; };
+            }
             { name = "filename";
               padding = { left = 0; right = 1; };
               extraConfig = {
                 newfile_status = true;
                 path = 1;
-                symbols = {
-                  modified = "󰏫";
-                  readonly = "󰏯";
-                  newfile = "";
-                };
-              }; }
+                symbols = { modified = "󰏫"; readonly = "󰏯"; newfile = ""; };
+              };
+            }
             "encoding"
             "fileformat"
           ];
@@ -237,10 +231,10 @@
           ];
           lualine_y = [
             "progress"
-            "location"
+            { name = "location"; separator.right = ""; }
           ];
           lualine_z = [
-            { name = "diagnostics"; separator.right = ""; extraConfig.draw_empty = true; }
+            { name = "diagnostics"; separator = { left = ""; right = " "; }; extraConfig.draw_empty = true; }
           ];
         };
         sectionSeparators = {
@@ -276,7 +270,14 @@
         enabledExtensions = [ "manix" ];
       };
       todo-comments = { enable = true; };
-      toggleterm = { enable = true; };
+      toggleterm = {
+        enable = true;
+        settings = {
+          open_mapping = "[[<c-\\>]]";
+          persist_mode = false;
+          auto_scroll = false;
+        };
+      };
       trouble = { enable = true; }; # problems pane
       twilight = { enable = true; }; # dims inactive code blocks using TS
       which-key = {
@@ -286,6 +287,9 @@
           gH = "Hunks to reset";
         };
         triggersNoWait = [ "<leader>" ];
+        window = {
+          border = "single";
+        };
       };
       wilder = { enable = true; }; # fancier :-menu
       zen-mode = { enable = true; };
@@ -296,7 +300,7 @@
       obsidian = {};
     };
     extraPlugins = builtins.attrValues {
-      inherit (pkgs.vimPlugins) telescope-manix vim-sleuth vim-numbertoggle;
+      inherit (pkgs.vimPlugins) auto-pairs telescope-manix vim-sleuth vim-numbertoggle;
     };
     extraPackages = builtins.attrValues {
       inherit (pkgs) manix;
