@@ -20,6 +20,8 @@
     highlight = {};
     keymaps = let
       group = key: desc: { inherit key; action = "<Cmd>WhichKey ${key}<CR>"; options.desc = desc; };
+      tuiDefaults = { direction = "float"; close_on_exit = true; };
+      tuiToggleTerm = opts: "<Cmd>lua require('toggleterm.terminal').Terminal:new(${config.nixvim.helpers.toLuaObject (tuiDefaults // opts)}):toggle()<CR>";
     in [
       { key = "-"; action = "<Cmd>Oil<CR>"; mode = [ "n" ]; }
       { key = "jj"; action = "<Esc>"; mode = [ "i" ]; }
@@ -69,6 +71,12 @@
       { key = "<Leader>bse"; action = "<Cmd>BufferLineSortByExtension<CR>"; options.desc = "...by extension"; }
       { key = "<Leader>bsr"; action = "<Cmd>BufferLineSortByRelativeDirectory<CR>"; options.desc = "...by relative directory"; }
       { key = "<Leader>bst"; action = "<Cmd>BufferLineSortByTabs<CR>"; options.desc = "...by tab"; }
+
+      ( group "<Leader>t" "+term" )
+      { key = "<Leader>tl"; action = tuiToggleTerm { cmd = "lazygit"; }; options.desc = "lazygit"; }
+      { key = "<Leader>tb"; action = tuiToggleTerm { cmd = "btop"; }; options.desc = "btop"; }
+      { key = "<Leader>tm"; action = tuiToggleTerm { cmd = "mitmproxy"; }; options.desc = "mitmproxy"; }
+      { key = "<Leader>tv"; action = tuiToggleTerm { cmd = "visidata"; }; options.desc = "visidata"; }
 
       { key = "<Leader>?"; action = ""; options.desc = "+docs"; }
       { key = "<Leader>?n"; action = "<Cmd>Telescope manix<CR>"; options.desc = "NixOS options"; }
