@@ -252,7 +252,15 @@
           right = "";
         };
       };
-      oil = { enable = true; };
+      oil = {
+        enable = true;
+        settings = {
+          columns = [ "permissions" "size" "mtime" "icon" ];
+          buf_options = {
+            buflisted = true;
+          };
+        };
+      };
       statuscol = { enable = true; };
       telescope = {
         enable = true;
