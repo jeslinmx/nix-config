@@ -25,6 +25,7 @@ in nixpkgs.lib.nixosSystem {
     sshd
     secure-boot
     stylix
+    systemd-boot
     virtualisation
     windows-fonts
   ;}) ++ [
