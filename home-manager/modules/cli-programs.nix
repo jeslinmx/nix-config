@@ -72,9 +72,17 @@
   home.packages = builtins.attrValues { inherit (pkgs)
       fd
       dig
+      lazydocker
       unzip
       visidata
       httpie
       mitmproxy
     ;};
+  home.file = {
+    ".config/lazydocker/config.yml".source = pkgs.writers.writeYAML "config.yml" {
+      commandTemplates = {
+        dockerCompose = "podman compose";
+      };
+    };
+  };
 }
