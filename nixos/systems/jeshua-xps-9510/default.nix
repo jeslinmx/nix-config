@@ -22,6 +22,7 @@ in nixpkgs.lib.nixosSystem {
     gnome
     home-manager-users
     ios-usb
+    java
     sshd
     secure-boot
     stylix
