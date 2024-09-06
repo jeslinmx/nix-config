@@ -95,14 +95,22 @@
     };
 
     systems = [ "x86_64-linux" ];
-    perSystem = { pkgs, ... }: {
-      packages = {
-        default = self.nixosConfigurations.jeshua-toolbelt.config.system.build.isoImage;
-        jeshua-devbox = self.nixosConfigurations.jeshua-devbox.config.formats.proxmox-lxc;
-      };
+    perSystem = { pkgs, system, ... }: {
       formatter = pkgs.alejandra;
       devshells.default = {
         commands = [
+          {
+            name = "build-toolbelt";
+            category = "build";
+            help = "Build jeshua-toolbelt iso";
+            command = ''
+              ${inputs.nixos-generators.apps.${system}.nixos-generate.program} \
+                --flake $PRJ_ROOT#jeshua-toolbelt \
+                --system $${1:-${system}} \
+                --format iso \
+                --show-trace
+            '';
+          }
           { package = pkgs.nurl; category = "dev"; }
           { package = pkgs.nh; category = "build"; }
           { package = pkgs.nix-tree; category = "debug"; }
