@@ -29,10 +29,10 @@ in nixpkgs.lib.nixosSystem {
     systemd-boot
     virtualisation
     windows-fonts
-  ;}) ++ [
-    nixos-hardware.nixosModules.dell-xps-15-9510
-    nixos-hardware.nixosModules.dell-xps-15-9510-nvidia
-    lanzaboote.nixosModules.lanzaboote
+    ;
+    inherit (nixos-hardware.nixosModules) dell-xps-15-9510 dell-xps-15-9510-nvidia;
+    inherit (lanzaboote.nixosModules) lanzaboote;
+  }) ++ [
     ({pkgs, config, ...}: {
       system.stateVersion = "24.05";
       nixpkgs.config.allowUnfree = true;
