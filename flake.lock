@@ -342,7 +342,7 @@
     "home-manager": {
       "inputs": {
         "nixpkgs": [
-          "nixpkgs-nixos-stable"
+          "nixpkgs"
         ]
       },
       "locked": {
@@ -501,21 +501,6 @@
         "url": "https://github.com/NixOS/nixpkgs/archive/356624c12086a18f2ea2825fed34523d60ccc4e3.tar.gz"
       }
     },
-    "nixpkgs-nixos-stable": {
-      "locked": {
-        "lastModified": 1725407940,
-        "narHash": "sha256-tiN5Rlg/jiY0tyky+soJZoRzLKbPyIdlQ77xVgREDNM=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "6f6c45b5134a8ee2e465164811e451dcb5ad86e3",
-        "type": "github"
-      },
-      "original": {
-        "id": "nixpkgs",
-        "ref": "nixos-24.05",
-        "type": "indirect"
-      }
-    },
     "nixpkgs-patched": {
       "locked": {
         "lastModified": 1723000376,
@@ -646,7 +631,6 @@
         "nixos-generators": "nixos-generators",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-nixos-stable": "nixpkgs-nixos-stable",
         "nixpkgs-patched": "nixpkgs-patched",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nixvim": "nixvim",

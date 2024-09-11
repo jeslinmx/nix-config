@@ -12,7 +12,6 @@
     # nixpkgs
     nixpkgs.url = "nixpkgs/release-24.05";
     nixpkgs-unstable.url = "nixpkgs";
-    nixpkgs-nixos-stable.url = "nixpkgs/nixos-24.05";
     nixpkgs-patched.url = "github:jeslinmx/nixpkgs/patch-1";
 
     # NixOS modules
@@ -32,7 +31,7 @@
     # Home Manager
     home-manager = {
       url = "github:nix-community/home-manager/release-24.05";
-      inputs.nixpkgs.follows = "nixpkgs-nixos-stable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     nixvim = {
       url = "github:nix-community/nixvim/nixos-24.05";
