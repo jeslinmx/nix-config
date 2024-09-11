@@ -9,6 +9,7 @@
 {
   imports = builtins.attrValues { inherit (flake.homeModules)
     atuin
+    comma
     fish
     fzf
     git
@@ -21,7 +22,6 @@
   programs = {
     home-manager.enable = true;
     carapace.enable = true;
-    nix-index.enable = true;
     pandoc.enable = true;
     thefuck.enable = true;
     yazi.enable = true;
