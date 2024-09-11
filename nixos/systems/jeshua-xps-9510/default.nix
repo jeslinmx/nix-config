@@ -65,8 +65,11 @@ in nixpkgs.lib.nixosSystem {
 
       ### ENVIRONMENT CUSTOMIZATION ###
       nixpkgs.hostPlatform = "x86_64-linux";
-      hardware.enableRedistributableFirmware = true;
-      hardware.cpu.intel.updateMicrocode = config.hardware.enableRedistributableFirmware;
+      hardware = {
+        nvidia.open = false; # currently broken
+        enableRedistributableFirmware = true;
+        cpu.intel.updateMicrocode = config.hardware.enableRedistributableFirmware;
+      };
       services.flatpak.enable = true;
       programs.wireshark.enable = true;
 
