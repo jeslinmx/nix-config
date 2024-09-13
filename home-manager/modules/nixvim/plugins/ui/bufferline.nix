@@ -4,10 +4,10 @@
       { key = "<Leader>bn"; action = "<Cmd>enew<CR>"; options.desc = "New"; }
       { key = "<Leader>bb"; action = "<Cmd>BufferLinePick<CR>"; options.desc = "Jump to buffer..."; }
       { key = "<Leader>bp"; action = "<Cmd>BufferLineTogglePin<CR>"; options.desc = "Pin"; }
-      { key = "<Leader>b<"; action = "<Cmd>BufferLineMovePrev<CR>"; options.desc = "Move left"; }
-      { key = "<Leader>b>"; action = "<Cmd>BufferLineMoveNext<CR>"; options.desc = "Move right"; }
-      { key = "<Leader>bx"; action = "<Cmd>lua MiniBufremove.delete()<CR>"; options.desc = "Close"; }
-      { key = "<Leader>b<C-x>"; action = "<Cmd>BufferLineCloseOthers<CR>"; options.desc = "Close all"; }
+      { key = "<Leader>bh"; action = "<Cmd>BufferLineMovePrev<CR>"; options.desc = "Move left"; }
+      { key = "<Leader>bl"; action = "<Cmd>BufferLineMoveNext<CR>"; options.desc = "Move right"; }
+      { key = "<Leader>bq"; action = "<Cmd>lua MiniBufremove.delete()<CR>"; options.desc = "Close"; }
+      { key = "<Leader>bo"; action = "<Cmd>BufferLineCloseOthers<CR>"; options.desc = "Close others"; }
 
       { key = "<Leader>bsd"; action = "<Cmd>BufferLineSortByDirectory<CR>"; options.desc = "...by directory"; }
       { key = "<Leader>bse"; action = "<Cmd>BufferLineSortByExtension<CR>"; options.desc = "...by extension"; }
