@@ -11,7 +11,7 @@
 
     # nixpkgs
     nixpkgs.url = "nixpkgs/release-24.05";
-    nixpkgs-unstable.url = "nixpkgs";
+    nixpkgs-unstable.url = "nixpkgs/nixpkgs-unstable";
     nixpkgs-patched.url = "github:jeslinmx/nixpkgs/patch-1";
 
     # NixOS modules
