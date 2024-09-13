@@ -6,27 +6,30 @@
   ...
 }:
 let
-  pkgs-unstable = import flake.inputs.nixpkgs-unstable { inherit (pkgs) system; };
-  extensions = lib.attrValues { inherit (pkgs-unstable.gnomeExtensions)
+  pkgs-unstable = import flake.inputs.nixpkgs-unstable { inherit (pkgs) system config; };
+  extensions = lib.attrValues {
+    inherit (pkgs.gnomeExtensions)
     appindicator
     autohide-battery
     wallpaper-slideshow
     bluetooth-battery-meter
-    blur-my-shell
     caffeine
-    clipboard-indicator
+    # clipboard-indicator
     dash-to-panel
-    dim-background-windows
     removable-drive-menu
     gtk4-desktop-icons-ng-ding
     middle-click-to-close-in-overview
-    quick-settings-tweaker
     syncthing-indicator
     task-widget
-    tiling-assistant
     windownavigator
     wtmb-window-thumbnails
-  ;};
+    ;
+    inherit (pkgs-unstable.gnomeExtensions)
+    dim-background-windows
+    quick-settings-tweaker
+    tiling-shell
+    ;
+  };
 in lib.mkIf (osConfig.services.xserver.desktopManager.gnome.enable or false) {
   home.packages = extensions;
 
@@ -138,28 +141,10 @@ in lib.mkIf (osConfig.services.xserver.desktopManager.gnome.enable or false) {
       enable-battery-level-text = true;
     };
 
-    "org/gnome/shell/extensions/blur-my-shell/applications" = {
-      enable-all = true;
-      opacity = 230;
-    };
-
-    "org/gnome/shell/extensions/blur-my-shell/panel" = {
-      override-background-dynamically = true;
-      static-blur = false;
-    };
-
     "org/gnome/shell/extensions/caffeine" = {
       countdown-timer = 0;
       duration-timer = 2;
       indicator-position-max = 1;
-    };
-
-    "org/gnome/shell/extensions/clipboard-indicator" = {
-      disable-down-arrow = true;
-      display-mode = 0;
-      enable-keybindings = false;
-      notify-on-copy = false;
-      topbar-preview-size = 10;
     };
 
     "org/gnome/shell/extensions/dash-to-panel" = {
@@ -229,54 +214,15 @@ in lib.mkIf (osConfig.services.xserver.desktopManager.gnome.enable or false) {
       hide-empty-completed-task-lists = true;
     };
 
-    "org/gnome/shell/extensions/tiling-assistant" = {
-      activate-layout0 = [];
-      activate-layout1 = [];
-      activate-layout2 = [];
-      activate-layout3 = [];
-      active-window-hint = 0;
-      active-window-hint-border-size = 1;
-      active-window-hint-color = "rgb(53,132,228)";
-      active-window-hint-inner-border-size = 0;
-      auto-tile = [];
-      center-window = [];
-      debugging-free-rects = [];
-      debugging-show-tiled-rects = [];
-      default-move-mode = 0;
-      dynamic-keybinding-behavior = 3;
-      enable-advanced-experimental-features = false;
-      import-layout-examples = false;
-      last-version-installed = 45;
-      maximize-with-gap = false;
-      move-adaptive-tiling-mod = 3;
-      overridden-settings = "{'org.gnome.mutter.edge-tiling': <true>, 'org.gnome.desktop.wm.keybindings.maximize': <['<Super>Up']>, 'org.gnome.desktop.wm.keybindings.unmaximize': <['<Super>Down']>, 'org.gnome.mutter.keybindings.toggle-tiled-left': <['<Super>Left']>, 'org.gnome.mutter.keybindings.toggle-tiled-right': <['<Super>Right']>}";
-      restore-window = ["<Super>Down"];
-      search-popup-layout = [];
-      show-layout-panel-indicator = false;
-      single-screen-gap = 10;
-      tile-bottom-half = ["<Super>KP_2"];
-      tile-bottom-half-ignore-ta = [];
-      tile-bottomleft-quarter = ["<Super>KP_1"];
-      tile-bottomleft-quarter-ignore-ta = [];
-      tile-bottomright-quarter = ["<Super>KP_3"];
-      tile-bottomright-quarter-ignore-ta = [];
-      tile-edit-mode = [];
-      tile-left-half = ["<Super>Left" "<Super>KP_4"];
-      tile-left-half-ignore-ta = [];
-      tile-maximize = ["<Super>Up" "<Super>KP_5"];
-      tile-maximize-horizontally = [];
-      tile-maximize-vertically = [];
-      tile-right-half = ["<Super>Right" "<Super>KP_6"];
-      tile-right-half-ignore-ta = [];
-      tile-top-half = ["<Super>KP_8"];
-      tile-top-half-ignore-ta = [];
-      tile-topleft-quarter = ["<Super>KP_7"];
-      tile-topleft-quarter-ignore-ta = [];
-      tile-topright-quarter = ["<Super>KP_9"];
-      tile-topright-quarter-ignore-ta = [];
-      toggle-always-on-top = [];
-      toggle-tiling-popup = [];
-      window-gap = 10;
+    "org/gnome/shell/extensions/tilingshell" = {
+      enable-blur-selected-tilepreview = false;
+      enable-blur-snap-assistant = false;
+      inner-gaps = lib.hm.gvariant.mkUint32 8;
+      last-version-name-installed = "11.1";
+      layouts-json = "[{\"id\":\"Layout 1\",\"tiles\":[{\"x\":0,\"y\":0,\"width\":0.22,\"height\":0.5,\"groups\":[1,2]},{\"x\":0,\"y\":0.5,\"width\":0.22,\"height\":0.5,\"groups\":[1,2]},{\"x\":0.22,\"y\":0,\"width\":0.56,\"height\":1,\"groups\":[2,3]},{\"x\":0.78,\"y\":0,\"width\":0.22,\"height\":0.5,\"groups\":[3,4]},{\"x\":0.78,\"y\":0.5,\"width\":0.22,\"height\":0.5,\"groups\":[3,4]}]},{\"id\":\"Layout 2\",\"tiles\":[{\"x\":0,\"y\":0,\"width\":0.22,\"height\":1,\"groups\":[1]},{\"x\":0.22,\"y\":0,\"width\":0.56,\"height\":1,\"groups\":[1,2]},{\"x\":0.78,\"y\":0,\"width\":0.22,\"height\":1,\"groups\":[2]}]},{\"id\":\"Layout 3\",\"tiles\":[{\"x\":0,\"y\":0,\"width\":0.33,\"height\":1,\"groups\":[1]},{\"x\":0.33,\"y\":0,\"width\":0.67,\"height\":1,\"groups\":[1]}]},{\"id\":\"Layout 4\",\"tiles\":[{\"x\":0,\"y\":0,\"width\":0.67,\"height\":1,\"groups\":[1]},{\"x\":0.67,\"y\":0,\"width\":0.33,\"height\":1,\"groups\":[1]}]}]";
+      overridden-settings = "{\"org.gnome.mutter.keybindings\":{\"toggle-tiled-right\":\"@as []\",\"toggle-tiled-left\":\"@as []\"},\"org.gnome.desktop.wm.keybindings\":{\"maximize\":\"['<Super>Up']\",\"unmaximize\":\"@as []\"},\"org.gnome.mutter\":{\"edge-tiling\":\"false\"}}";
+      selected-layouts = [ "Layout 1" "Layout 1" ];
+      top-edge-maximize = true;
     };
 
     "org/gnome/shell/extensions/window-thumbnails" = {
