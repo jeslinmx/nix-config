@@ -2,11 +2,7 @@
   flake,
   pkgs,
   ...
-}: let
-    nixpkgs-config = {inherit (pkgs) system config;};
-    unstable = import flake.inputs.nixpkgs-unstable nixpkgs-config;
-  in
-{
+}: {
   imports = builtins.attrValues { inherit (flake.homeModules)
     atuin
     comma
