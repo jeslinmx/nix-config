@@ -1,48 +1,30 @@
-{
-  nixosModules,
-  nixpkgs,
-  nixos-hardware,
-  lanzaboote,
-  setup-hm,
-  ...
-} @ inputs:
-nixpkgs.lib.nixosSystem {
+flake: let inherit (flake.inputs) nixpkgs nixos-hardware lanzaboote;
+in nixpkgs.lib.nixosSystem {
   system = "x86_64-linux";
-  specialArgs = inputs;
-  modules = [
-    ({ pkgs, ...}: {
-      imports = (builtins.attrValues { inherit (nixosModules)
-        ### SETTINGS ###
-        enable-standard-hardware
-        locale-sg
-        nix-enable-flakes
-        nix-gc
-        sudo-disable-timeout
+  specialArgs = { inherit flake; };
+  modules = (builtins.attrValues { inherit (flake.nixosModules)
+    ### SETTINGS ###
+    enable-standard-hardware
+    locale-sg
+    nix-enable-flakes
+    nix-gc
+    sudo-disable-timeout
 
-        ### FEATURES ###
-        console
-        containers
-        secure-boot
-        syncthing-server
-        zerotier
-      ;}) ++ [
-        ./hardware-configuration.nix
-        nixos-hardware.nixosModules.common-pc
-        nixos-hardware.nixosModules.common-pc-ssd
-        nixos-hardware.nixosModules.common-cpu-intel
-        lanzaboote.nixosModules.lanzaboote
-        (setup-hm {
-          jeslinmx = {
-            uid = 1000;
-            extraGroups = ["wheel" "scanner" "lp" "podman"];
-            matchHmUsername = false;
-            hmCfg = {homeModules, ...}: {
-              imports = [ homeModules.cli-programs ];
-            };
-          };
-        })
-      ];
-
+    ### FEATURES ###
+    console
+    containers
+    home-manager-users
+    secure-boot
+    sshd
+    syncthing-server
+    systemd-boot
+    zerotier
+    ;
+    inherit (nixos-hardware.nixosModules) common-pc common-pc-ssd common-cpu-intel;
+    inherit (lanzaboote.nixosModules) lanzaboote;
+  }) ++ [
+    ./hardware-configuration.nix
+    ({ lib, pkgs, ...}: {
       system.stateVersion = "23.11";
       networking.hostName = "jam-server";
       nixpkgs.config.allowUnfree = true;
@@ -51,19 +33,18 @@ nixpkgs.lib.nixosSystem {
       ### BOOT CUSTOMIZATION ###
       boot.loader.timeout = 0;
 
-      ### ENVIRONMENT CUSTOMIZATION ###
-      services = {
-        openssh = {
-          enable = true;
-          settings = {
-            PasswordAuthentication = false;
-          };
-        };
-      };
-
       ### USER SETUP ###
       users.defaultUserShell = pkgs.fish;
       programs.fish.enable = true;
+      hmUsers.jeslinmx = {
+        uid = 1000;
+        extraGroups = ["wheel" "scanner" "lp" "podman"];
+          openssh.authorizedKeys.keys = lib.splitString "\n" ( lib.readFile ( pkgs.fetchurl {
+              url = "https://github.com/jeslinmx.keys";
+              hash = "sha256-iMuMcvz+q3BPKtsv0ZXBzy6Eps4uh9Fj7z92wdONZq4=";
+          }));
+        hmModules = [ flake.homeModules.cli-programs ];
+      };
     })
   ];
 }
