@@ -103,6 +103,14 @@
       devshells.default = {
         commands = [
           {
+            name = "deploy-server";
+            category = "build";
+            help = "Rebuild and switch jam-server config";
+            command = ''
+              nixos-rebuild switch --flake $PRJ_ROOT#jam-server --target-host jam-server --use-remote-sudo
+            '';
+          }
+          {
             name = "build-toolbelt";
             category = "build";
             help = "Build jeshua-toolbelt iso";
