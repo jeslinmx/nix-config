@@ -201,8 +201,8 @@ in lib.mkIf (osConfig.services.xserver.desktopManager.gnome.enable or false) {
     };
 
     "org/gnome/shell/extensions/dim-background-windows" = {
-      # saturation = 1.0;
-      target-monitor = "primary";
+      brightness = 0.6;
+      target-monitor = "all";
     };
 
     "org/gnome/shell/extensions/quick-settings-tweaks" = {
