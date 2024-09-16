@@ -11,7 +11,8 @@
       PermitRootLogin = "no";
       PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;
-      UsePAM = false;
+      # breaks remote nixos-rebuild somehow
+      # UsePAM = false;
       X11Forwarding = false;
     };
     extraConfig = ''
