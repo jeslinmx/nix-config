@@ -19,6 +19,7 @@ in nixpkgs.lib.nixosSystem {
     syncthing-server
     systemd-boot
     zerotier
+
     ;
     inherit (nixos-hardware.nixosModules) common-pc common-pc-ssd common-cpu-intel;
     inherit (lanzaboote.nixosModules) lanzaboote;
@@ -46,5 +47,7 @@ in nixpkgs.lib.nixosSystem {
         hmModules = [ flake.homeModules.cli-programs ];
       };
     })
+    ### SERVICES ###
+    ./silverbullet.nix
   ];
 }
