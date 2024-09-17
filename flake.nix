@@ -27,6 +27,13 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
+    };
 
     # Home Manager
     home-manager = {
@@ -126,8 +133,12 @@
           { package = pkgs.nh; category = "build"; }
           { package = pkgs.nix-tree; category = "debug"; }
           { package = pkgs.nix-melt; category = "debug"; }
+          { package = inputs.agenix.packages.${system}.default; category = "dev"; }
         ];
         packages = [ pkgs.nixd ];
+        env = [
+          { name = "RULES"; eval = "$PRJ_ROOT/secrets.nix"; }
+        ];
       };
     };
   });
