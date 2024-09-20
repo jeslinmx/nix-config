@@ -39,6 +39,7 @@
 in {
   options.zerotier.network-interfaces = lib.mkOption {
     type = lib.types.attrsOf lib.types.str;
+    description = "Mapping of ZeroTier network IDs to interface names";
     readOnly = true;
     default = builtins.listToAttrs (builtins.map (nwid: lib.nameValuePair nwid (ifrname nwid)) config.services.zerotierone.joinNetworks);
   };
@@ -47,10 +48,30 @@ in {
       enable = true;
       joinNetworks = builtins.attrNames zerotier-networks;
     };
-    systemd.network.networks = lib.mapAttrs' (nwid: config: lib.nameValuePair (ifrname nwid) { dns = config.dns.servers; }) zerotier-networks;
-    networking = {
-      nameservers = builtins.concatMap (config: config.dns.servers) (lib.attrValues zerotier-networks);
-      networkmanager.dns = lib.mkIf (!(config.services) ? zeronsd) "none"; # ensure that zeronsd servers can get their fallback resolver
+
+    # enable networkd and have it configure the specified DNS servers on the zt* interfaces
+    systemd.network = {
+      enable = true;
+      networks = lib.mapAttrs' (nwid: ztConfig:
+        lib.nameValuePair
+        "50-${ifrname nwid}"
+        {
+          name = ifrname nwid;
+          dns = ztConfig.config.dns.servers;
+          domains = [ ztConfig.config.dns.domain ];
+          networkConfig = {
+            KeepMaster = true;
+            KeepConfiguration = true;
+          };
+          linkConfig = {
+            ActivationPolicy = "manual";
+            RequiredForOnline = false;
+          };
+        }
+      ) zerotier-networks;
     };
+
+    # resolved is needed for networkd's dns assignments to take effect
+    services.resolved.enable = true;
   };
 }
