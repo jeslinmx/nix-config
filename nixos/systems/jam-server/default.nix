@@ -19,6 +19,7 @@ in nixpkgs.lib.nixosSystem {
     syncthing-server
     systemd-boot
     zerotier
+    zerotier-coredns
     ;
     inherit (nixos-hardware.nixosModules) common-pc common-pc-ssd common-cpu-intel;
     inherit (lanzaboote.nixosModules) lanzaboote;
@@ -32,6 +33,9 @@ in nixpkgs.lib.nixosSystem {
 
       ### BOOT CUSTOMIZATION ###
       boot.loader.timeout = 0;
+
+      ### ENVIRONMENT SETUP ###
+      age.secrets.zt_token.file = ./zt_token.age;
 
       ### USER SETUP ###
       users.defaultUserShell = pkgs.fish;
@@ -49,6 +53,5 @@ in nixpkgs.lib.nixosSystem {
 
     ### SERVICES ###
     ./silverbullet.nix
-    ./zeronsd.nix
   ];
 }
