@@ -112,20 +112,20 @@
           {
             name = "deploy-server";
             category = "build";
-            help = "Rebuild and switch jam-server config";
+            help = "Rebuild and switch <app-server> config";
             command = ''
-              nixos-rebuild switch --flake $PRJ_ROOT#jam-server --target-host jam-server --use-remote-sudo
+              nixos-rebuild switch --flake $PRJ_ROOT#''\${1:-app-server} --target-host ''\${1:-app-server} ''\${@:2}
             '';
           }
           {
-            name = "build-toolbelt";
+            name = "build-image";
             category = "build";
-            help = "Build jeshua-toolbelt iso";
+            help = "Build <jeshua-toolbelt> <iso> image for ${system}";
             command = ''
               ${inputs.nixos-generators.apps.${system}.nixos-generate.program} \
-                --flake $PRJ_ROOT#jeshua-toolbelt \
-                --system $${1:-${system}} \
-                --format iso \
+                --flake $PRJ_ROOT#''\${1:-jeshua-toolbelt} \
+                --format ''\${2:-iso} \
+                --system ''\${3:-${system}} \
                 --show-trace
             '';
           }

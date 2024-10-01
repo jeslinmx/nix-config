@@ -73,4 +73,6 @@
     timers."zerotier-hosts@".timerConfig.OnCalendar = "*-*-* *:*:00/15";
   };
 
+  age.secrets.zt_token.file = ./zt_token.age;
+
 }

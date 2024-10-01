@@ -2,8 +2,6 @@
   services.openssh = {
     enable = true;
 
-    ports = [ 7222 ];
-
     authorizedKeysInHomedir = false;
     startWhenNeeded = true;
 
