@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }: {
+{ config, lib, pkgs, ... }: {
   programs.firefox = {
     profiles = {
       default = {
@@ -12,14 +12,32 @@
           "browser.tabs.tabClipWidth" = 999; # clip tab close button on inactive tabs
           "browser.compactmode.show" = true; # compact UI density
           "browser.uidensity" = 1; # enable compact UI
+          "browser.uiCustomization.state" = builtins.toJSON {
+            "placements" = {
+              "nav-bar" = [
+                "customizableui-special-spring1"
+                "back-button"
+                "stop-reload-button"
+                "forward-button"
+                "urlbar-container"
+                "downloads-button"
+                "sync-button"
+                "unified-extensions-button"
+              ];
+              "toolbar-menubar" = [ "menubar-items" ];
+            };
+            "dirtyAreaCache" = [
+              "unified-extensions-area"
+              "nav-bar"
+              "toolbar-menubar"
+            ];
+            "currentVersion" = 20;
+          };
           "extensions.pocket.enabled" = false;
           "apz.overscroll.enabled" = true;
           "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
 
           # fonts
-          "font.name.monospace.x-western" = "CaskaydiaCove Nerd Font";
-          "font.name.sans-serif.x-western" = "Calibri";
-          "font.name.serif.x-western" = "Cambria";
           "font.size.variable.x-western" = 14;
 
           #"extensions.activeThemeID" = "default-theme@mozilla.org";
@@ -54,6 +72,7 @@
           "media.block-autoplay-until-in-foreground" = true;
           "media.block-play-until-document-interaction" = true;
           "media.block-play-until-visible" = true;
+          "media.videocontrols.picture-in-picture.enable-when-switching-tabs.enabled" = true;
         };
         userChrome = let verticalfox = pkgs.fetchFromGitHub {
           owner = "christorange";
@@ -69,9 +88,13 @@
               urls = [{ template = "https://mynixos.com/search?q={searchTerms}"; }];
               definedAliases = [ "mn" ];
             };
-            "Nixpkgs Versions" = {
-              urls = [{ template = "https://lazamar.co.uk/nix-versions/?channel=nixpkgs-unstable&package={searchTerms}"; }];
-              definedAliases = [ "nixver" ];
+            "NixHub" = {
+              urls = [{ template = "https://www.nixhub.io/packages/{searchTerms}"; }];
+              definedAliases = [ "nh" ];
+            };
+            "Minecraft Wiki" = {
+              urls = [{ template = "https://minecraft.wiki/?search={searchTerms}&title=Special%3ASearch&wprov=acrw1_-1"; }];
+              definedAliases = [ "mc" ];
             };
             "SpeQtral SharePoint" = {
               urls = [{ template = "https://speqtralquantum.sharepoint.com/_layouts/15/search.aspx/?q={searchTerms}"; }];
@@ -139,4 +162,5 @@
       };
     };
   };
+  stylix.targets.firefox.profileNames = [ "default" ];
 }

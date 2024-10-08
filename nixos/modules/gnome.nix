@@ -16,7 +16,6 @@
   programs.file-roller.enable = true;
   environment.systemPackages = (builtins.attrValues { inherit (pkgs)
     gnome-connections
-    unoconv # allows sushi to open Office files without crashing
   ; inherit (pkgs.gnome)
     dconf-editor
     eog

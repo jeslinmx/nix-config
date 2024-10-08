@@ -37,6 +37,5 @@ in {
   home.packages = builtins.attrValues { inherit (pkgs)
     wl-clipboard
     virt-manager
-    beeper
   ;};
 }
