@@ -54,6 +54,10 @@ in lib.mkIf (osConfig.services.xserver.desktopManager.gnome.enable or false) {
       sort-order = ["org.gnome.Documents.desktop" "org.gnome.Nautilus.desktop" "org.gnome.Contacts.desktop" "org.gnome.Calendar.desktop" "org.gnome.Settings.desktop" "org.gnome.Characters.desktop" "org.gnome.Software.desktop" "org.gnome.Calculator.desktop" "org.gnome.Weather.desktop" "org.gnome.Terminal.desktop" "org.gnome.clocks.desktop"];
     };
 
+    "org/gnome/desktop/session" = {
+      idle-delay = 0;
+    };
+
     "org/gnome/desktop/sound" = {
       allow-volume-above-100-percent = true;
     };
@@ -110,6 +114,7 @@ in lib.mkIf (osConfig.services.xserver.desktopManager.gnome.enable or false) {
     "org/gnome/settings-daemon/plugins/power" = {
       power-button-action = "hibernate";
       sleep-inactive-ac-type = "nothing";
+      sleep-inactive-battery-type = "nothing";
     };
 
     "org/gnome/shell" = {
