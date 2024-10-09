@@ -12,6 +12,7 @@
     lazygit
     nixvim
     starship
+    termshark
     tmux
   ;};
 

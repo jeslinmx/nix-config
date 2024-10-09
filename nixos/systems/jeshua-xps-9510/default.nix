@@ -107,7 +107,6 @@ in nixpkgs.lib.nixosSystem {
             cli-programs
             gui-programs
             gnome-shell
-            termshark
           ; inherit (flake.inputs.private-config.homeModules)
             ssh-personal-hosts
           ;}) ++ [{
