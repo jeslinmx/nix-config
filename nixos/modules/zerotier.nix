@@ -60,6 +60,7 @@ in {
           dns = ztConfig.config.dns.servers;
           domains = [ ztConfig.config.dns.domain ];
           networkConfig = {
+            DNSDefaultRoute = false; # only use this dns server for lookups on specified domain, never as catch-all
             KeepMaster = true;
             KeepConfiguration = true;
           };
