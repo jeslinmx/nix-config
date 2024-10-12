@@ -10,12 +10,10 @@ nixpkgs.lib.nixosSystem {
     locale-sg
     nix-enable-flakes
     nix-gc
-    plymouth
     power-management
     sudo-disable-timeout
 
     ### FEATURES ###
-    cloudflare-warp
     console
     containers
     enable-via-qmk
@@ -34,6 +32,8 @@ nixpkgs.lib.nixosSystem {
       ### ENVIRONMENT CUSTOMIZATION ###
       virtualisation.libvirtd.enable = true;
       programs.wireshark.enable = true;
+      networking.networkmanager.enable = lib.mkForce false; # https://github.com/nix-community/nixos-generators/issues/281
+      services.openssh.settings.PermitRootLogin = lib.mkForce "no"; # override install-iso default
       stylix.image = pkgs.fetchurl {
         url = "https://w.wallhaven.cc/full/e7/wallhaven-e7651w.jpg";
         hash = "sha256-RmrNy9hjIVvN8hfDaFMakTWCV0Ln8e0oBgEo8hZWPyA=";
@@ -48,7 +48,6 @@ nixpkgs.lib.nixosSystem {
         hmModules = (builtins.attrValues { inherit (flake.homeModules)
             cli-programs
             kitty
-            termshark
             ;
           }) ++ [{
             xdg.enable = true;

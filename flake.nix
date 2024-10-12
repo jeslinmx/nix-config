@@ -120,11 +120,11 @@
           {
             name = "build-image";
             category = "build";
-            help = "Build <jeshua-toolbelt> <iso> image for ${system}";
+            help = "Build <jeshua-toolbelt> <install-iso> image for ${system}";
             command = ''
               ${inputs.nixos-generators.apps.${system}.nixos-generate.program} \
                 --flake $PRJ_ROOT#''\${1:-jeshua-toolbelt} \
-                --format ''\${2:-iso} \
+                --format ''\${2:-install-iso} \
                 --system ''\${3:-${system}} \
                 --show-trace
             '';
