@@ -13,6 +13,10 @@ in {
     firefox.enable = true;
     kitty.enable = true;
     kitty.package = pkgs-unstable.kitty;
+    mangohud = {
+      enable = true;
+      enableSessionWide = true;
+    };
   };
 
   services.flatpak = {
