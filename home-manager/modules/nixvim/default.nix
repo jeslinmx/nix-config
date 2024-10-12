@@ -9,6 +9,8 @@
 
   home.packages = [ pkgs.zig ];
   programs.nixvim = {
+    defaultEditor = true;
+    vimdiffAlias = true;
     clipboard.register = "unnamedplus";
     editorconfig.enable = true;
     globalOpts = {

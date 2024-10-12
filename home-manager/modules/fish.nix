@@ -1,7 +1,6 @@
 {pkgs, ...}: {
   home = {
     sessionVariables = {
-      EDITOR = "nvim";
       PAGER = "less -R";
     };
     shellAliases = {

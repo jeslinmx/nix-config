@@ -62,7 +62,6 @@
     nixvim.enable = true;
     starship.enable = true;
     tmux.enable = true;
-    vim.enable = true;
   };
 
   # unnixed stuff
