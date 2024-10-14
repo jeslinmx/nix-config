@@ -20,7 +20,7 @@
       foldmethod = "indent";
       foldlevelstart = 99;
       wrap = true;
-      expandtabs = true;
+      expandtab = true;
       shiftwidth = 2;
       tabstop = 2;
     };
