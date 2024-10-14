@@ -28,6 +28,13 @@
       mapleader = " ";
     };
     highlight = {};
+    autoGroups = {
+      incsearch-highlight = {};
+    };
+    autoCmd = [
+      { group = "incsearch-highlight"; event = "CmdlineEnter"; pattern = "/,\?"; command = ":set hlsearch"; }
+      { group = "incsearch-highlight"; event = "CmdlineLeave"; pattern = "/,\?"; command = ":set nohlsearch"; }
+    ];
     keymaps = let
     in [
       { key = "-"; action = "<Cmd>Oil<CR>"; mode = [ "n" ]; }
