@@ -73,6 +73,7 @@ in nixpkgs.lib.nixosSystem {
       };
       services.flatpak.enable = true;
       programs.wireshark.enable = true;
+      programs.hyprland.enable = true;
 
       ### USER SETUP ###
       users.defaultUserShell = pkgs.fish;
@@ -107,6 +108,7 @@ in nixpkgs.lib.nixosSystem {
             cli-programs
             gui-programs
             gnome-shell
+            hyprland-support
           ; inherit (flake.inputs.private-config.homeModules)
             ssh-personal-hosts
           ;}) ++ [{
@@ -159,7 +161,7 @@ in nixpkgs.lib.nixosSystem {
             cli-programs
             gui-programs
             gnome-shell
-            termshark
+            hyprland-support
           ; inherit (flake.inputs.private-config.homeModules)
             awscli
             ssh-speqtral-hosts
