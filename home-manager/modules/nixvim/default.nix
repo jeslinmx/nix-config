@@ -17,6 +17,10 @@
       timeoutlen = 300;
       foldmethod = "indent";
       foldlevelstart = 99;
+      wrap = true;
+      expandtabs = true;
+      shiftwidth = 2;
+      tabstop = 2;
     };
     globals = {
       mapleader = " ";
