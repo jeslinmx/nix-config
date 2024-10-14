@@ -1,4 +1,4 @@
-flake: let inherit (flake.inputs) nixpkgs nixos-generators;
+flake: let inherit (flake.inputs) nixpkgs nixos-generators private-config;
 in nixpkgs.lib.nixosSystem {
   system = "x86_64-linux";
   specialArgs = { inherit flake; };
@@ -29,10 +29,7 @@ in nixpkgs.lib.nixosSystem {
       hmUsers.jeslinmx = {
         uid = 1000;
         extraGroups = ["wheel" "scanner" "lp" "docker"];
-          openssh.authorizedKeys.keys = lib.splitString "\n" ( lib.readFile ( pkgs.fetchurl {
-              url = "https://github.com/jeslinmx.keys";
-              hash = "sha256-iMuMcvz+q3BPKtsv0ZXBzy6Eps4uh9Fj7z92wdONZq4=";
-          }));
+        openssh.authorizedKeys.keys = private-config.ssh-authorized-keys;
         hmModules = [ flake.homeModules.cli-programs ];
       };
 

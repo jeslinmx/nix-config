@@ -1,5 +1,5 @@
 flake: let
-  inherit (flake.inputs) nixpkgs;
+  inherit (flake.inputs) nixpkgs private-config;
 in
 nixpkgs.lib.nixosSystem {
   system = "x86_64-linux";
@@ -44,10 +44,7 @@ nixpkgs.lib.nixosSystem {
       programs.fish.enable = true;
       hmUsers.nixos = {
         extraGroups = ["podman" "wireshark"];
-        openssh.authorizedKeys.keys = lib.splitString "\n" (lib.readFile (pkgs.fetchurl {
-          url = "https://github.com/jeslinmx.keys";
-          hash = "sha256-iMuMcvz+q3BPKtsv0ZXBzy6Eps4uh9Fj7z92wdONZq4=";
-        }));
+        openssh.authorizedKeys.keys = private-config.ssh-authorized-keys;
         hmModules = (builtins.attrValues { inherit (flake.homeModules)
             cli-programs
             kitty

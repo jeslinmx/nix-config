@@ -615,6 +615,21 @@
         "type": "indirect"
       }
     },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1728891163,
+        "narHash": "sha256-swrMA/4XozGIYTN4YQn8Etu2e3ytJg/P+LzgCNQDWX0=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "0a015d59305f02a8cb9b70bfa7d22d2ca6cb19c5",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "ref": "release-24.05",
+        "type": "indirect"
+      }
+    },
     "nixvim": {
       "inputs": {
         "devshell": [
@@ -677,12 +692,15 @@
       }
     },
     "private-config": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_2"
+      },
       "locked": {
-        "lastModified": 1727810974,
-        "narHash": "sha256-LntWzoyrwMOnN1bYxa6jrxOGMawAEg3JwcuZmSG13pY=",
+        "lastModified": 1728894141,
+        "narHash": "sha256-KeTXNSThN9WQGxFz54bhd6VytdanMBMWdgTYk1UnsOk=",
         "ref": "refs/heads/main",
-        "rev": "e3f0fa78d66f0b7365d0f0aa67e72f514485092c",
-        "revCount": 20,
+        "rev": "897599980cab2fb18edf63deb19b1ea14b1dcc5a",
+        "revCount": 21,
         "type": "git",
         "url": "ssh://git@github.com/jeslinmx/nix-private-config"
       },

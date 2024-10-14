@@ -1,4 +1,4 @@
-flake: let inherit (flake.inputs) nixpkgs nixos-generators;
+flake: let inherit (flake.inputs) nixpkgs nixos-generators private-config;
 in nixpkgs.lib.nixosSystem {
   system = "x86_64-linux";
   specialArgs = { inherit flake; };
@@ -21,10 +21,7 @@ in nixpkgs.lib.nixosSystem {
 
       ### ENVIRONMENT SETUP ###
       services.openssh.settings.PermitRootLogin = lib.mkForce "prohibit-password";
-      users.users.root.openssh.authorizedKeys.keyFiles = [ (pkgs.fetchurl {
-        url = "https://github.com/jeslinmx.keys";
-        hash = "sha256-iMuMcvz+q3BPKtsv0ZXBzy6Eps4uh9Fj7z92wdONZq4=";
-      }) ];
+      users.users.root.openssh.authorizedKeys.keys = private-config.ssh-authorized-keys;
     })
 
     ### SERVICES ###
