@@ -15,16 +15,27 @@
           "browser.uiCustomization.state" = builtins.toJSON {
             "placements" = {
               "nav-bar" = [
+                "userchrome-toggle_joolee_nl-browser-action"
+                "sync-button"
                 "customizableui-special-spring1"
                 "back-button"
                 "stop-reload-button"
                 "forward-button"
                 "urlbar-container"
                 "downloads-button"
-                "sync-button"
                 "unified-extensions-button"
+                "customizableui-special-spring3"
               ];
               "toolbar-menubar" = [ "menubar-items" ];
+              "unified-extensions-area" = builtins.map (
+                extId: let
+                  lowercaseId = lib.toLower extId;
+                  sanitizedId = let
+                    illegalCharacters = [ "{" "}" "@" "." ];
+                    replacements = builtins.map (x: "_") illegalCharacters;
+                  in builtins.replaceStrings illegalCharacters replacements lowercaseId;
+                in "${sanitizedId}-browser-action"
+              ) (builtins.attrNames config.programs.firefox.policies.ExtensionSettings);
             };
             "dirtyAreaCache" = [
               "unified-extensions-area"
@@ -35,13 +46,15 @@
           };
           "extensions.pocket.enabled" = false;
           "apz.overscroll.enabled" = true;
+          # for arcwtf
           "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+          "svg.context-properties.content.enabled" = true;
+          "uc.tweak.hide-forward-button" = true;
+          "uc.tweak.popup-search" = true;
+          "uc.tweak.longer-sidebar" = true;
 
           # fonts
           "font.size.variable.x-western" = 14;
-
-          #"extensions.activeThemeID" = "default-theme@mozilla.org";
-          #"browser.uiCustomization.state" = "{\"placements\":{\"widget-overflow-fixed-list\":[],\"unified-extensions-area\":[],\"nav-bar\":[\"back-button\",\"forward-button\",\"stop-reload-button\",\"customizableui-special-spring1\",\"urlbar-container\",\"customizableui-special-spring2\",\"save-to-pocket-button\",\"downloads-button\",\"fxa-toolbar-menu-button\",\"unified-extensions-button\"],\"toolbar-menubar\":[\"menubar-items\"],\"TabsToolbar\":[\"firefox-view-button\",\"tabbrowser-tabs\",\"new-tab-button\",\"alltabs-button\"],\"PersonalToolbar\":[\"personal-bookmarks\"]},\"seen\":[\"save-to-pocket-button\",\"developer-button\"],\"dirtyAreaCache\":[\"nav-bar\",\"PersonalToolbar\",\"toolbar-menubar\",\"TabsToolbar\"],\"currentVersion\":20,\"newElementCount\":2}";
 
           # Privacy and security
           "app.shield.optoutstudies.enabled" = false; # Disallow Firefox to install and run studies
@@ -74,12 +87,6 @@
           "media.block-play-until-visible" = true;
           "media.videocontrols.picture-in-picture.enable-when-switching-tabs.enabled" = true;
         };
-        userChrome = let verticalfox = pkgs.fetchFromGitHub {
-          owner = "christorange";
-          repo = "VerticalFox";
-          rev = "v1.4.1";
-          hash = "sha256-Ff9VGBdBqEW+crM3qpl8c/lLfiYJ9gvwt4P8GE4p4AE=";
-        }; in builtins.readFile (verticalfox.outPath + "/windows/userChrome.css");
         search = {
           force = true;
           default = "DuckDuckGo";
@@ -124,11 +131,12 @@
             install_url = "https://addons.mozilla.org/en-US/firefox/downloads/latest/${slug}/latest.xpi";
           }
           );
-        in (extensions "normal_installed" {
+        in (extensions "force_installed" {
           "ATBC@EasonWong" = "adaptive-tab-bar-colour";
           "{74145f27-f039-47ce-a470-a662b129930a}" = "clearurls";
           "keepassxc-browser@keepassxc.org" = "keepassxc-browser";
           "{3c078156-979c-498b-8990-85f7987dd929}" = "sidebery";
+          "userchrome-toggle@joolee.nl" = "userchrome-toggle";
           "sponsorBlocker@ajay.app" = "sponsorblock";
           "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}" = "styl-us";
           "{b668a78c-4a97-473d-aac1-9b131e19015d}" = "teams-phone-fix";
@@ -163,4 +171,17 @@
     };
   };
   stylix.targets.firefox.profileNames = [ "default" ];
+  home.file = let
+    inherit (pkgs.stdenv.hostPlatform) isDarwin;
+    cfg = config.programs.firefox;
+    configPath = ".mozilla/firefox";
+    profilesPath = if isDarwin then "${configPath}/Profiles" else configPath;
+    defaultProfilePath = "${profilesPath}/${cfg.profiles.default.path}/chrome";
+    arcwtf = pkgs.fetchFromGitHub {
+      owner = "kikaraage";
+      repo = "arcwtf";
+      rev = "v1.3-firefox";
+      hash = "sha256-JzZs0qFaFYaY24o5incgl8u4DGkKASan+b55N+9Jwag=";
+    };
+  in { ${defaultProfilePath} = { recursive = false; source = arcwtf.outPath; }; };
 }
