@@ -83,7 +83,7 @@ in nixpkgs.lib.nixosSystem {
         hmUsers.jeslinmx = {
           uid = 1000;
           description = "Jeshy";
-          extraGroups = ["wheel" "scanner" "lp" "podman" "libvirtd" "wireshark"];
+          extraGroups = ["wheel" "podman" "libvirtd" "wireshark"];
           openssh.authorizedKeys.keys = lib.splitString "\n" ( lib.readFile ( pkgs.fetchurl {
               url = "https://github.com/jeslinmx.keys";
               hash = "sha256-iMuMcvz+q3BPKtsv0ZXBzy6Eps4uh9Fj7z92wdONZq4=";

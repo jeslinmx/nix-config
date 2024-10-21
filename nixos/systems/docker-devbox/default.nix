@@ -28,7 +28,7 @@ in nixpkgs.lib.nixosSystem {
       programs.fish.enable = true;
       hmUsers.jeslinmx = {
         uid = 1000;
-        extraGroups = ["wheel" "scanner" "lp" "docker"];
+        extraGroups = ["wheel" "docker"];
         openssh.authorizedKeys.keys = private-config.ssh-authorized-keys;
         hmModules = [ flake.homeModules.cli-programs ];
       };
