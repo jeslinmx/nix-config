@@ -73,6 +73,7 @@
       visidata
       httpie
       mitmproxy
+      wishlist
     ;};
   home.file = {
     ".config/lazydocker/config.yml".source = pkgs.writers.writeYAML "config.yml" {

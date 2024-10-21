@@ -30,6 +30,7 @@ in nixpkgs.lib.nixosSystem {
     systemd-boot
     virtualisation
     windows-fonts
+    zerotier
     ;
     inherit (nixos-hardware.nixosModules) dell-xps-15-9510 dell-xps-15-9510-nvidia;
     inherit (lanzaboote.nixosModules) lanzaboote;
@@ -83,9 +84,6 @@ in nixpkgs.lib.nixosSystem {
     ### jeshua-nixos specialisation ###
     ({ lib, pkgs, ... }: {
       specialisation.personal.configuration = {
-        imports = [
-          flake.nixosModules.zerotier
-        ];
         networking.hostName = "jeshua-nixos";
         boot.initrd.luks.devices."personal".device = "/dev/disk/by-partlabel/personal-luks";
         fileSystems."/home" =
@@ -111,6 +109,7 @@ in nixpkgs.lib.nixosSystem {
             hyprland-support
           ; inherit (flake.inputs.private-config.homeModules)
             ssh-personal-hosts
+            ssh-speqtral-hosts
           ;}) ++ [{
             xdg.enable = true;
 
