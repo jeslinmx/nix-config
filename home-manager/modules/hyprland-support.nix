@@ -15,7 +15,9 @@
     };
     ssh-agent.enable = true;
   };
-  home.packages = [ pkgs.swww pkgs.pantheon.pantheon-agent-polkit ];
+  home.packages = lib.attrValues {
+    inherit (pkgs) swww brightnessctl playerctl;
+  };
 
   wayland.windowManager.hyprland = let
     cfg = config.wayland.windowManager.hyprland;
@@ -185,6 +187,14 @@
         { mod = "CTRL"; dev = "@DEFAULT_AUDIO_SINK@"; amt = "1"; }
         { mod = "ALT"; dev = "@DEFAULT_AUDIO_SOURCE@"; amt = "5"; }
         { mod = "CTRL ALT"; dev = "@DEFAULT_AUDIO_SOURCE@"; amt = "1"; }
+      ])
+      # brightness keys, use CTRL for fine adjustment
+      ++ (lib.concatMap ({mod, amt, min}: [
+        "${mod}, XF86MonBrightnessUp, exec, brightnessctl set --min-value=${min} ${amt}%+"
+        "${mod}, XF86MonBrightnessDown, exec, brightnessctl set --min-value=${min} ${amt}%-"
+      ]) [
+        { mod = ""; amt = "10"; min = "960"; }
+        { mod = "CTRL"; amt = "1"; min = "1"; }
       ])
       # resize windows with ALT + SUPER + direction
       ++ (produceBinds {
