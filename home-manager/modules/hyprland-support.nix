@@ -175,16 +175,17 @@
         # Switch within groups with CTRL + [SHIFT] + SUPER + tab
         "CTRL SUPER, tab, changegroupactive, f"
         "CTRL SHIFT SUPER, tab, changegroupactive, b"
-        # volume keys; use ALT to target mic, use CTRL for fine adjustment
-        "        , XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ && wpctl set-mute @DEFAULT_AUDIO_SINK@ 0"
-        "        , XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-        "    CTRL, XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%+ && wpctl set-mute @DEFAULT_AUDIO_SINK@ 0"
-        "    CTRL, XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%-"
-        "     ALT, XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%+ && wpctl set-mute @DEFAULT_AUDIO_SOURCE@ 0"
-        "     ALT, XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%-"
-        "ALT CTRL, XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 1%+ && wpctl set-mute @DEFAULT_AUDIO_SOURCE@ 0"
-        "ALT CTRL, XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 1%-"
       ]
+      # volume keys; use ALT to target mic, use CTRL for fine adjustment
+      ++ (lib.concatMap ({mod, dev, amt}: [
+        "${mod}, XF86AudioRaiseVolume, exec, wpctl set-volume ${dev} ${amt}%+ && wpctl set-mute ${dev} 0"
+        "${mod}, XF86AudioLowerVolume, exec, wpctl set-volume ${dev} ${amt}%-"
+      ]) [
+        { mod = ""; dev = "@DEFAULT_AUDIO_SINK@"; amt = "5"; }
+        { mod = "CTRL"; dev = "@DEFAULT_AUDIO_SINK@"; amt = "1"; }
+        { mod = "ALT"; dev = "@DEFAULT_AUDIO_SOURCE@"; amt = "5"; }
+        { mod = "CTRL ALT"; dev = "@DEFAULT_AUDIO_SOURCE@"; amt = "1"; }
+      ])
       # resize windows with ALT + SUPER + direction
       ++ (produceBinds {
         mod = "ALT SUPER";
