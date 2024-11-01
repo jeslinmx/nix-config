@@ -89,6 +89,7 @@
         enable_swallow = true; # replace swallow_regex windows with child process
         swallow_regex = "^(kitty)$";
         middle_click_paste = false;
+        new_window_takes_over_fullscreen = 2; # kick out of fullscreen if opening new window
       };
 
       input.touchpad.natural_scroll = true;
@@ -117,9 +118,15 @@
         "SWWW_TRANSITION_FPS,60"
       ];
 
+      workspace = [
+        "f[1], gapsout:0"
+      ];
+
       windowrulev2 = let
         rule = dispatchers: conditions: lib.map (d: "${d}, ${conditions}") dispatchers;
       in [
+        "bordersize 0, onworkspace:f[1]"
+        "rounding 0, onworkspace:f[1]"
         "suppressevent maximize, class:.*"
         "float, class:(org.telegram.desktop) title:(Media viewer)"
       ]
@@ -133,7 +140,9 @@
       bind = [
         "SUPER, RETURN, togglesplit"
         "SUPER, SPACE, exec, $menu -show drun"
-        "SUPER, DELETE, exit"
+        "CTRL SUPER, SPACE, exec, $menu -show run"
+        "SUPER, F11, fullscreen, 1"
+        "SUPER, F12, exit"
         "SUPER, T, exec, $terminal"
         "SUPER, Q, killactive"
         "SUPER, E, exec, $fileManager"
@@ -194,8 +203,8 @@
       ])
       # brightness keys, use CTRL for fine adjustment
       ++ (lib.concatMap ({mod, amt, min}: [
-        "${mod}, XF86MonBrightnessUp, exec, brightnessctl set --min-value=${min} ${amt}%+"
-        "${mod}, XF86MonBrightnessDown, exec, brightnessctl set --min-value=${min} ${amt}%-"
+        "${mod}, XF86MonBrightnessUp,   exec, brightnessctl set --min-value=${min} --exponent=2 ${amt}%+"
+        "${mod}, XF86MonBrightnessDown, exec, brightnessctl set --min-value=${min} --exponent=2 ${amt}%-"
       ]) [
         { mod = ""; amt = "10"; min = "960"; }
         { mod = "CTRL"; amt = "1"; min = "1"; }
