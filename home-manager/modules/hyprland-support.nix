@@ -31,7 +31,11 @@
       ) (lib.zipLists keys args);
   in {
     enable = true;
-    sourceFirst = false;
+    systemd = {
+      enableXdgAutostart = true;
+      variables = [ "--all" ]; # makes systemd bring all env vars into the dbus session
+    };
+    sourceFirst = false; # put source statements at end
     settings = {
 
       # source = [ "~/.config/hypr/custom.conf" ];

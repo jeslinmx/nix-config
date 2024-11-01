@@ -19,8 +19,8 @@ in nixpkgs.lib.nixosSystem {
     console
     containers
     enable-via-qmk
-    gnome
     home-manager-users
+    hyprland
     ios-usb
     java
     sshd
@@ -74,7 +74,6 @@ in nixpkgs.lib.nixosSystem {
       };
       services.flatpak.enable = true;
       programs.wireshark.enable = true;
-      programs.hyprland.enable = true;
 
       ### USER SETUP ###
       users.defaultUserShell = pkgs.fish;

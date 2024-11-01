@@ -13,5 +13,14 @@
   services.ipp-usb.enable = true; # enable (driverless) scanning and printing; also enables CUPS and SANE automatically
   services.avahi.nssmdns4 = true; # resolve .local addresses
 
+  # TPM
+  security.tpm2 = {
+    enable = true;
+    pkcs11.enable = true;
+  };
+
+  hardware.bluetooth = {
+    enable = true;
+  };
   services.fwupd.enable = true;
 }
