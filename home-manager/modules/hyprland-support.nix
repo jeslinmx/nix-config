@@ -175,6 +175,9 @@ in {
     dunst = {
       enable = true;
     };
+    udiskie = {
+      enable = true;
+    };
     ssh-agent.enable = true;
   };
   home.packages = lib.attrValues {
