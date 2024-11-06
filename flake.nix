@@ -57,15 +57,21 @@
       };
     };
     nix-flatpak.url = "github:gmodena/nix-flatpak";
-    tt-schemes = {
-      url = "github:tinted-theming/schemes";
-      flake = false;
-    };
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     private-config.url = "git+ssh://git@github.com/jeslinmx/nix-private-config";
+
+    # Supporting repos
+    tt-schemes = {
+      url = "github:tinted-theming/schemes";
+      flake = false;
+    };
+    ocean-sound-theme = {
+      url = "github:KDE/ocean-sound-theme";
+      flake = false;
+    };
   };
 
   outputs = {

@@ -1,4 +1,6 @@
-{ config, lib, pkgs, ... }: {
+{ flake, config, lib, pkgs, ... }: let
+  inherit (flake.inputs) ocean-sound-theme;
+in {
   programs = {
     kitty.enable = true;
     waybar = {
@@ -193,8 +195,8 @@
       ]
       # volume keys; use ALT to target mic, use CTRL for fine adjustment
       ++ (lib.concatMap ({mod, dev, amt}: [
-        "${mod}, XF86AudioRaiseVolume, exec, wpctl set-volume ${dev} ${amt}%+ && wpctl set-mute ${dev} 0"
-        "${mod}, XF86AudioLowerVolume, exec, wpctl set-volume ${dev} ${amt}%-"
+        "${mod}, XF86AudioRaiseVolume, exec, wpctl set-volume ${dev} ${amt}%+ && wpctl set-mute ${dev} 0 && pw-cat -p ${ocean-sound-theme}/ocean/stereo/audio-volume-change.oga"
+        "${mod}, XF86AudioLowerVolume, exec, wpctl set-volume ${dev} ${amt}%- && pw-cat -p ${ocean-sound-theme}/ocean/stereo/audio-volume-change.oga"
       ]) [
         { mod = ""; dev = "@DEFAULT_AUDIO_SINK@"; amt = "5"; }
         { mod = "CTRL"; dev = "@DEFAULT_AUDIO_SINK@"; amt = "1"; }
