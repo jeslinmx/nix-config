@@ -664,22 +664,6 @@
         "type": "github"
       }
     },
-    "ocean-sound-theme": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1727957538,
-        "narHash": "sha256-6PtpdrpLKDNudBguAXV1vyMVnIp2S0qwZA/6+l36kuE=",
-        "owner": "KDE",
-        "repo": "ocean-sound-theme",
-        "rev": "3e80c74688ca4e6ede5bbac4033f6ac588b71f64",
-        "type": "github"
-      },
-      "original": {
-        "owner": "KDE",
-        "repo": "ocean-sound-theme",
-        "type": "github"
-      }
-    },
     "pre-commit-hooks-nix": {
       "inputs": {
         "flake-compat": [
@@ -740,10 +724,10 @@
         "nixpkgs-patched": "nixpkgs-patched",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nixvim": "nixvim",
-        "ocean-sound-theme": "ocean-sound-theme",
         "private-config": "private-config",
         "stylix": "stylix",
-        "tt-schemes": "tt-schemes"
+        "tt-schemes": "tt-schemes",
+        "yaru": "yaru"
       }
     },
     "rust-overlay": {
@@ -849,6 +833,22 @@
       "original": {
         "owner": "tinted-theming",
         "repo": "schemes",
+        "type": "github"
+      }
+    },
+    "yaru": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1726024968,
+        "narHash": "sha256-3ntt93YANGRzVv1QXNdV/4fN+VAe/TvYvrVa+fY1r3Q=",
+        "owner": "ubuntu",
+        "repo": "yaru",
+        "rev": "cd727585c91606ef4908f8cae967729db6cbf378",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ubuntu",
+        "repo": "yaru",
         "type": "github"
       }
     }

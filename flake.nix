@@ -68,8 +68,8 @@
       url = "github:tinted-theming/schemes";
       flake = false;
     };
-    ocean-sound-theme = {
-      url = "github:KDE/ocean-sound-theme";
+    yaru = {
+      url = "github:ubuntu/yaru";
       flake = false;
     };
   };
