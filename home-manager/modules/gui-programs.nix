@@ -34,7 +34,7 @@ in {
       "net.ankiweb.Anki"
       "com.rafaelmardojai.Blanket"
       "org.pipewire.Helvum"
-      "io.github.zen_browser.zen"
+      "com.github.rafostar.Clapper"
     ];
   };
 
