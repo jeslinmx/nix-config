@@ -95,7 +95,7 @@ in {
           format-on = "";
           max-length = 20;
           tooltip-format = "{controller_alias} ({controller_address}) {status}\n{device_enumerate}";
-          tooltip-format-enumerate-connected = "󰥉 {device_battery_percentage} {device_alias} ({device_address})";
+          tooltip-format-enumerate-connected = "󰥉 {device_battery_percentage}% {device_alias} ({device_address})";
           on-click = "${lib.getExe pkgs.overskride}";
         };
         network = {
