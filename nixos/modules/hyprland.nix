@@ -1,7 +1,12 @@
 { config, pkgs, ... }: {
-  programs.hyprland = {
-    enable = true;
-    systemd.setPath.enable = true;
+  programs = {
+    hyprland = {
+      enable = true;
+      systemd.setPath.enable = true;
+    };
+    hyprlock = {
+      enable = true;
+    };
   };
   networking.networkmanager.enable = true;
   services.logind = {

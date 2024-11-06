@@ -10,6 +10,47 @@ in {
       enable = true;
       package = pkgs.rofi.override { rofi-unwrapped = pkgs.rofi-wayland-unwrapped; };
     };
+    hyprlock = {
+      enable = true;
+      settings = let
+        rgb = color:
+          let c = config.lib.stylix.colors;
+          in "rgb(${c."${color}-rgb-r"}, ${c."${color}-rgb-g"}, ${c."${color}-rgb-b"})";
+      in {
+        background = {
+          path = "${config.stylix.image}";
+          blur_passes = 2;
+          blur_size = 10;
+        };
+        input-field = {
+          position = "0, 0";
+          halign = "center";
+          valign = "center";
+          size = "480, 60";
+          rounding = 24;
+          dots_rounding = -2;
+          dots_size = 0.5;
+          dots_spacing = 0.2;
+          inner_color = rgb "base00";
+          font_color = rgb "base0D";
+          outline_thickness = 2;
+          outer_color = rgb "base00";
+          fade_on_empty = false;
+          placeholder_text = "enter password";
+          check_color = rgb "base0A";
+          fail_color = rgb "base08";
+          fail_text = "$FAIL ($ATTEMPTS attempts)";
+        };
+        label = {
+          text = "Is that you, $DESC?";
+          text_align = "center";
+          color = rgb "base05";
+          position = "0, 60";
+          halign = "center";
+          valign = "center";
+        };
+      };
+    };
   };
   services = {
     dunst = {
@@ -155,6 +196,7 @@ in {
         "CTRL SUPER, G, lockactivegroup, toggle"
         "SUPER, S, togglespecialworkspace, magic"
         "SUPER, tab, exec, $menu -show window"
+        "SUPER, escape, exec, hyprlock"
         ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
         "ALT, XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
         ", XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
