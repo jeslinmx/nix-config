@@ -4,8 +4,10 @@
       enable = true;
       systemd.setPath.enable = true;
     };
-    hyprlock = {
+    hyprlock.enable = true;
+    nm-applet = {
       enable = true;
+      indicator = false;
     };
   };
   networking.networkmanager.enable = true;

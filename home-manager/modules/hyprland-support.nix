@@ -96,12 +96,13 @@ in {
           max-length = 20;
           tooltip-format = "{controller_alias} ({controller_address}) {status}\n{device_enumerate}";
           tooltip-format-enumerate-connected = "󰥉 {device_battery_percentage} {device_alias} ({device_address})";
+          on-click = "${lib.getExe pkgs.overskride}";
         };
         network = {
           format-disconnected = "󰌙";
           format-ethernet = " {ipaddr}";
           format-icons = ["󰤟" "󰤢" "󰤥" "󰤨"];
-          format-wifi = "{icon} {essid}";
+          format-wifi = "{icon} {ipaddr}";
           interval = 10;
           tooltip-format = "{ifname} {bandwidthUpBits} {bandwidthDownBits}\n {ipaddr}/{cidr}\n󱇢 {gwaddr}";
           tooltip-format-wifi = "{ifname} {bandwidthUpBits} {bandwidthDownBits}\n󰐻 {essid} 󰣺 {signalStrength}%\n {ipaddr}/{cidr}\n󱇢 {gwaddr}";
