@@ -1,10 +1,128 @@
 { flake, config, lib, pkgs, ... }: let
   inherit (flake.inputs) ocean-sound-theme;
+  abs = x: if x < 0 then x * -1 else x;
+  sign = x: if x < 0 then "-" else "+";
+  fmt-adj = x: "${builtins.toString (abs x)}%${sign x}";
+  mute-command = dev:
+    "${pkgs.wireplumber}/bin/wpctl set-mute ${dev} toggle";
+  volume-command = dev: amt:
+    "${pkgs.wireplumber}/bin/wpctl set-volume ${dev} ${fmt-adj amt} ${if amt > 0 then "&& wpctl set-mute ${dev} 0" else ""} && pw-cat -p ${ocean-sound-theme}/ocean/stereo/audio-volume-change.oga";
+  brightness-command = amt:
+    "${lib.getExe pkgs.brightnessctl} set --min-value=960 --exponent=2 ${fmt-adj amt}";
 in {
   programs = {
     kitty.enable = true;
     waybar = {
       enable = true;
+      settings = [{
+        position = "bottom";
+        modules-left = ["clock" "hyprland/submap" "hyprland/workspaces" "hyprland/window"];
+        modules-center = ["mpris" "pulseaudio"];
+        modules-right = ["backlight" "bluetooth" "network" "group/sysinfo" "privacy" "hyprland/language" "tray"];
+        clock = {
+          actions = {
+            on-click-right = "mode";
+            on-scroll-down = "shift_down";
+            on-scroll-up = "shift_up";
+          };
+          format = "󱑍 {:%H:%M}";
+          tooltip-format = "<small>{calendar}</small>";
+        };
+        "hyprland/submap" = {
+          always-on = true;
+          default-submap = "";
+          tooltip = false;
+        };
+        "hyprland/workspaces" = {
+          format = "<sup>{icon}</sup>{windows}";
+          format-icons = {
+            special = "";
+            urgent = "";
+          };
+          format-window-separator = " ";
+          show-special = true;
+          window-rewrite = {
+            "class<firefox>" = "󰈹";
+            "class<kitty>" = "";
+            "class<org.telegram.desktop>" = "";
+            "class<steam>" = "";
+            "class<teams-for-linux>" = "󰊻";
+          };
+          window-rewrite-default = "";
+        };
+        "hyprland/window" = {
+          icon = true;
+          separate-outputs = true;
+        };
+
+        mpris = {
+          artist-len = 15;
+          format = "{status_icon} {title} - {artist} {player_icon}";
+          format-stopped = "";
+          player-icons = {firefox = "󰈹";};
+          status-icons = {
+            paused = "";
+            playing = "󰎇";
+          };
+          title-len = 30;
+        };
+        pulseaudio = {
+          format = "󰕾 {volume}% {format_source}";
+          format-bluetooth = "󰂰 {volume}% {format_source}";
+          format-bluetooth-muted = "󰂲 {volume}% {format_source}";
+          format-muted = "󰝟 {volume}% {format_source}";
+          format-source = "󰍬 {volume}%";
+          format-source-muted = "󰍭 {volume}%";
+          on-click = mute-command "@DEFAULT_AUDIO_SINK@";
+          on-click-middle = "${mute-command "@DEFAULT_AUDIO_SOURCE@"} && ${mute-command "@DEFAULT_AUDIO_SINK@"}";
+          on-click-right = mute-command "@DEFAULT_AUDIO_SOURCE@";
+          reverse-scrolling = true;
+        };
+
+        backlight = {
+          format = "{icon}";
+          format-icons = ["�󰛩" "󱩎" "󱩏" "󱩐" "󱩑" "󱩒" "󱩓" "󱩔" "󱩕" "󱩖" "󰛨"];
+          on-scroll-up = brightness-command 10;
+          on-scroll-down = brightness-command (-10);
+          reverse-scrolling = true;
+          tooltip = false;
+        };
+        bluetooth = {
+          format-connected = "󰂱<sup>{num_connections}</sup> {device_alias}";
+          format-connected-battery = "󰂱<sup>{num_connections}</sup> 󰥉 {device_battery_percentage}% {device_alias}";
+          format-disabled = "󰂲";
+          format-off = "󰂲";
+          format-on = "";
+          max-length = 20;
+          tooltip-format = "{controller_alias} ({controller_address}) {status}\n{device_enumerate}";
+          tooltip-format-enumerate-connected = "󰥉 {device_battery_percentage} {device_alias} ({device_address})";
+        };
+        network = {
+          format-disconnected = "󰌙";
+          format-ethernet = " {ipaddr}";
+          format-icons = ["󰤟" "󰤢" "󰤥" "󰤨"];
+          format-wifi = "{icon} {essid}";
+          interval = 10;
+          tooltip-format = "{ifname} {bandwidthUpBits} {bandwidthDownBits}\n {ipaddr}/{cidr}\n󱇢 {gwaddr}";
+          tooltip-format-wifi = "{ifname} {bandwidthUpBits} {bandwidthDownBits}\n󰐻 {essid} 󰣺 {signalStrength}%\n {ipaddr}/{cidr}\n󱇢 {gwaddr}";
+        };
+        "group/sysinfo" = {
+          drawer = {
+            click-to-reveal = true;
+            transition-left-to-right = false;
+          };
+          modules = ["battery" "cpu" "load" "memory" "disk" "temperature"];
+          orientation = "inherit";
+        };
+        battery = {
+          format = "{icon} {capacity}%";
+          format-charging = "󰂄 {capacity}%";
+          format-icons = ["󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹"];
+          format-time = "{H}:{m}";
+          tooltip-format = "{timeTo}\nCurrent power draw: {power}";
+        };
+        tray = {spacing = 8;};
+      }];
     };
     rofi = {
       enable = true;
@@ -197,9 +315,9 @@ in {
         "SUPER, S, togglespecialworkspace, magic"
         "SUPER, tab, exec, $menu -show window"
         "SUPER, escape, exec, hyprlock"
-        ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-        "ALT, XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-        ", XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+        ", XF86AudioMute, exec, ${mute-command "@DEFAULT_AUDIO_SINK@"}"
+        "ALT, XF86AudioMute, exec, ${mute-command "@DEFAULT_AUDIO_SOURCE@"}"
+        ", XF86AudioMicMute, exec, ${mute-command "@DEFAULT_AUDIO_SOURCE@"}"
       ]
       # switch focus with SUPER + direction
       ++ (produceBinds { dispatcher = "movefocus"; })
@@ -237,22 +355,19 @@ in {
       ]
       # volume keys; use ALT to target mic, use CTRL for fine adjustment
       ++ (lib.concatMap ({mod, dev, amt}: [
-        "${mod}, XF86AudioRaiseVolume, exec, wpctl set-volume ${dev} ${amt}%+ && wpctl set-mute ${dev} 0 && pw-cat -p ${ocean-sound-theme}/ocean/stereo/audio-volume-change.oga"
-        "${mod}, XF86AudioLowerVolume, exec, wpctl set-volume ${dev} ${amt}%- && pw-cat -p ${ocean-sound-theme}/ocean/stereo/audio-volume-change.oga"
+        "${mod}, XF86AudioRaiseVolume, exec, ${volume-command dev amt}"
+        "${mod}, XF86AudioLowerVolume, exec, ${volume-command dev (-amt)}"
       ]) [
-        { mod = ""; dev = "@DEFAULT_AUDIO_SINK@"; amt = "5"; }
-        { mod = "CTRL"; dev = "@DEFAULT_AUDIO_SINK@"; amt = "1"; }
-        { mod = "ALT"; dev = "@DEFAULT_AUDIO_SOURCE@"; amt = "5"; }
-        { mod = "CTRL ALT"; dev = "@DEFAULT_AUDIO_SOURCE@"; amt = "1"; }
+        { mod = ""; dev = "@DEFAULT_AUDIO_SINK@"; amt = 5; }
+        { mod = "CTRL"; dev = "@DEFAULT_AUDIO_SINK@"; amt = 1; }
+        { mod = "ALT"; dev = "@DEFAULT_AUDIO_SOURCE@"; amt = 5; }
+        { mod = "CTRL ALT"; dev = "@DEFAULT_AUDIO_SOURCE@"; amt = 1; }
       ])
-      # brightness keys, use CTRL for fine adjustment
-      ++ (lib.concatMap ({mod, amt, min}: [
-        "${mod}, XF86MonBrightnessUp,   exec, brightnessctl set --min-value=${min} --exponent=2 ${amt}%+"
-        "${mod}, XF86MonBrightnessDown, exec, brightnessctl set --min-value=${min} --exponent=2 ${amt}%-"
-      ]) [
-        { mod = ""; amt = "10"; min = "960"; }
-        { mod = "CTRL"; amt = "1"; min = "1"; }
-      ])
+      # brightness keys
+      ++ [
+        ",XF86MonBrightnessUp,   exec, ${brightness-command 10}"
+        ",XF86MonBrightnessDown, exec, ${brightness-command (-10)}"
+      ]
       # resize windows with ALT + SUPER + direction
       ++ (produceBinds {
         mod = "ALT SUPER";
