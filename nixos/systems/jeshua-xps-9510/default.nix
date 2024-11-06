@@ -105,7 +105,7 @@ in nixpkgs.lib.nixosSystem {
             cli-programs
             gui-programs
             gnome-shell
-            hyprland-support
+            hyprland
           ; inherit (flake.inputs.private-config.homeModules)
             ssh-personal-hosts
             ssh-speqtral-hosts
@@ -159,7 +159,7 @@ in nixpkgs.lib.nixosSystem {
             cli-programs
             gui-programs
             gnome-shell
-            hyprland-support
+            hyprland
           ; inherit (flake.inputs.private-config.homeModules)
             awscli
             ssh-speqtral-hosts
