@@ -27,8 +27,6 @@ in {
       };
     };
     packages = [
-      "com.github.tchx84.Flatseal"
-      "com.usebottles.bottles"
       "org.keepassxc.KeePassXC"
       "org.telegram.desktop"
       "net.ankiweb.Anki"
@@ -42,5 +40,19 @@ in {
   home.packages = builtins.attrValues { inherit (pkgs)
     wl-clipboard
     virt-manager
-  ;};
+  ;} ++ [
+    (pkgs.pantheon.switchboard-with-plugs.override {
+      plugs = builtins.attrValues { inherit (pkgs.pantheon)
+        switchboard-plug-about
+        # broken due to missing org.gnome.settings-daemon.plugins.media-keys schema
+        # switchboard-plug-sound
+        switchboard-plug-network
+        switchboard-plug-printers
+        # pulls in wingpanel indicator and thus all of gnome
+        # switchboard-plug-bluetooth
+        switchboard-plug-applications
+      ; };
+      useDefaultPlugs = false;
+    })
+  ];
 }
