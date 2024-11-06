@@ -298,7 +298,10 @@ in {
 
       ### BINDS ###
 
-      bind = [
+      bind = let
+        scrot-date-format = "+%Y-%m-%d %k-%M-%S.%N";
+        scrot-base-command = "${lib.getExe pkgs.hyprshot} --output-folder ~/Pictures/Screenshots/ --filename \"Screenshot from $(date \"${scrot-date-format}\").png\" --current";
+      in [
         "SUPER, RETURN, togglesplit"
         "SUPER, SPACE, exec, $menu -show drun"
         "CTRL SUPER, SPACE, exec, $menu -show run"
@@ -346,7 +349,15 @@ in {
         keys = lib.map builtins.toString (lib.range 1 9) ++ ["0" "S"];
         dispatcher = "movetoworkspacesilent";
         args = lib.map builtins.toString (lib.range 1 10) ++ ["special:magic"];
-      });
+      })
+      ++ [
+        ", print, exec, ${scrot-base-command} --clipboard-only --mode output"
+        "ALT, print, exec, ${scrot-base-command} --clipboard-only --mode window"
+        "CTRL, print, exec, ${scrot-base-command} --clipboard-only --mode region"
+        "SUPER, print, exec, ${scrot-base-command} --mode output"
+        "ALT SUPER, print, exec, ${scrot-base-command} --mode window"
+        "CTRL SUPER, print, exec, ${scrot-base-command} --mode region"
+      ];
 
       binde = [
         # Switch within groups with CTRL + [SHIFT] + SUPER + tab
