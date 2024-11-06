@@ -24,7 +24,7 @@
       l = "for arg in $argv; test -d $arg; and ll $arg; or less $arg; end";
       y = ''
         set tmp (mktemp -t "yazi-cwd.XXXXX")
-        yazi --cwd-file="$tmp"
+        yazi --cwd-file="$tmp" $argv
         if set cwd (cat -- "$tmp") && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]
             cd -- "$cwd"
         end
