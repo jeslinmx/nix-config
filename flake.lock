@@ -434,6 +434,22 @@
         "type": "github"
       }
     },
+    "ml4w": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1730388202,
+        "narHash": "sha256-QQOKEOdePx55P2wE7ESHgjCW/Q5ta0vAmROzoXlWMr8=",
+        "owner": "mylinuxforwork",
+        "repo": "dotfiles",
+        "rev": "ad56f4d9f889a9b0aca06e19b7c752a138ce3af6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mylinuxforwork",
+        "repo": "dotfiles",
+        "type": "github"
+      }
+    },
     "nix-darwin": {
       "inputs": {
         "nixpkgs": [
@@ -716,6 +732,7 @@
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",
         "lanzaboote": "lanzaboote",
+        "ml4w": "ml4w",
         "nix-flatpak": "nix-flatpak",
         "nix-index-database": "nix-index-database",
         "nixos-generators": "nixos-generators",

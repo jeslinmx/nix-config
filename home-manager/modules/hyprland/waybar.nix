@@ -1,9 +1,19 @@
-{lib, pkgs, ...}@args: let
+{flake, lib, pkgs, ...}@args: let
   common = (import ./common.nix) args;
   inherit (common) brightness-command mute-command;
 in {
   programs.waybar = {
     enable = true;
+    style = builtins.concatStringsSep "\n" [
+      (builtins.readFile "${flake.inputs.ml4w}/share/dotfiles/.config/waybar/themes/starter/style.css")
+      ''
+        * {
+            font-family: "Cascadia Code", "Font Awesome 6 Free", FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+            border: none;
+            border-radius: 0px;
+        }
+      ''
+    ];
     settings = [{
       position = "bottom";
       modules-left = ["clock" "hyprland/submap" "hyprland/workspaces" "hyprland/window"];

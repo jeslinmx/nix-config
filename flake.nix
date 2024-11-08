@@ -61,6 +61,10 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    ml4w = {
+      url = "github:mylinuxforwork/dotfiles";
+      flake = false;
+    };
     private-config.url = "git+ssh://git@github.com/jeslinmx/nix-private-config";
 
     # Supporting repos

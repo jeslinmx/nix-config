@@ -9,6 +9,8 @@ in {
     inherit (flake.homeModules) firefox kitty;
   };
 
+  fonts.fontconfig.enable = true;
+
   programs = {
     firefox.enable = true;
     kitty.enable = true;
