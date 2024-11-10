@@ -4,6 +4,7 @@
     ./waybar.nix
     ./hyprlock.nix
     ./hyprland.nix
+    ./hyprshade.nix
   ];
 
   home.packages = lib.attrValues {

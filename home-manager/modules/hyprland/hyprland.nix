@@ -89,6 +89,7 @@ in {
       ];
 
       exec-once = [
+        "dbus-update-activation-environment --systemd --all"
         "systemctl --user start hyprpolkitagent"
         "${config.programs.waybar.package}/bin/waybar &"
         "${pkgs.swww}/bin/swww-daemon & ${pkgs.swww}/bin/swww img ${config.stylix.image}"
@@ -124,6 +125,8 @@ in {
         "SUPER, RETURN, togglesplit"
         "SUPER, SPACE, exec, $menu -show drun"
         "CTRL SUPER, SPACE, exec, $menu -show run"
+        "SUPER, C, exec, $toggleShaders"
+        "SHIFT SUPER, C, exec, $disableShaders"
         "SUPER, F11, fullscreen, 1"
         "SUPER, F12, exit"
         "SUPER, T, exec, $terminal"
