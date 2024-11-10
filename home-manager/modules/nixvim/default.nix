@@ -68,14 +68,6 @@
       better-escape = {}; # jj
       persistence = {}; # autosave sessions
 
-      # LSP/completions
-      cmp = {};
-      conform-nvim = {}; # formatter
-      dap = {}; # debug adapter protocol
-      lint = {};
-      lsp = {};
-      schemastore = {};
-
       # Editor enhancements
       ccc = {}; # color picker
       comment = {};
