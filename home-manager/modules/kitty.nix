@@ -10,7 +10,6 @@
       tab_bar_edge = "top";
       tab_bar_style = "slant";
 
-      font_features = "+ss00 +ss19";
       disable_ligatures = "cursor";
       cursor = "none"; # reverse video
       cursor_shape = "beam";
