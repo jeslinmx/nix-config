@@ -1,19 +1,14 @@
-{flake, lib, pkgs, ...}@args: let
+{lib, pkgs, ...}@args: let
   common = (import ./common.nix) args;
   inherit (common) brightness-command mute-command;
 in {
   programs.waybar = {
     enable = true;
-    style = builtins.concatStringsSep "\n" [
-      (builtins.readFile "${flake.inputs.ml4w}/share/dotfiles/.config/waybar/themes/starter/style.css")
-      ''
-        * {
-            font-family: "Cascadia Code", "Font Awesome 6 Free", FontAwesome, Roboto, Helvetica, Arial, sans-serif;
-            border: none;
-            border-radius: 0px;
-        }
-      ''
-    ];
+    # style = ''
+    #   * {
+    #       font-family: sans-serif, "Symbols Nerd Font";
+    #   }
+    # '';
     settings = [{
       position = "bottom";
       modules-left = ["clock" "hyprland/submap" "hyprland/workspaces" "hyprland/window"];
@@ -81,7 +76,7 @@ in {
 
       backlight = {
         format = "{icon}";
-        format-icons = ["�󰛩" "󱩎" "󱩏" "󱩐" "󱩑" "󱩒" "󱩓" "󱩔" "󱩕" "󱩖" "󰛨"];
+        format-icons = ["󰛩" "󱩎" "󱩏" "󱩐" "󱩑" "󱩒" "󱩓" "󱩔" "󱩕" "󱩖" "󰛨"];
         on-scroll-up = brightness-command 10;
         on-scroll-down = brightness-command (-10);
         reverse-scrolling = true;
