@@ -27,7 +27,7 @@ in nixpkgs.lib.nixosSystem {
       ### ENVIRONMENT CUSTOMIZATION ###
       programs.wireshark.enable = true;
       # TODO: remove when https://github.com/danth/stylix/issues/442 goes through
-      stylix.image = ./speqtral.png;
+      stylix.image = ../jeshua-xps-9510/speqtral.png;
 
       ### USER SETUP ###
       users.defaultUserShell = pkgs.fish;
