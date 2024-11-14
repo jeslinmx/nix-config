@@ -13,13 +13,13 @@ in nixpkgs.lib.nixosSystem {
     containers
     home-manager-users
     sshd
+    stylix
     zerotier
     ;
   }) ++ [
     nixos-generators.nixosModules.proxmox-lxc
     ({ lib, pkgs, ...}: {
       system.stateVersion = "24.05";
-      networking.hostName = "mc-server";
       nixpkgs.config.allowUnfree = true;
       nix.settings.trusted-users = [ "@wheel" ];
 
@@ -34,6 +34,8 @@ in nixpkgs.lib.nixosSystem {
       };
 
       ### ENVIRONMENT SETUP ###
+      # TODO: remove when https://github.com/danth/stylix/issues/442 goes through
+      stylix.image = ../jeshua-xps-9510/wallpaper.jpg;
       virtualisation.docker = {
         enable = true;
         enableOnBoot = true;
