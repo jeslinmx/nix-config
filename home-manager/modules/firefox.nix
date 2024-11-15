@@ -133,13 +133,16 @@
           );
         in (extensions "force_installed" {
           "ATBC@EasonWong" = "adaptive-tab-bar-colour";
+          "{bda3a2e1-851d-4bf9-83c1-0d1ac026a675}" = "bible-previewer";
           "{74145f27-f039-47ce-a470-a662b129930a}" = "clearurls";
+          "gdpr@cavi.au.dk" = "consent-o-matic";
+          "{0fb022fc-3f93-42d8-9789-100037ae1801}" = "copy-image-as-base64";
+          "FirefoxColor@mozilla.com" = "firefox-color";
           "keepassxc-browser@keepassxc.org" = "keepassxc-browser";
           "{3c078156-979c-498b-8990-85f7987dd929}" = "sidebery";
           "userchrome-toggle@joolee.nl" = "userchrome-toggle";
           "sponsorBlocker@ajay.app" = "sponsorblock";
           "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}" = "styl-us";
-          "{b668a78c-4a97-473d-aac1-9b131e19015d}" = "teams-phone-fix";
           "uBlock0@raymondhill.net" = "ublock-origin";
           "{7be2ba16-0f1e-4d93-9ebc-5164397477a9}" = "videospeed";
           "{4d9d2bcc-7acd-404b-8c8c-b1ac947facfc}" = "consent-o-matic";
