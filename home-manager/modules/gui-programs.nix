@@ -54,6 +54,7 @@ in {
     wl-clipboard
     virt-manager
   ;} ++ [
+    pkgs.pavucontrol
     (pkgs.pantheon.switchboard-with-plugs.override {
       plugs = builtins.attrValues { inherit (pkgs.pantheon)
         switchboard-plug-about
