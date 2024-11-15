@@ -19,7 +19,7 @@ in nixpkgs.lib.nixosSystem {
   }) ++ [
     nixos-generators.nixosModules.proxmox-lxc
     ({pkgs, ...}: {
-      networking.hostName = "jeshua-speqtral-devbox";
+      networking.hostName = "speqtral-devbox";
       system.stateVersion = "24.05";
       nixpkgs.config.allowUnfree = true;
       nix.settings.trusted-users = [ "root" "@wheel" ];
@@ -28,6 +28,8 @@ in nixpkgs.lib.nixosSystem {
       programs.wireshark.enable = true;
       # TODO: remove when https://github.com/danth/stylix/issues/442 goes through
       stylix.image = ../jeshua-xps-9510/speqtral.png;
+      # temp:
+      networking.hosts = { "10.1.128.13" = [ "nqsnplus-sw-testbed.speqtranet.com" ]; };
 
       ### USER SETUP ###
       users.defaultUserShell = pkgs.fish;
