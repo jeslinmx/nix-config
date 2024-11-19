@@ -198,15 +198,17 @@ in {
       };
 
       privacy.icon-size = config.stylix.fonts.sizes.desktop;
-      pulseaudio = {
-        format = "󰕾 {volume}% {format_source}";
-        format-bluetooth = "󰂰 {volume}% {format_source}";
-        format-bluetooth-muted = "󰂲 {volume}% {format_source}";
-        format-muted = "󰝟 {volume}% {format_source}";
-        format-source = "󰍬 {volume}%";
-        format-source-muted = "󰍭 {volume}%";
-        on-click = lib.getExe pkgs.pavucontrol;
-        on-click-middle = mute-command "@DEFAULT_AUDIO_SINK@";
+      pulseaudio = let
+        inherit (config.lib.stylix.colors) base04 base08 base0A base0C;
+      in {
+        format = "<span color='#${base0A}'>󰕾 {volume}%</span> {format_source}";
+        format-bluetooth = "<span color='#${base0C}'>󰂰 {volume}%</span> {format_source}";
+        format-bluetooth-muted = "<span color='#${base04}'>󰂲 {volume}%</span> {format_source}";
+        format-muted = "<span color='#${base04}'>󰝟 {volume}%</span> {format_source}";
+        format-source = "<span color='#${base08}'>󰍬 {volume}%</span>";
+        format-source-muted = "<span color='#${base04}'>󰍭 {volume}%</span>";
+        on-click = mute-command "@DEFAULT_AUDIO_SINK@";
+        on-click-middle = lib.getExe pkgs.pavucontrol;
         on-click-right = mute-command "@DEFAULT_AUDIO_SOURCE@";
         reverse-scrolling = true;
       };
