@@ -28,7 +28,6 @@ in nixpkgs.lib.nixosSystem {
     stylix
     systemd-boot
     virtualisation
-    windows-fonts
     zerotier
     ;
     inherit (nixos-hardware.nixosModules) dell-xps-15-9510 dell-xps-15-9510-nvidia;
