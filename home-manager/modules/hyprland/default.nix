@@ -12,7 +12,7 @@
   };
 
   services = {
-    dunst = {
+    swaync = {
       enable = true;
     };
     udiskie = {

@@ -83,6 +83,7 @@ in {
         "pulseaudio"
         "privacy"
         "tray"
+        "custom/swaync"
       ];
 
       "group/clock" = {
@@ -199,9 +200,9 @@ in {
 
       privacy.icon-size = config.stylix.fonts.sizes.desktop;
       pulseaudio = let
-        inherit (config.lib.stylix.colors) base04 base08 base0A base0C;
+        inherit (config.lib.stylix.colors) base04 base08 base0B base0C;
       in {
-        format = "<span color='#${base0A}'>󰕾 {volume}%</span> {format_source}";
+        format = "<span color='#${base0B}'>󰕾 {volume}%</span> {format_source}";
         format-bluetooth = "<span color='#${base0C}'>󰂰 {volume}%</span> {format_source}";
         format-bluetooth-muted = "<span color='#${base04}'>󰂲 {volume}%</span> {format_source}";
         format-muted = "<span color='#${base04}'>󰝟 {volume}%</span> {format_source}";
@@ -243,6 +244,29 @@ in {
         format = "{icon} {temperatureC}°C";
         format-icons = [ "" "" "" ];
         tooltip = false;
+      };
+
+      "custom/swaync" = let
+        inherit (config.lib.stylix.colors) base04 base0A;
+      in {
+        exec = "swaync-client -swb";
+        exec-if = "which swaync-client";
+        escape = true;
+        return-type = "json";
+        format = "{icon}<sup>{}</sup>";
+        format-icons = {
+          dnd-inhibited-none = "<span color='#${base04}'>󰪑</span>";
+          dnd-inhibited-notification = "<span color='#${base04}'>󰪑</span>";
+          dnd-none = "<span color='#${base04}'>󰪑</span>";
+          dnd-notification = "<span color='#${base04}'>󰪑</span>";
+          inhibited-none = "<span color='#${base04}'>󰪑</span>";
+          inhibited-notification = "<span color='#${base04}'>󰪑</span>";
+          none = "󰂜";
+          notification = "<span color='#${base0A}'>󰂚</span>";
+        };
+        tooltip = false;
+        on-click = "swaync-client -t -sw";
+        on-click-right = "swaync-client -d -sw";
       };
     }];
   };
