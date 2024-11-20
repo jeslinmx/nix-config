@@ -156,7 +156,7 @@ in {
       # switch workspaces with SUPER + number
       ++ (produceBinds {
         keys = lib.map builtins.toString (lib.range 1 9) ++ ["0"];
-        dispatcher = "workspace";
+        dispatcher = "focusworkspaceoncurrentmonitor";
         args = lib.map builtins.toString (lib.range 1 10);
       })
       # move window to workspaces with SHIFT + SUPER + number/S
