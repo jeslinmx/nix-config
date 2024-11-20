@@ -175,6 +175,7 @@ in nixpkgs.lib.nixosSystem {
             home.packages = builtins.attrValues { inherit (pkgs)
               powershell
               wimlib
+              openssl
               ciscoPacketTracer8
             ;};
           }];
