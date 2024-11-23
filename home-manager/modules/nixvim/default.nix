@@ -116,7 +116,15 @@
       obsidian = {};
     };
     extraPlugins = builtins.attrValues {
-      inherit (pkgs.vimPlugins) auto-pairs vim-sleuth vim-numbertoggle;
+      inherit (pkgs.vimPlugins)
+        auto-pairs
+        vim-numbertoggle
+        # tpope's greatest hits
+        vim-sleuth
+        vim-repeat
+        vim-eunuch
+        vim-speeddating
+        vim-unimpaired;
     };
   };
 }
