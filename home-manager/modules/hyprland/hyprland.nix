@@ -19,7 +19,7 @@ in {
             (key: lib.concatStringsSep ", " [ mod key dispatcher snd ])
             (if lib.isList fst then fst else lib.singleton fst)
         ) (lib.zipLists keys args);
-    in {
+    in rec {
 
       # source = [ "~/.config/hypr/custom.conf" ];
 
@@ -27,7 +27,7 @@ in {
       "$menu" = "${config.programs.rofi.package}/bin/rofi";
 
       general = {
-        gaps_in = 5;
+        gaps_in = 4;
         gaps_out = 8;
         border_size = 2;
         "col.active_border" = let inherit (config.lib.stylix.colors) base0C base0D;
@@ -115,7 +115,7 @@ in {
         "float, class:(org.telegram.desktop) title:(Media viewer)"
       ]
       ++ (rule
-        ["float" "pin" "noinitialfocus" "size 20% 20%" "move 100%-w-20 100%-w-20"]
+        ["float" "pin" "noinitialfocus" "size 25% 25%" "move 100%-w-${builtins.toString (general.gaps_out + general.border_size)} 100%-w-${builtins.toString (general.gaps_out + general.border_size)}"]
         "class:(firefox), title:(Picture-in-Picture)"
       );
 
