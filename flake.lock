@@ -690,11 +690,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1731897397,
-        "narHash": "sha256-cVEr+T5ZsgLD9AsnCcZC2qVYOwzMWB4n+JgroT6IrgU=",
+        "lastModified": 1732525903,
+        "narHash": "sha256-/UE0vWDyehiv/Pru9r6oNBsv+J0m90FfXKBpH4ZTkqI=",
         "ref": "refs/heads/main",
-        "rev": "94a5770f0a441e44093c2b099701b8916752e4e5",
-        "revCount": 22,
+        "rev": "96c608d8436a6ba8941841604f2838e6e49f536e",
+        "revCount": 23,
         "type": "git",
         "url": "ssh://git@github.com/jeslinmx/nix-private-config"
       },
