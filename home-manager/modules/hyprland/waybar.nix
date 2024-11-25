@@ -183,8 +183,10 @@ in {
         orientation = "inherit";
         drawer = { transition-left-to-right = false; };
       };
-      network = {
-        format-disconnected = "󰌙";
+      network = let
+        inherit (config.lib.stylix.colors) base04;
+      in {
+        format-disconnected = "<span color='#${base04}'>󰌙</span>";
         format-ethernet = "";
         format-icons = ["󰤟" "󰤢" "󰤥" "󰤨"];
         format-wifi = "{icon} {essid}";
