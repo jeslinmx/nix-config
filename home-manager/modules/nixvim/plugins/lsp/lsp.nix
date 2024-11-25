@@ -13,10 +13,32 @@
               };
             };
           };
+          jsonls.enable = true;
+          yamlls.enable = true;
         };
       };
+      schemastore = {
+        enable = true;
+        json = {
+          enable = true;
+          settings.extra = [
+            {
+              description = "Fastfetch config file schema";
+              fileMatch = "config.jsonc";
+              name = "fastfetch";
+              url = "https://raw.githubusercontent.com/fastfetch-cli/fastfetch/refs/heads/dev/doc/json_schema.json";
+            }
+          ];
+        };
+        yaml.enable = true;
+      };
       conform-nvim = {}; # formatter
-      coq-nvim = {}; # autocompletion
+      coq-nvim = {
+        # autocompletion
+        enable = true;
+        installArtifacts = true;
+        settings.auto_start = true;
+      };
       dap = {}; # debug adapter protocol
       lint = {};
       schemastore = {};
