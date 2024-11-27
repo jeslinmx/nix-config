@@ -52,6 +52,9 @@ in {
     # enable networkd and have it configure the specified DNS servers on the zt* interfaces
     systemd.network = {
       enable = true;
+      # using systemd-networkd causes multi-user.target to wait for a configured interface to come online
+      # by default, no interfaces are configured, and the service waits until timeout
+      wait-online.enable = lib.mkDefault false;
       networks = lib.mapAttrs' (nwid: ztConfig:
         lib.nameValuePair
         "50-${ifrname nwid}"
