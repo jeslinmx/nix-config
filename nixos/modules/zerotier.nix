@@ -76,6 +76,9 @@ in {
     };
 
     # resolved is needed for networkd's dns assignments to take effect
-    services.resolved.enable = true;
+    services.resolved = {
+      enable = true;
+      extraConfig = "MulticastDNS=false"; # we have avahi nss
+    };
   };
 }
