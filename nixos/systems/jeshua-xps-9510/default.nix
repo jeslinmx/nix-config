@@ -1,93 +1,44 @@
 { flake, lib, config, pkgs, ... }: {
-  imports = (builtins.attrValues { inherit (flake.nixosModules)
-    ### SETTINGS ###
-    enable-standard-hardware
-    locale-sg
-    nix-enable-flakes
-    nix-gc
-    plymouth
-    power-management
-    quirks-iwlwifi
-    sudo-disable-timeout
-
-    ### FEATURES ###
-    chinese-input
-    cloudflare-warp
-    console
-    containers
-    enable-via-qmk
-    home-manager-users
-    hyprland
-    ios-usb
-    java
-    sshd
-    secure-boot
-    stylix
-    systemd-boot
-    virtualisation
-    zerotier
-    ;
+  imports = (builtins.attrValues {
+    inherit (flake.nixosModules) interactive-common quirks-iwlwifi extra-cloudflare-warp extra-containers extra-java extra-secure-boot extra-virtualisation extra-zerotier;
     inherit (flake.inputs.nixos-hardware.nixosModules) dell-xps-15-9510 dell-xps-15-9510-nvidia;
     inherit (flake.inputs.lanzaboote.nixosModules) lanzaboote;
   });
-  config = lib.mkMerge [
-  {
+  config = lib.mkMerge [{
     system.stateVersion = "24.05";
-    nixpkgs.config.allowUnfree = true;
 
     ### BOOT CUSTOMIZATION ###
-    boot = {
-      initrd = {
-        availableKernelModules = [ "xhci_pci" "nvme" ];
-        kernelModules = [ "dm-snapshot" ];
-        luks.devices."speqtral".device = "/dev/disk/by-partlabel/speqtral-luks";
-      };
-      kernelModules = [ "kvm-intel" ];
+    boot.initrd = {
+      availableKernelModules = [ "xhci_pci" "nvme" ];
+      kernelModules = [ "dm-snapshot" ];
+      luks.devices."speqtral".device = "/dev/disk/by-partlabel/speqtral-luks";
     };
-    system.nixos.label = "${config.networking.hostName}:${toString (flake.shortRev or flake.dirtyShortRev or flake.lastModified or "(unknown rev)")}";
-
+    boot.kernelModules = [ "kvm-intel" ];
     fileSystems = {
-      "/" =
-        { device = "/dev/speqtral/nixos";
-        fsType = "ext4";
-      };
-
-      "/boot" =
-        { device = "/dev/disk/by-partlabel/speqtral-boot";
-        fsType = "vfat";
+      "/".device = "/dev/speqtral/nixos";
+      "/boot" = {
+        device = "/dev/disk/by-partlabel/speqtral-boot";
         options = [ "fmask=0022" "dmask=0022" ];
       };
     };
-
     swapDevices = [ { device = "/dev/speqtral/swap"; } ];
 
     ### ENVIRONMENT CUSTOMIZATION ###
-    nixpkgs.hostPlatform = "x86_64-linux";
-    hardware = {
-      nvidia.open = false; # currently broken
-      enableRedistributableFirmware = true;
-      cpu.intel.updateMicrocode = config.hardware.enableRedistributableFirmware;
-    };
-    services.flatpak.enable = true;
-    programs.wireshark.enable = true;
-
-    ### USER SETUP ###
-    users.defaultUserShell = pkgs.fish;
-    programs.fish.enable = true;
+    hardware.nvidia.open = false; # currently broken
   }
 
   ### jeshua-nixos specialisation ###
   { specialisation.personal.configuration = {
     networking.hostName = "jeshua-nixos";
+    ### BOOT CUSTOMIZATION ###
     boot.initrd.luks.devices."personal".device = "/dev/disk/by-partlabel/personal-luks";
-    fileSystems."/home" =
-      { device = "/dev/personal/home";
-      fsType = "ext4";
-    };
+    fileSystems."/home".device = "/dev/personal/home";
+    ### ENVIRONMENT CUSTOMIZATION ###
     services.openssh.listenAddresses = [ { addr = "192.168.222.51"; } ];
     # TODO: remove when https://github.com/danth/stylix/issues/442 goes through
     stylix.image = ./wallpaper.jpg;
 
+    ### USER SETUP ###
     hmUsers.jeslinmx = {
       uid = 1000;
       description = "Jeshy";
@@ -126,6 +77,7 @@
 
   ### jeshua-speqtral specialisation ###
   (lib.mkIf (config.specialisation != {}) {
+    ### ENVIRONMENT CUSTOMIZATION ###
     networking.hostName = "jeshua-speqtral";
     services.openssh.authorizedKeysInHomedir = lib.mkForce true;
     stylix = {
@@ -141,6 +93,7 @@
       };
     };
 
+    ### USER SETUP ###
     hmUsers.jeshua = {
       uid = 1000;
       description = "Jeshua Lin";

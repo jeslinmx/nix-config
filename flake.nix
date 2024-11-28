@@ -84,6 +84,15 @@
     ];
 
     flake = let
+      findModulesFlatten = path: lib.concatMapAttrs (name: type:
+        if type == "directory"
+          then lib.mapAttrs' (subname: path:
+            lib.nameValuePair (lib.concatStringsSep "-" [name subname]) path
+          ) (findModulesRecursive (lib.path.append path name))
+          else if lib.hasSuffix ".nix" name
+            then { "${lib.removeSuffix ".nix" name}" = lib.path.append path name; }
+            else {}
+      ) (builtins.readDir path);
       findModulesRecursive = path: let
         allPaths = lib.mapAttrs' (name: type:
           lib.nameValuePair
@@ -106,7 +115,7 @@
       inherit findModulesRecursive;
       homeModules = findModulesRecursive ./home-manager/modules;
       homeConfigurations = findModulesRecursive ./home-manager/profiles;
-      nixosModules = findModulesRecursive ./nixos/modules;
+      nixosModules = findModulesFlatten ./nixos/modules;
       nixosConfigurations = lib.mapAttrs (_: x: let
         isKnownArch = {name, ...}: lib.elem name lib.systems.flakeExposed;
         notFound = throw "no default.nix or <arch>.nix found";

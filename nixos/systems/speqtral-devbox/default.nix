@@ -1,34 +1,18 @@
 { flake, pkgs, ... }: {
-  imports = (builtins.attrValues { inherit (flake.nixosModules)
-    ### SETTINGS ###
-    locale-sg
-    nix-enable-flakes
-    nix-gc
-    sudo-disable-timeout
+  imports = builtins.attrValues {
+    inherit (flake.nixosModules) base-common interactive-stylix extra-containers extra-zerotier;
+    inherit (flake.inputs.nixos-generators.nixosModules) proxmox-lxc;
+  };
 
-    ### FEATURES ###
-    containers
-    home-manager-users
-    sshd
-    stylix
-    zerotier
-  ;}) ++ [ flake.inputs.nixos-generators.nixosModules.proxmox-lxc ];
-
-  networking.hostName = "speqtral-devbox";
   system.stateVersion = "24.05";
-  nixpkgs.config.allowUnfree = true;
-  nix.settings.trusted-users = [ "root" "@wheel" ];
 
   ### ENVIRONMENT CUSTOMIZATION ###
-  programs.wireshark.enable = true;
   # TODO: remove when https://github.com/danth/stylix/issues/442 goes through
   stylix.image = ../jeshua-xps-9510/speqtral.png;
   # temp:
   networking.hosts = { "10.1.128.13" = [ "nqsnplus-sw-testbed.speqtranet.com" ]; };
 
   ### USER SETUP ###
-  users.defaultUserShell = pkgs.fish;
-  programs.fish.enable = true;
   hmUsers.jeslinmx = {
     uid = 1000;
     extraGroups = ["wheel" "podman" "wireshark"];
