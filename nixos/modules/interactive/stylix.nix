@@ -13,7 +13,7 @@ in {
     polarity = "dark";
     fonts = let
       iosevka-build-plan = {
-        noCvSs = true;
+        noCvSs = true; # don't export cv##/ss## OpenType features
         variants.design = {
           capital-i = "short-serifed";
           capital-q = "crossing";
