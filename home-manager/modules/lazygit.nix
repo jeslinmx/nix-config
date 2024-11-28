@@ -22,7 +22,6 @@
       git.log = {
         order = "date-order";
         showGraph = "always";
-        showWholeGraph = true;
       };
       notARepository = "skip";
       promptToReturnFromSubprocess = false;
