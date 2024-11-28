@@ -107,7 +107,17 @@
       homeModules = findModulesRecursive ./home-manager/modules;
       homeConfigurations = findModulesRecursive ./home-manager/profiles;
       nixosModules = findModulesRecursive ./nixos/modules;
-      nixosConfigurations = lib.mapAttrsRecursive (_: x: (import x) self) (findModulesRecursive ./nixos/systems);
+      nixosConfigurations = lib.mapAttrs (_: x: let
+        isKnownArch = {name, ...}: lib.elem name lib.systems.flakeExposed;
+        notFound = throw "no default.nix or <arch>.nix found";
+        file = if lib.isAttrs x
+          then lib.findFirst isKnownArch (lib.nameValuePair notFound notFound) (lib.attrsToList x)
+          else lib.nameValuePair "x86_64-linux" x;
+      in inputs.nixpkgs.lib.nixosSystem {
+        system = file.name;
+        modules = [ file.value ];
+        specialArgs = { flake = self; };
+      }) (findModulesRecursive ./nixos/systems);
     };
 
     systems = [ "x86_64-linux" ];
