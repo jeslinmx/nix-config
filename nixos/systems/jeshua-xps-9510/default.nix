@@ -15,9 +15,10 @@
     };
     boot.kernelModules = [ "kvm-intel" ];
     fileSystems = {
-      "/".device = "/dev/speqtral/nixos";
+      "/" = { device = "/dev/speqtral/nixos"; fsType = "ext4"; };
       "/boot" = {
         device = "/dev/disk/by-partlabel/speqtral-boot";
+        fsType = "vfat";
         options = [ "fmask=0022" "dmask=0022" ];
       };
     };
@@ -32,7 +33,7 @@
     networking.hostName = "jeshua-nixos";
     ### BOOT CUSTOMIZATION ###
     boot.initrd.luks.devices."personal".device = "/dev/disk/by-partlabel/personal-luks";
-    fileSystems."/home".device = "/dev/personal/home";
+    fileSystems."/home" = { device = "/dev/personal/home"; fsType = "ext4"; };
     ### ENVIRONMENT CUSTOMIZATION ###
     services.openssh.listenAddresses = [ { addr = "192.168.222.51"; } ];
     # TODO: remove when https://github.com/danth/stylix/issues/442 goes through
