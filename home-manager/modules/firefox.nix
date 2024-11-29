@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }: {
+{ flake, config, lib, pkgs, ... }: {
   programs.firefox = {
     profiles = {
       default = {
@@ -180,11 +180,5 @@
     configPath = ".mozilla/firefox";
     profilesPath = if isDarwin then "${configPath}/Profiles" else configPath;
     defaultProfilePath = "${profilesPath}/${cfg.profiles.default.path}/chrome";
-    arcwtf = pkgs.fetchFromGitHub {
-      owner = "kikaraage";
-      repo = "arcwtf";
-      rev = "v1.3-firefox";
-      hash = "sha256-JzZs0qFaFYaY24o5incgl8u4DGkKASan+b55N+9Jwag=";
-    };
-  in { ${defaultProfilePath} = { recursive = false; source = arcwtf.outPath; }; };
+  in { ${defaultProfilePath} = { recursive = false; source = flake.inputs.arcwtf; }; };
 }
