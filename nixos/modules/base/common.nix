@@ -9,7 +9,7 @@
     ./systemd-boot.nix
   ];
   config = lib.mkOverride 900 {
-    system.nixos.label = "${config.networking.hostName}:${toString (flake.shortRev or flake.dirtyShortRev or flake.lastModified or "(unknown rev)")}";
+    system.nixos.label = "${config.networking.hostName}-${toString (flake.shortRev or flake.dirtyShortRev or flake.lastModified or "(unknown rev)")}";
     nixpkgs.config.allowUnfree = true;
     hardware = {
       enableRedistributableFirmware = true;
