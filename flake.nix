@@ -65,11 +65,11 @@
 
     # Supporting repos
     tt-schemes = {
-      url = "github:tinted-theming/schemes";
+      url = "github:tinted-theming/schemes/e43188f3bba5fb31d199cc82b542b13579977cb6";
       flake = false;
     };
-    yaru = {
-      url = "github:ubuntu/yaru";
+    arcwtf = {
+      url = "github:kikaraage/arcwtf/v1.3-firefox";
       flake = false;
     };
   };

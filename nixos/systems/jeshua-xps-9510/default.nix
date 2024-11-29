@@ -84,11 +84,11 @@
     stylix = {
       image = ./speqtral.png;
       targets.plymouth = {
-        logo = "${(pkgs.fetchFromGitHub {
-          owner = "speqtral";
-          repo = "branding";
+        logo = "${(pkgs.fetchgit {
+          url = "https://github.com/speqtral/branding";
           rev = "95229a6373635d3826b8ba4ed22986c6aa906712";
-          hash = "sha256-gGq5VS0YvRM4HPJkXLC3pSQANyjIdEwn1jjFINg15yY=";
+          hash = "sha256-cVZ93CA6WdWWHMxx64ZzpqSAzO4WmUH4RXmgw51341w=";
+          sparseCheckout = ["logos/symbol"];
         }).outPath}/logos/symbol/light.png";
         logoAnimated = false;
       };

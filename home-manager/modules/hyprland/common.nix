@@ -1,4 +1,4 @@
-{ flake, lib, config, pkgs, ... }: rec {
+{ lib, config, pkgs, ... }: rec {
   # utility functions
   abs = x: if x < 0 then x * -1 else x;
   sign = x: if x < 0 then "-" else "+";
@@ -10,7 +10,14 @@
   mute-command = dev:
     "${pkgs.wireplumber}/bin/wpctl set-mute ${dev} toggle";
   volume-command = dev: amt:
-    "${pkgs.wireplumber}/bin/wpctl set-volume ${dev} ${fmt-adj amt} ${if amt > 0 then "&& wpctl set-mute ${dev} 0" else ""} && pw-cat -p ${flake.inputs.yaru}/sounds/src/stereo/audio-volume-change.oga";
+    let
+      yaru = pkgs.fetchgit {
+        url = "https://github.com/ubuntu/yaru";
+        rev = "c81d7d904a8f1903234bee0bace559362c48dc61";
+        hash = "sha256-gz9UueyRzZ5QMkDJ3KUsxAO2o48BKbRD3RRymNhR3cM=";
+        sparseCheckout = ["sounds/src/stereo"];
+      };
+    in "${pkgs.wireplumber}/bin/wpctl set-volume ${dev} ${fmt-adj amt} ${if amt > 0 then "&& wpctl set-mute ${dev} 0" else ""} && pw-cat -p ${yaru.outPath}/sounds/src/stereo/audio-volume-change.oga";
   brightness-command = amt:
     "${lib.getExe pkgs.brightnessctl} set --min-value=960 --exponent=2 ${fmt-adj amt}";
   scrot-date-format = "+%Y-%m-%d %k-%M-%S.%N";

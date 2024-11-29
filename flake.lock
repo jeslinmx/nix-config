@@ -25,6 +25,23 @@
         "type": "github"
       }
     },
+    "arcwtf": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1720943281,
+        "narHash": "sha256-JzZs0qFaFYaY24o5incgl8u4DGkKASan+b55N+9Jwag=",
+        "owner": "kikaraage",
+        "repo": "arcwtf",
+        "rev": "73ccc7bd3c8dd130d67746c413ca5cf6a57a9f72",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kikaraage",
+        "ref": "v1.3-firefox",
+        "repo": "arcwtf",
+        "type": "github"
+      }
+    },
     "base16": {
       "inputs": {
         "fromYaml": "fromYaml"
@@ -507,11 +524,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1731892054,
-        "narHash": "sha256-BJtD9NGUWaBe4OZ1JO77w8qBP9yHDJJUjsxkG/milFc=",
+        "lastModified": 1728308313,
+        "narHash": "sha256-GThSJ4OcPOOtf8j8ge7ik4141BHVbBALu0N7Ju+Nw18=",
         "owner": "nix-community",
         "repo": "nixos-generators",
-        "rev": "15a87ccb45e06d24a9fd5f99a49782efe11b23f0",
+        "rev": "71f9c8bcc87f15dba12515e94e40de243b5db103",
         "type": "github"
       },
       "original": {
@@ -706,6 +723,7 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
+        "arcwtf": "arcwtf",
         "devshell": "devshell",
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",
@@ -720,8 +738,7 @@
         "nixvim": "nixvim",
         "private-config": "private-config",
         "stylix": "stylix",
-        "tt-schemes": "tt-schemes",
-        "yaru": "yaru"
+        "tt-schemes": "tt-schemes"
       }
     },
     "rust-overlay": {
@@ -817,32 +834,17 @@
     "tt-schemes": {
       "flake": false,
       "locked": {
-        "lastModified": 1727294262,
-        "narHash": "sha256-UCRGabAyj8+RFkKdSZBR8BPE6yLM3rPpdxXHmwd9rZ0=",
+        "lastModified": 1725746347,
+        "narHash": "sha256-qfuu/o1pi4pImwMq+sQ85wy1g7ngPr9tFi5WfkoVGr4=",
         "owner": "tinted-theming",
         "repo": "schemes",
-        "rev": "b3273211d5d1510aee669083fc5a1e0e4b5e310c",
+        "rev": "e43188f3bba5fb31d199cc82b542b13579977cb6",
         "type": "github"
       },
       "original": {
         "owner": "tinted-theming",
         "repo": "schemes",
-        "type": "github"
-      }
-    },
-    "yaru": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1731955085,
-        "narHash": "sha256-Qfsw3QrZIbbaMq4YPpr8YDMdI0s2Wj17t1KssYZObO0=",
-        "owner": "ubuntu",
-        "repo": "yaru",
-        "rev": "8423102269ab9f0d764943caf9e478f09812bae0",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ubuntu",
-        "repo": "yaru",
+        "rev": "e43188f3bba5fb31d199cc82b542b13579977cb6",
         "type": "github"
       }
     }
