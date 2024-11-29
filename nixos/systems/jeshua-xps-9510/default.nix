@@ -1,6 +1,6 @@
 { flake, lib, config, pkgs, ... }: {
   imports = (builtins.attrValues {
-    inherit (flake.nixosModules) interactive-common quirks-iwlwifi extra-cloudflare-warp extra-containers extra-java extra-secure-boot extra-virtualisation extra-zerotier;
+    inherit (flake.nixosModules) interactive-common quirks-iwlwifi quirks-gmk67 extra-cloudflare-warp extra-containers extra-java extra-secure-boot extra-virtualisation extra-zerotier;
     inherit (flake.inputs.nixos-hardware.nixosModules) dell-xps-15-9510 dell-xps-15-9510-nvidia;
     inherit (flake.inputs.lanzaboote.nixosModules) lanzaboote;
   });
