@@ -39,6 +39,26 @@ in {
         onCalendar = "weekly";
       };
     };
+    overrides.global = {
+      Context = {
+        sockets = ["wayland" "!x11" "!fallback-x11"];
+        filesystems = [
+          "~/.local/share/fonts:ro"
+          "~/.cache/fontconfig/:ro"
+          "/nix/store:ro"
+          "~/.icons:ro"
+        ];
+      };
+      Environment = {
+        # Fix un-themed cursor in some Wayland apps
+        XCURSOR_PATH = "/run/host/user-share/icons:/run/host/share/icons";
+
+        # Force correct theme for some GTK apps
+        GTK_THEME = "Adwaita:dark";
+
+        FONTCONFIG_CACHE = "~/.cache/fontconfig";
+      };
+    };
     packages = [
       "org.keepassxc.KeePassXC"
       "org.telegram.desktop"
