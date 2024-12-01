@@ -12,7 +12,6 @@
       { key = "<Leader><Leader>m"; action = "<Cmd>Telescope man_pages<CR>"; options.desc = "man"; }
       { key = "<Leader><Leader>x"; action = "<Cmd>Telescope oldfiles<CR>"; options.desc = "recently closed"; }
       { key = "<Leader><Leader>o"; action = "<Cmd>Telescope vim_options<CR>"; options.desc = "options"; }
-      { key = "<Leader><Leader>t"; action = "<Cmd>Telescope filetypes<CR>"; options.desc = "filetypes"; }
       { key = "<Leader><Leader>'"; action = "<Cmd>Telescope marks<CR>"; options.desc = "marks"; }
       { key = "<Leader><Leader>\""; action = "<Cmd>Telescope registers<CR>"; options.desc = "registers"; }
       { key = "<Leader><Leader>/"; action = "<Cmd>Telescope current_buffer_fuzzy_find<CR>"; options.desc = "current buffer (fuzzy)"; }
