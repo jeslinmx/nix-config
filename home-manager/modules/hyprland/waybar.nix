@@ -149,11 +149,12 @@ in {
         };
         title-len = 60;
         tooltip = false;
+        ignored-players = [ "Blanket" ];
       };
       "mpris#extra" = {
         format = "- {dynamic}";
         dynamic-order = [ "artist" "position" "length" ];
-        inherit (mpris) format-stopped tooltip;
+        inherit (mpris) format-stopped tooltip ignored-players;
       };
 
       tray = {spacing = 8;};
