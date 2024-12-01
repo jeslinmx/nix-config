@@ -44,7 +44,6 @@
       { key = "<S-Tab>"; action = "<Cmd>BufferLineCyclePrev<CR>"; }
 
       { key = "<Leader>?"; action = ""; options.desc = "+docs"; }
-      { key = "<Leader>?n"; action = "<Cmd>Telescope manix<CR>"; options.desc = "NixOS options"; }
     ];
     plugins = {
       mini = {

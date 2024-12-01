@@ -36,13 +36,10 @@
       extensions = {
         undo.enable = true;
       };
-      enabledExtensions = [ "manix" ];
     };
     plugins.which-key.registrations = {
       "<Leader><Leader>".name = "+scope";
       "<Leader><Leader>g".name = "+git";
     };
-    extraPlugins = [ pkgs.vimPlugins.telescope-manix ];
-    extraPackages = [ pkgs.manix ];
   };
 }
