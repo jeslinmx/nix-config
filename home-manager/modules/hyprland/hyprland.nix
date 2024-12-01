@@ -93,6 +93,7 @@ in {
         "systemctl --user start hyprpolkitagent"
         "${config.programs.waybar.package}/bin/waybar &"
         "${pkgs.swww}/bin/swww-daemon & ${pkgs.swww}/bin/swww img ${config.stylix.image}"
+        "$menu -show drun"
       ];
 
       env = [
