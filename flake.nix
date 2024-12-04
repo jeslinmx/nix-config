@@ -10,7 +10,7 @@
     };
 
     # nixpkgs
-    nixpkgs.url = "nixpkgs/release-24.05";
+    nixpkgs.url = "nixpkgs/release-24.11";
     nixpkgs-unstable.url = "nixpkgs/nixpkgs-unstable";
     nixpkgs-patched.url = "github:jeslinmx/nixpkgs/patch-1";
 
@@ -37,11 +37,11 @@
 
     # Home Manager
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.05";
+      url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixvim = {
-      url = "github:nix-community/nixvim/nixos-24.05";
+      url = "github:nix-community/nixvim/nixos-24.11";
       inputs = {
         devshell.follows = "devshell";
         flake-parts.follows = "flake-parts";
@@ -50,7 +50,7 @@
       };
     };
     stylix = {
-      url = "github:danth/stylix/release-24.05";
+      url = "github:danth/stylix/release-24.11";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         home-manager.follows = "home-manager";
@@ -65,7 +65,7 @@
 
     # Supporting repos
     tt-schemes = {
-      url = "github:tinted-theming/schemes/e43188f3bba5fb31d199cc82b542b13579977cb6";
+      url = "github:tinted-theming/schemes";
       flake = false;
     };
     arcwtf = {

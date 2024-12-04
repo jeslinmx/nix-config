@@ -40,9 +40,9 @@ in {
 
       decoration = {
         rounding = 10;
-        drop_shadow = false;
         active_opacity = 1.0;
         inactive_opacity = 1.0;
+        shadow.enabled = false;
         blur.enabled = false;
       };
 
@@ -55,7 +55,7 @@ in {
         "col.border_locked_active" = lib.mkForce "rgba(${base0A}ff) rgba(${base09}ff) 45deg";
         "col.border_locked_inactive" = cfg.settings.general."col.inactive_border";
         groupbar = {
-          "col.active" = "rgba(${base0D}ff)";
+          "col.active" = "rgb(${base0D})";
           "col.inactive" = cfg.settings.group."col.border_inactive";
           "col.locked_active" = "rgba(${base0A}ff)";
           "col.locked_inactive" = cfg.settings.group."col.border_locked_inactive";
