@@ -2,8 +2,8 @@
   imports = let
     nixvimModules = flake.findModulesRecursive ./.;
   in builtins.concatLists (
-    lib.mapAttrsFlatten (_: v:
-      lib.mapAttrsFlatten (_: v: v) v
+    lib.mapAttrsToList (_: v:
+      lib.mapAttrsToList (_: v: v) v
     ) nixvimModules.plugins
   );
 
