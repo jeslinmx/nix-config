@@ -18,7 +18,6 @@ in {
           capital-i = "short-serifed";
           capital-q = "crossing";
           capital-z = "straight-serifless-with-horizontal-crossbar";
-          a = "single-storey-serifless";
           g = "double-storey-open";
           i = "hooky";
           l = "serifed-flat-tailed";
