@@ -1,6 +1,7 @@
 { lib, pkgs, ... }: {
 
   imports = [
+    ./rofi.nix
     ./waybar.nix
     ./hyprlock.nix
     ./hyprland.nix

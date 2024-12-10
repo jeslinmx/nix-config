@@ -23,8 +23,8 @@ in {
 
       # source = [ "~/.config/hypr/custom.conf" ];
 
-      "$terminal" = "${config.programs.kitty.package}/bin/kitty --single-instance";
-      "$menu" = "${config.programs.rofi.package}/bin/rofi";
+      "$terminal" = "${lib.getExe config.programs.kitty.package} --single-instance";
+      "$menu" = lib.getExe config.programs.rofi.finalPackage;
 
       general = {
         gaps_in = 4;
@@ -93,7 +93,7 @@ in {
         "systemctl --user start hyprpolkitagent"
         "${config.programs.waybar.package}/bin/waybar &"
         "${pkgs.swww}/bin/swww-daemon & ${pkgs.swww}/bin/swww img ${config.stylix.image}"
-        "$menu -show drun"
+        "$menu -show combi"
       ];
 
       env = [
@@ -124,15 +124,17 @@ in {
 
       bind = [
         "SUPER, RETURN, togglesplit"
-        "SUPER, SPACE, exec, $menu -show drun"
-        "CTRL SUPER, SPACE, exec, $menu -show run"
+        "SUPER, SPACE, exec, $menu -show combi"
+        "ALT SUPER, SPACE, exec, $menu -show run"
+        "SUPER, E, exec, $menu -show file-browser-extended"
+        "SUPER, EQUAL, exec, $menu -show calc"
+        "SUPER, PERIOD, exec, $menu -show emoji -kb-custom-1 Ctrl+c -kb-secondary-copy ''"
         "SUPER, C, exec, $toggleShaders"
         "SHIFT SUPER, C, exec, $disableShaders"
         "SUPER, F11, fullscreen, 1"
         "SUPER, F12, exit"
         "SUPER, T, exec, $terminal"
         "SUPER, Q, killactive"
-        "SUPER, E, exec, xdg-open ~"
         "SUPER, V, exec, swaync-client -t"
         "SUPER, F, togglefloating"
         "SUPER, F, centerwindow"
@@ -140,7 +142,6 @@ in {
         "SUPER, G, togglegroup"
         "CTRL SUPER, G, lockactivegroup, toggle"
         "SUPER, S, togglespecialworkspace, magic"
-        "SUPER, tab, exec, $menu -show window"
         "SUPER, escape, exec, hyprlock"
         ", XF86AudioMute, exec, ${mute-command "@DEFAULT_AUDIO_SINK@"}"
         "ALT, XF86AudioMute, exec, ${mute-command "@DEFAULT_AUDIO_SOURCE@"}"
@@ -223,13 +224,6 @@ in {
         "SUPER, mouse:273, resizewindow"
       ];
 
-    };
-  };
-
-  programs = {
-    rofi = {
-      enable = true;
-      package = pkgs.rofi.override { rofi-unwrapped = pkgs.rofi-wayland-unwrapped; };
     };
   };
 
