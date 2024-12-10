@@ -10,7 +10,7 @@
     fzf
     git
     lazygit
-    nixvim
+    neovim
     starship
     termshark
     tmux
@@ -59,7 +59,7 @@
     fzf.enable = true;
     git.enable = true;
     lazygit.enable = true;
-    nixvim.enable = true;
+    neovim.enable = true;
     starship.enable = true;
     tmux.enable = true;
   };
