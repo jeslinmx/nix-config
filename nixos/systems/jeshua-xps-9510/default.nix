@@ -48,7 +48,6 @@
       openssh.authorizedKeys.keys = flake.inputs.private-config.ssh-authorized-keys;
       hmModules = (builtins.attrValues { inherit (flake.homeModules)
         aesthetics
-        ai
         cli-programs
         gui-programs
         gnome-shell
