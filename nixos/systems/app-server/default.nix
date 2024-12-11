@@ -3,10 +3,11 @@
     inherit (flake.nixosModules) base-common extra-zerotier;
     inherit (flake.inputs.nixos-generators.nixosModules) proxmox-lxc;
   } ++ [
+    ./proxy.nix
     ./silverbullet.nix
     ./syncthing.nix
+    ./docker-registry.nix
     ./zerotier-coredns.nix
-    ./proxy.nix
   ];
 
   system.stateVersion = "24.05";
