@@ -6,6 +6,7 @@
     ./silverbullet.nix
     ./syncthing.nix
     ./zerotier-coredns.nix
+    ./proxy.nix
   ];
 
   system.stateVersion = "24.05";
