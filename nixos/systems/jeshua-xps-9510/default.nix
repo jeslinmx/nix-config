@@ -44,7 +44,6 @@
       uid = 1000;
       description = "Jeshy";
       extraGroups = ["wheel" "podman" "libvirtd" "wireshark"];
-      hashedPassword = "$y$j9T$Y1nDY/UdDZ6g//Kz84SaL/$N1pm904Az.rHaZu3GjQHIRY02sAUdUlkq5QaBsenZ.D";
       openssh.authorizedKeys.keys = flake.inputs.private-config.ssh-authorized-keys;
       hmModules = (builtins.attrValues { inherit (flake.homeModules)
         aesthetics
@@ -94,11 +93,10 @@
     };
 
     ### USER SETUP ###
-    hmUsers.jeshua = {
+    hmUsers.jeslinmx = {
       uid = 1000;
       description = "Jeshua Lin";
       extraGroups = ["wheel" "podman" "libvirtd" "wireshark"];
-      hashedPassword = "$y$j9T$oXg5n5hIIpz9JZG8QvTLr1$MKjw1m695.YQcJeaXcrbIItHaM8FvMYiAz4USTL4Vl1";
       openssh.authorizedKeys.keys = flake.inputs.private-config.ssh-authorized-keys;
       hmModules = (builtins.attrValues { inherit (flake.homeModules)
         aesthetics
