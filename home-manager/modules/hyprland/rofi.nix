@@ -1,6 +1,16 @@
 { config, lib, pkgs, ... }: {
   programs.rofi = let
     overrides = { rofi-unwrapped = pkgs.rofi-wayland-unwrapped; };
+    hyprshade-script = pkgs.writeShellApplication {
+      name = "hyprshade-script";
+      runtimeInputs = [pkgs.hyprshade];
+      text = ''
+        if [[ -z "$*" ]]
+        then hyprshade ls | sed 's/^..//'
+        else hyprshade toggle "$*"
+        fi
+      '';
+    };
   in {
     enable = true;
     package = pkgs.rofi.override overrides;
@@ -8,7 +18,7 @@
       lib.attrValues { inherit (pkgs) rofi-calc rofi-top rofi-pulse-select;
     }) ++ [ pkgs.rofi-emoji-wayland (pkgs.rofi-file-browser.override { rofi = overrides.rofi-unwrapped; }) ];
     extraConfig = {
-      modes = [ "combi" "run" "ssh" "calc" "top" "file-browser-extended" ];
+      modes = [ "combi" "run" "ssh" "shaders:${lib.getExe hyprshade-script}" "calc" "top" "file-browser-extended" ];
       combi-modes = [ "window" "drun" ];
       combi-hide-mode-prefix = true;
       terminal = lib.getExe config.programs.kitty.package;
@@ -21,6 +31,7 @@
       window-format = "{t} <i>{c}</i>";
       display-combi = "󱁴";
       display-run = "";
+      display-shaders = "󰷜";
       display-ssh = "󰢹";
       display-calc = "󱖦";
       display-top = "";
