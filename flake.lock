@@ -573,6 +573,21 @@
         "type": "indirect"
       }
     },
+    "nixpkgs-caddy-plugins": {
+      "locked": {
+        "lastModified": 1733248914,
+        "narHash": "sha256-Fby4Smt4OjPbICcXLXKE+kDZv9vf709Abi2KtZmyn/E=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "b8a14976023e53f6e08e51dc61585838eb1f2828",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "rev": "b8a14976023e53f6e08e51dc61585838eb1f2828",
+        "type": "indirect"
+      }
+    },
     "nixpkgs-lib": {
       "locked": {
         "lastModified": 1733096140,
@@ -763,6 +778,7 @@
         "nixos-generators": "nixos-generators",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-caddy-plugins": "nixpkgs-caddy-plugins",
         "nixpkgs-patched": "nixpkgs-patched",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nixvim": "nixvim",
