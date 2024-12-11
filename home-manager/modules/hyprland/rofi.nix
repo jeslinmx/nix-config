@@ -37,6 +37,8 @@
       display-top = "";
       display-file-browser-extended = "󱀲";
       display-emoji = "󰞅";
+      # ssh
+      ssh-client = "kitty +kitten ssh";
       # calc
       calc-command = "wl-copy {result}";
       # file-browser-extended
