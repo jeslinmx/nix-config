@@ -19,16 +19,24 @@
         ready
         prometheus
       }
-      . {
+      (forward) {
         forward . tls://94.140.15.16 tls://94.140.14.15 tls://2a10:50c0::bad1:ff tls://2a10:50c0::bad2:ff {
           tls_servername family.adguard-dns.com
         }
-        cache
+      }
+      . {
         health
+        cache
+        import defaults
+        import forward
       }
       '' + builtins.concatStringsSep "\n" ( builtins.attrValues (builtins.mapAttrs (nwid: { config, ... }: ''
         ${config.dns.domain} {
-          hosts /run/zt-hosts/${nwid}
+          hosts /run/zt-hosts/${nwid} {
+            fallthrough
+          }
+          import defaults
+          import forward
         }
       '') flake.inputs.private-config.zerotier-networks));
   };
