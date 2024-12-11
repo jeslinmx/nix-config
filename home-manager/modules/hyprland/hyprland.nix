@@ -133,7 +133,7 @@ in {
         "SUPER, F12, exit"
         "SUPER, T, exec, $terminal"
         "SUPER, Q, killactive"
-        "SUPER, V, exec, swaync-client -t"
+        "SUPER, C, exec, swaync-client -t"
         "SUPER, F, togglefloating"
         "SUPER, F, centerwindow"
         "SUPER, P, pseudo" # dwindle
