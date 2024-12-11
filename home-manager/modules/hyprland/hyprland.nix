@@ -129,8 +129,6 @@ in {
         "SUPER, E, exec, $menu -show file-browser-extended"
         "SUPER, EQUAL, exec, $menu -show calc"
         "SUPER, PERIOD, exec, $menu -show emoji -kb-custom-1 Ctrl+c -kb-secondary-copy ''"
-        "SUPER, C, exec, $toggleShaders"
-        "SHIFT SUPER, C, exec, $disableShaders"
         "SUPER, F11, fullscreen, 1"
         "SUPER, F12, exit"
         "SUPER, T, exec, $terminal"
@@ -226,5 +224,7 @@ in {
 
     };
   };
+
+  home.file.".config/hypr/shaders".source = ./shaders;
 
 }
