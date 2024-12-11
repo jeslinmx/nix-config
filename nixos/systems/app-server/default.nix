@@ -4,6 +4,7 @@
     inherit (flake.inputs.nixos-generators.nixosModules) proxmox-lxc;
   } ++ [
     ./proxy.nix
+    ./flood.nix
     ./silverbullet.nix
     ./syncthing.nix
     ./docker-registry.nix
