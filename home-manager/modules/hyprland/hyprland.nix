@@ -1,6 +1,6 @@
 {config, lib, pkgs, ...}@args: let
   common = (import ./common.nix) args;
-  inherit (common) brightness-command mute-command volume-command scrot-base-command;
+  inherit (common) brightness-command mute-command volume-command move-monitor-command scrot-base-command;
 in {
   wayland.windowManager.hyprland = let cfg = config.wayland.windowManager.hyprland;
   in {
@@ -153,6 +153,12 @@ in {
       ++ (produceBinds { mod = "CTRL SHIFT SUPER"; dispatcher = "swapwindow"; })
       # move window into groups with CTRL + SUPER + direction
       ++ (produceBinds { mod = "CTRL SUPER"; dispatcher = "movewindoworgroup"; })
+      # move displays with CTRL + SHIFT + ALT + SUPER + direction
+      ++ (produceBinds {
+        mod = "CTRL SHIFT ALT SUPER";
+        dispatcher = "exec";
+        args = builtins.map (x: move-monitor-command (builtins.elemAt x 0)) directionKeys;
+      })
       # switch workspaces with SUPER + number
       ++ (produceBinds {
         keys = lib.map builtins.toString (lib.range 1 9) ++ ["0"];
