@@ -7,11 +7,6 @@
     config = ''
       (defaults) {
         any
-        ${
-          if config ? "zerotier"
-          then "bind ${builtins.concatStringsSep " " (builtins.attrValues config.zerotier.network-interfaces)}"
-          else ""
-        }
         cancel
         errors
         loop
@@ -49,7 +44,10 @@
   systemd = {
     services = {
 
-      coredns.wants = builtins.map (nwid: "zerotier-hosts@${nwid}.timer") (builtins.attrNames flake.inputs.private-config.zerotier-networks);
+      coredns = {
+        wants = builtins.map (nwid: "zerotier-hosts@${nwid}.timer") (builtins.attrNames flake.inputs.private-config.zerotier-networks) ++ [ "zerotierone.service" ];
+        after = builtins.map (nwid: "zerotier-hosts@${nwid}.service") (builtins.attrNames flake.inputs.private-config.zerotier-networks) ++ [ "zerotierone.service" ];
+      };
 
       "zerotier-hosts@" = {
         description = "Create hosts mapping for members of ZeroTier network %i";
