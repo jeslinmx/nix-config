@@ -5,10 +5,7 @@ in {
   wayland.windowManager.hyprland = let cfg = config.wayland.windowManager.hyprland;
   in {
     enable = true;
-    systemd = {
-      enableXdgAutostart = true;
-      variables = [ "--all" ]; # makes systemd bring all env vars into the dbus session
-    };
+    systemd.enable = false; # conflicts with UWSM
     sourceFirst = false; # put source statements at end
     settings = let
       directionKeys = [ [ "up" "k" ] [ "down" "j" ] [ "left" "h" ] [ "right" "l" ] ];
@@ -89,10 +86,11 @@ in {
       ];
 
       exec-once = [
-        "dbus-update-activation-environment --systemd --all"
         "systemctl --user start hyprpolkitagent"
-        "${config.programs.waybar.package}/bin/waybar &"
-        "${pkgs.swww}/bin/swww-daemon & ${pkgs.swww}/bin/swww img ${config.stylix.image}"
+        "uwsm app -- ${lib.getExe config.programs.waybar.package} &"
+        "uwsm app -- ${lib.getExe' pkgs.swww "swww-daemon"} &"
+        "${lib.getExe' pkgs.swww "swww-daemon"} img ${config.stylix.image}"
+        "uwsm finalize"
         "$menu -show combi"
       ];
 
@@ -130,7 +128,6 @@ in {
         "SUPER, EQUAL, exec, $menu -show calc"
         "SUPER, PERIOD, exec, $menu -show emoji -kb-custom-1 Ctrl+c -kb-secondary-copy ''"
         "SUPER, F11, fullscreen, 1"
-        "SUPER, F12, exit"
         "SUPER, T, exec, $terminal"
         "SUPER, Q, killactive"
         "SUPER, C, exec, swaync-client --close-latest"
@@ -233,5 +230,6 @@ in {
   };
 
   home.file.".config/hypr/shaders".source = ./shaders;
+  home.packages = [ pkgs.hyprpolkitagent ];
 
 }

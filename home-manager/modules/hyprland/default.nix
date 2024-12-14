@@ -12,6 +12,9 @@
   };
 
   services = {
+    network-manager-applet.enable = true;
+    udiskie.enable = true;
+    ssh-agent.enable = true;
     swaync = {
       enable = true;
       settings = {
@@ -23,10 +26,18 @@
         hide-on-clear = true;
       };
     };
-    udiskie = {
-      enable = true;
+  };
+
+  systemd.user.services = {
+    network-manager-applet.Unit.After = [ "graphical-session.target" ];
+    udiskie.Unit.After = [ "graphical-session.target" ];
+    ssh-agent = {
+      Unit.Before = [ "graphical-session-pre.target" ];
+      Service = {
+        ExecStartPost = "systemctl --user set-environment \"SSH_AUTH_SOCK=%t/ssh-agent\"";
+        ExecStopPost = "systemctl --user unset-environment SSH_AUTH_SOCK";
+      };
     };
-    ssh-agent.enable = true;
   };
 
 }
