@@ -51,12 +51,11 @@
         gui-programs
         gnome-shell
         hyprland
+        xdg
       ; inherit (flake.inputs.private-config.homeModules)
         ssh-personal-hosts
         ssh-speqtral-hosts
       ;}) ++ [{
-        xdg.enable = true;
-
         services = {
           syncthing.enable = true;
           flatpak.packages = [
@@ -104,12 +103,11 @@
         gui-programs
         gnome-shell
         hyprland
+        xdg
       ; inherit (flake.inputs.private-config.homeModules)
         awscli
         ssh-speqtral-hosts
       ;}) ++ [{
-        xdg.enable = true;
-
         services = {
           syncthing.enable = true;
           flatpak.packages = [
