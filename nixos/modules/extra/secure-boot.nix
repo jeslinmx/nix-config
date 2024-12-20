@@ -17,7 +17,7 @@
     # systemd-cryptenroll <device name> --tpm2-device=auto --tpm2-pcrs=0,2,7 --wipe-slot=tpm2
     initrd.systemd = {
       enable = true;
-      enableTpm2 = true;
+      tpm2.enable = true;
     };
   };
   environment.systemPackages = [ pkgs.sbctl ];

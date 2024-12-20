@@ -28,7 +28,6 @@
     eza = {
       enable = true;
       git = true;
-      icons = true;
     };
     direnv = {
       enable = true;

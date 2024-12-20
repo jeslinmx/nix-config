@@ -1,6 +1,7 @@
 {pkgs, ...}: {
   i18n.inputMethod = {
-    enabled = "ibus";
+    enable = true;
+    type = "ibus";
     ibus.engines = [pkgs.ibus-engines.rime];
   };
 
