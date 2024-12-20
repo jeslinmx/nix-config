@@ -50,7 +50,7 @@
           "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
           "svg.context-properties.content.enabled" = true;
           "uc.tweak.hide-forward-button" = true;
-          "uc.tweak.popup-search" = true;
+          "uc.tweak.popup-search" = false;
           "uc.tweak.longer-sidebar" = true;
 
           # fonts
