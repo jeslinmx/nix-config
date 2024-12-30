@@ -1,23 +1,18 @@
-return {
-  "MunifTanjim/nui.nvim",
-  {
-    "folke/noice.nvim",
-    event = "VeryLazy",
-    opts = {
-      cmdline = {
-        view = "cmdline",
-        format = {
-          cmdline = false,
-          search_up = { icon = " " },
-          search_down = { icon = " " },
-          help = { icon = "?" }
-        }
-      },
-      commands = {
-        history = { view = "popup" },
-        last = { view = "notify" },
+return { "folke/noice.nvim",
+  dependencies = { "MunifTanjim/nui.nvim" },
+
+  opts = {
+    cmdline = {
+      view = "cmdline",
+      format = {
+        cmdline = false,
+        search_up = { icon = " " },
+        search_down = { icon = " " },
+        help = { icon = "?" }
       }
     },
-    dependencies = { "MunifTanjim/nui.nvim" }
-  }
+    popupmenu = { enabled = false, },
+  },
+
+  event = "VeryLazy",
 }

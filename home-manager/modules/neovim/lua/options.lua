@@ -10,7 +10,7 @@ o.splitkeep = "screen" -- when splitting, keep text on the current screenline
 o.termguicolors = true
 
 -- statusline and cmdline
-o.laststatus = 2 -- one statusline for each window
+o.laststatus = 3 -- global statusline
 o.showmode = false
 o.ruler = false -- hide row:col and position% indicators
 opt.shortmess = "IaT" -- hide Vim intro, abbreviate [readonly], [Modified] etc. messages in cmdline, truncate cmdline at middle
@@ -28,7 +28,7 @@ opt.fillchars = { eob = " " } -- remove tildes from end of buffer
 o.cursorline = true -- Highlight current line
 o.cursorlineopt = "both" -- highlight textline and line number
 o.list = true
-opt.listchars:append { trail = "◦", multispace = "◦", leadmultispace = " ", nbsp = "⍽", tab = "-->", precedes = "«", extends = "»" }
+opt.listchars:append { trail = "◦", multispace = "◦", leadmultispace = " ", nbsp = "⍽", precedes = "«", extends = "»" }
 o.foldmethod = "indent"
 o.foldlevelstart = 99 -- start with no lines folded
 o.wrap = true
@@ -49,7 +49,7 @@ o.formatoptions = "ro/qnlmB1j"
 o.smartindent = true
 
 -- Completion
-o.completeopt = "menuone,popup"
+o.completeopt = "menuone,noinsert,noselect,popup"
 
 -- Indenting
 o.expandtab = true
@@ -79,10 +79,4 @@ g.loaded_node_provider = 0
 g.loaded_python3_provider = 0
 g.loaded_perl_provider = 0
 g.loaded_ruby_provider = 0
-
--- add binaries installed by mason.nvim to path
-local is_windows = vim.fn.has "win32" ~= 0
-local sep = is_windows and "\\" or "/"
-local delim = is_windows and ";" or ":"
-vim.env.PATH = table.concat({ vim.fn.stdpath "data", "mason", "bin" }, sep) .. delim .. vim.env.PATH
 

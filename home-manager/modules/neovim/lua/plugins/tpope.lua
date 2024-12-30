@@ -1,5 +1,4 @@
 return {
-  "tpope/vim-repeat",
   { "tpope/vim-sleuth", event = "FileType" },
   { "tpope/vim-eunuch",
     cmd = { "Remove", "Unlink", "Delete", "Copy", "Duplicate", "Move", "Rename", "Chmod", "Mkdir", "Cfind", "Lfind", "Clocate", "Llocate", "SudoEdit", "SudoWrite", "Wall", "W" },
