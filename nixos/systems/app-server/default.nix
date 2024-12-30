@@ -7,6 +7,7 @@
     ./flood.nix
     ./silverbullet.nix
     ./syncthing.nix
+    ./couchdb.nix
     ./docker-registry.nix
     ./zerotier-coredns.nix
   ];
