@@ -2,6 +2,7 @@
   services = {
     flood = {
       enable = true;
+      port = 4000;
       extraArgs = [ "--noauth" "--rtsocket=${config.services.rtorrent.rpcSocket}" ];
     };
     rtorrent.enable = true;
