@@ -12,7 +12,7 @@
     # nixpkgs
     nixpkgs.url = "nixpkgs/release-24.11";
     nixpkgs-unstable.url = "nixpkgs/nixpkgs-unstable";
-    nixpkgs-patched.url = "github:jeslinmx/nixpkgs/patch-1";
+    nixpkgs-patched.url = "github:jeslinmx/nixpkgs/cozette-psfu";
     nixpkgs-caddy-plugins.url = "nixpkgs/b8a14976023e53f6e08e51dc61585838eb1f2828";
 
     # NixOS modules

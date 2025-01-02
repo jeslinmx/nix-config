@@ -602,16 +602,16 @@
     },
     "nixpkgs-patched": {
       "locked": {
-        "lastModified": 1723000376,
-        "narHash": "sha256-m8yGCYisfxrfXawplPZ/yjXysKb03YrcSmlj+juge5s=",
+        "lastModified": 1735795870,
+        "narHash": "sha256-MdOoq07pEE/eslHibJy4kvQZ65+xmg7au3ZNHXz7tLU=",
         "owner": "jeslinmx",
         "repo": "nixpkgs",
-        "rev": "01dac7c62c870fd7273bf66f908fae4056c322ee",
+        "rev": "5effd6403dbe11a515f33033051c727614ba6c27",
         "type": "github"
       },
       "original": {
         "owner": "jeslinmx",
-        "ref": "patch-1",
+        "ref": "cozette-psfu",
         "repo": "nixpkgs",
         "type": "github"
       }
