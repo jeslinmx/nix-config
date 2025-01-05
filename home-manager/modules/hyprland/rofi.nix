@@ -22,7 +22,7 @@
       combi-modes = [ "window" "drun" ];
       combi-hide-mode-prefix = true;
       terminal = lib.getExe config.programs.kitty.package;
-      matching = "fuzzy";
+      matching = "normal";
       scroll-method = 1; # non-paginated
       cycle = false;
       sidebar-mode = true;
