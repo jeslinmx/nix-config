@@ -5,6 +5,7 @@
     ./console.nix
     ./enable-standard-hardware.nix
     ./enable-via-qmk.nix
+    ./greetd.nix
     ./hyprland.nix
     ./ios-usb.nix
     ./plymouth.nix
