@@ -14,6 +14,7 @@
     starship
     termshark
     tmux
+    yazi
   ;};
 
   programs = {
@@ -21,7 +22,6 @@
     carapace.enable = true;
     pandoc.enable = true;
     thefuck.enable = true;
-    yazi.enable = true;
     bat.enable = true;
     btop.enable = true;
     zoxide.enable = true;
@@ -52,6 +52,15 @@
       controlPersist = "3s";
       includes = [ "~/.ssh/config.d/*.conf" ];
     };
+    gh = {
+      enable = true;
+      settings = {
+        git_protocol = "ssh";
+      };
+      extensions = builtins.attrValues {
+        inherit (pkgs) gh-notify;
+      };
+    };
     # configured in dedicated modules
     atuin.enable = true;
     fish.enable = true;
@@ -61,6 +70,7 @@
     neovim.enable = true;
     starship.enable = true;
     tmux.enable = true;
+    yazi.enable = true;
   };
 
   # unnixed stuff
