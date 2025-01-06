@@ -43,6 +43,12 @@ in {
         blur.enabled = false;
       };
 
+      animation = [
+        "global, 1, 3, default"
+        "borderangle, 1, 20, default, once"
+        "specialWorkspace, 1, 3, default, slidefadevert 20%"
+      ];
+
       group = let inherit (config.lib.stylix.colors) base09 base0A base0C base0D;
       in {
         # not yet available in 0.44.1
@@ -66,8 +72,6 @@ in {
 
       misc = {
         disable_hyprland_logo = true; # disable default wallpapers
-        enable_swallow = true; # replace swallow_regex windows with child process
-        swallow_regex = "^(kitty)$";
         middle_click_paste = false;
         new_window_takes_over_fullscreen = 2; # kick out of fullscreen if opening new window
       };
@@ -103,11 +107,14 @@ in {
 
       workspace = [
         "f[1], gapsout:0"
+        "w[tv1], gapsout:0"
       ];
 
       windowrulev2 = let
         rule = dispatchers: conditions: lib.map (d: "${d}, ${conditions}") dispatchers;
       in [
+        "bordersize 0, onworkspace:w[tv1]"
+        "rounding 0, onworkspace:w[tv1]"
         "bordersize 0, onworkspace:f[1]"
         "rounding 0, onworkspace:f[1]"
         "suppressevent maximize, class:.*"
