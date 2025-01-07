@@ -1,6 +1,7 @@
 return { "neovim/nvim-lspconfig",
   dependencies = {
     "ms-jpq/coq_nvim",
+    "b0o/schemastore.nvim",
   },
 
   config = function()
@@ -62,6 +63,39 @@ return { "neovim/nvim-lspconfig",
         },
       },
     }
+
+    lspconfig.nixd.setup {
+      settings = { nixd = {
+        options = {
+          -- nixos = { expr = "" },
+          -- home_manager = { expr = "" },
+        },
+      }},
+    }
+
+    lspconfig.jsonls.setup {
+      settings = {
+        json = {
+          schemas = require("schemastore").json.schemas {
+            description = "Fastfetch config file schema",
+            fileMatch = "config.jsonc",
+            name = "fastfetch",
+            url = "https://raw.githubusercontent.com/fastfetch-cli/fastfetch/refs/heads/dev/doc/json_schema.json",
+          },
+          validate = { enable = true }, -- https://github.com/b0o/SchemaStore.nvim/issues/8#issuecomment-1129528787
+        },
+      },
+    }
+
+    lspconfig.yamlls.setup {
+      settings = {
+        yaml = {
+          schemaStore = { enable = false, url = "" }, -- disable builtin support
+          schemas = require("schemastore").yaml.schemas(),
+        },
+      },
+    }
+
   end,
 
   event = { "BufReadPost", "BufNewFile" },

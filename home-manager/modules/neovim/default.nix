@@ -14,7 +14,10 @@
       inherit (pkgs)
         zig # for LSP
         bc # for coq_3p
-        lua-language-server stylua gopls nixd
+        lua-language-server stylua
+        gopls
+        nixd alejandra
+        vscode-langservers-extracted yaml-language-server
       ;
       inherit (pkgs.python312Packages) python-lsp-server;
     };
