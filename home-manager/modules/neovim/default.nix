@@ -11,7 +11,11 @@
       _G.config_is_hm = true
     '' + builtins.readFile ./init.lua;
     extraPackages = builtins.attrValues {
-      inherit (pkgs) zig lua-language-server stylua gopls nixd;
+      inherit (pkgs)
+        zig # for LSP
+        bc # for coq_3p
+        lua-language-server stylua gopls nixd
+      ;
       inherit (pkgs.python312Packages) python-lsp-server;
     };
     viAlias = true;

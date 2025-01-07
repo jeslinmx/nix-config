@@ -36,11 +36,11 @@ return { "neovim/nvim-lspconfig",
 
     -- lsps with default config
     for _, lsp in ipairs(servers) do
-      lspconfig[lsp].setup {
+      lspconfig[lsp].setup(require("coq").lsp_ensure_capabilities{
         on_attach = on_attach,
         on_init = on_init,
         capabilities = capabilities,
-      }
+      })
     end
 
     lspconfig.lua_ls.setup {
@@ -53,7 +53,6 @@ return { "neovim/nvim-lspconfig",
             library = {
               vim.fn.expand "$VIMRUNTIME/lua",
               vim.fn.expand "$VIMRUNTIME/lua/vim/lsp",
-              vim.fn.stdpath "data" .. "/lazy/ui/nvchad_types",
               vim.fn.stdpath "data" .. "/lazy/lazy.nvim/lua/lazy",
               "${3rd}/luv/library",
             },

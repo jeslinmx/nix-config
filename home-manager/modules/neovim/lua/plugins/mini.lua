@@ -166,7 +166,6 @@ return { "echasnovski/mini.nvim",
     require('mini.sessions').setup({ autoread = true, autowrite = true, }) -- todo: MiniSessions.write and select interactively
 
     -- LSP
-    require('mini.completion').setup()
     -- require('mini.cursorword').setup()
 
     require('mini.diff').setup()
