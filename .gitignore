@@ -2,3 +2,4 @@
 Session.vim
 /.direnv
 /result
+/home-manager/modules/neovim/lazy-lock.json
