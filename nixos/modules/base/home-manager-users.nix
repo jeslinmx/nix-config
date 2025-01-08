@@ -1,6 +1,6 @@
 { flake, config, lib, ... }: let
   cfg = config.hmUsers;
-  inherit (flake.inputs) home-manager nixvim nix-flatpak;
+  inherit (flake.inputs) home-manager nix-flatpak;
 in {
 
   imports = [home-manager.nixosModules.home-manager];
@@ -42,8 +42,6 @@ in {
               ({ osConfig, ... }: {
                 home.stateVersion = lib.mkDefault (osConfig.system.stateVersion or "24.05");
               })
-              # due to https://github.com/nix-community/nixvim/issues/83
-              nixvim.homeManagerModules.nixvim
               # due to https://github.com/gmodena/nix-flatpak/issues/25
               nix-flatpak.homeManagerModules.nix-flatpak
             ];
