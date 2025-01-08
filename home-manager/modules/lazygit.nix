@@ -7,16 +7,16 @@
         nerdFontsVersion = 3;
         border = "rounded";
         theme = {
-          activeBorderColor = [ "blue" "bold" ];
-          inactiveBorderColor = [ "black" ];
-          searchingActiveBorderColor = [ "cyan" ];
-          optionsTextColor = [ "magenta" ];
-          selectedLineBgColor = [ "reverse" ];
-          selectedRangeBgColor = [ "reverse" ];
-          cherryPickedCommitBgColor = [ "default" ];
-          cherryPickedCommitFgColor = [ "yellow" "underline" ];
-          unstagedChangesColor = [ "red" ];
-          defaultFgColor = [ "default" ];
+          activeBorderColor = ["blue" "bold"];
+          inactiveBorderColor = ["black"];
+          searchingActiveBorderColor = ["cyan"];
+          optionsTextColor = ["magenta"];
+          selectedLineBgColor = ["reverse"];
+          selectedRangeBgColor = ["reverse"];
+          cherryPickedCommitBgColor = ["default"];
+          cherryPickedCommitFgColor = ["yellow" "underline"];
+          unstagedChangesColor = ["red"];
+          defaultFgColor = ["default"];
         };
       };
       git.log = {
@@ -36,7 +36,7 @@
               type = "menu";
               key = "Type";
               title = "Type of change";
-              options = builtins.attrValues (builtins.mapAttrs (value: description: { inherit value description; }) {
+              options = builtins.attrValues (builtins.mapAttrs (value: description: {inherit value description;}) {
                 build = "Changes that affect the build system or external dependencies";
                 feat = "A new feature";
                 fix = "A bug fix";
@@ -61,8 +61,14 @@
               key = "Breaking";
               title = "Breaking change?";
               options = [
-                { name = "no"; value = ""; }
-                { name = "yes"; value = "!"; }
+                {
+                  name = "no";
+                  value = "";
+                }
+                {
+                  name = "yes";
+                  value = "!";
+                }
               ];
             }
             {

@@ -1,4 +1,8 @@
-{ lib, pkgs, ... }: {
+{
+  lib,
+  pkgs,
+  ...
+}: {
   services.greetd = {
     enable = true;
     vt = 7;

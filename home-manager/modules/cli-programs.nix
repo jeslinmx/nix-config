@@ -3,19 +3,22 @@
   pkgs,
   ...
 }: {
-  imports = builtins.attrValues { inherit (flake.homeModules)
-    atuin
-    comma
-    fish
-    fzf
-    git
-    lazygit
-    neovim
-    starship
-    termshark
-    tmux
-    yazi
-  ;};
+  imports = builtins.attrValues {
+    inherit
+      (flake.homeModules)
+      atuin
+      comma
+      fish
+      fzf
+      git
+      lazygit
+      neovim
+      starship
+      termshark
+      tmux
+      yazi
+      ;
+  };
 
   programs = {
     home-manager.enable = true;
@@ -50,7 +53,7 @@
       hashKnownHosts = true;
       controlMaster = "auto";
       controlPersist = "3s";
-      includes = [ "~/.ssh/config.d/*.conf" ];
+      includes = ["~/.ssh/config.d/*.conf"];
     };
     gh = {
       enable = true;
@@ -74,7 +77,9 @@
   };
 
   # unnixed stuff
-  home.packages = builtins.attrValues { inherit (pkgs)
+  home.packages = builtins.attrValues {
+    inherit
+      (pkgs)
       fd
       dig
       lazydocker
@@ -83,7 +88,8 @@
       httpie
       mitmproxy
       wishlist
-    ;};
+      ;
+  };
   home.file = {
     ".config/lazydocker/config.yml".source = pkgs.writers.writeYAML "config.yml" {
       commandTemplates = {

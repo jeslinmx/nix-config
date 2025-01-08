@@ -1,4 +1,8 @@
-{ flake, lib, ... }: {
+{
+  flake,
+  lib,
+  ...
+}: {
   imports = builtins.attrValues {
     inherit (flake.nixosModules) base-common interactive-stylix extra-containers extra-zerotier;
     inherit (flake.inputs.nixos-generators.nixosModules) proxmox-lxc;
@@ -20,12 +24,11 @@
   };
   virtualisation.podman.enable = lib.mkForce false;
 
-### USER SETUP ###
+  ### USER SETUP ###
   hmUsers.jeslinmx = {
     uid = 1000;
     extraGroups = ["wheel" "docker"];
     openssh.authorizedKeys.keys = flake.inputs.private-config.ssh-authorized-keys;
-    hmModules = [ flake.homeModules.cli-programs ];
+    hmModules = [flake.homeModules.cli-programs];
   };
-
 }

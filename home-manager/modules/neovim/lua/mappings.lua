@@ -31,7 +31,7 @@ map("n", "<leader>/", "gcc", { desc = "toggle comment", remap = true })
 map("v", "<leader>/", "gc", { desc = "toggle comment", remap = true })
 
 -- terminals
-map({"n","t"}, "<C-\\>", require("snacks").terminal.toggle, { desc = "toggle terminals" })
+map({ "n", "t" }, "<C-\\>", require("snacks").terminal.toggle, { desc = "toggle terminals" })
 
 -- toggleable
 map({ "n", "t" }, "<A-v>", function()
@@ -49,15 +49,19 @@ end, { desc = "terminal toggle floating term" })
 -- leap
 map("n", "s", "<Plug>(leap)", { desc = "Leap" })
 map("n", "S", "<Plug>(leap-from-window)", { desc = "Leap across windows" })
-map({"x", "o"}, "s", "<Plug>(leap-forward)", { desc = "Leap forward" })
-map({"x", "o"}, "S", "<Plug>(leap-backward)", { desc = "Leap backward" })
-map({"n", "o"}, "gs", function() require("leap.remote").action() end, { desc = "Leap temporarily" })
+map({ "x", "o" }, "s", "<Plug>(leap-forward)", { desc = "Leap forward" })
+map({ "x", "o" }, "S", "<Plug>(leap-backward)", { desc = "Leap backward" })
+map({ "n", "o" }, "gs", function()
+  require("leap.remote").action()
+end, { desc = "Leap temporarily" })
 
-map("n", "-", function ()
-  require('mini.files').open(vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':h'))
-  require('mini.files').reveal_cwd()
-end, { desc = "browse containing folder "})
-map("n", "<leader><leader><leader>", function() require("snacks").dashboard() end, { desc = "Open dashboard" })
+map("n", "-", function()
+  require("mini.files").open(vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":h"))
+  require("mini.files").reveal_cwd()
+end, { desc = "browse containing folder " })
+map("n", "<leader><leader><leader>", function()
+  require("snacks").dashboard()
+end, { desc = "Open dashboard" })
 
 -- LSP
 map("n", "gD", vim.lsp.buf.declaration, { desc = "Go to declaration" })
@@ -67,7 +71,9 @@ map("n", "gi", vim.lsp.buf.implementation, { desc = "Go to implementation" })
 map("n", "<leader>sh", vim.lsp.buf.signature_help, { desc = "Show signature help" })
 map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, { desc = "Add workspace folder" })
 map("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, { desc = "Remove workspace folder" })
-map("n", "<leader>wl", function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, { desc = "List workspace folders" })
+map("n", "<leader>wl", function()
+  print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+end, { desc = "List workspace folders" })
 map("n", "<leader>D", vim.lsp.buf.type_definition, { desc = "Go to type definition" })
 map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "Code action" })
 -- map("n", "<leader>ds", vim.diagnostic.setloclist, { desc = "LSP diagnostic loclist" })
@@ -77,7 +83,12 @@ map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "Code action" 
 map("n", "<leader><leader>b", "<cmd>Telescope buffers<cr>", { desc = "buffers" })
 -- map("n", "<leader><leader>c", "<cmd>Telescope commands<cr>", { desc = "commands" })
 map("n", "<leader><leader>f", "<cmd>Telescope find_files<cr>", { desc = "files" })
-map("n", "<leader><leader>F", "<cmd>Telescope find_files follow=true no_ignore=true hidden=true<cr>", { desc = "all files" })
+map(
+  "n",
+  "<leader><leader>F",
+  "<cmd>Telescope find_files follow=true no_ignore=true hidden=true<cr>",
+  { desc = "all files" }
+)
 map("n", "<leader><leader>r", "<cmd>Telescope live_grep<cr>", { desc = "ripgrep" })
 map("n", "<leader><leader>:", "<cmd>Telescope command_history<cr>", { desc = "command history" })
 map("n", "<leader><leader>h", "<cmd>Telescope help_tags<cr>", { desc = "help" })
@@ -89,11 +100,11 @@ map("n", "<leader><leader>q", "<cmd>Telescope oldfiles<cr>", { desc = "recently 
 map("n", "<leader><leader>u", "<cmd>Telescope undo<cr>", { desc = "undotree" })
 map("n", "<leader><leader>o", "<cmd>Telescope vim_options<cr>", { desc = "options" })
 map("n", "<leader><leader>'", "<cmd>Telescope marks<cr>", { desc = "marks" })
-map("n", "<leader><leader>\"", "<cmd>Telescope registers<cr>", { desc = "registers" })
+map("n", '<leader><leader>"', "<cmd>Telescope registers<cr>", { desc = "registers" })
 map("n", "<leader><leader>/", "<cmd>Telescope current_buffer_fuzzy_find<cr>", { desc = "current buffer (fuzzy)" })
 
 map("n", "<leader><leader>gc", "<cmd>Telescope git_bcommits<cr>", { desc = "commits (current file)" })
-map({"n", "v"}, "<leader><leader>gc", "<cmd>Telescope git_bcommits_range<cr>", { desc = "commits (range)" })
+map({ "n", "v" }, "<leader><leader>gc", "<cmd>Telescope git_bcommits_range<cr>", { desc = "commits (range)" })
 map("n", "<leader><leader>gC", "<cmd>Telescope git_commits<cr>", { desc = "commits (working dir)" })
 map("n", "<leader><leader>gb", "<cmd>Telescope git_branches<cr>", { desc = "branches" })
 map("n", "<leader><leader>gf", "<cmd>Telescope git_files<cr>", { desc = "files" })

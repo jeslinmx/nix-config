@@ -1,6 +1,10 @@
-{lib, pkgs, ...}: {
+{
+  lib,
+  pkgs,
+  ...
+}: {
   # BRIGHTNESS CONTROL
-  environment.systemPackages = [ pkgs.ddcutil ];
+  environment.systemPackages = [pkgs.ddcutil];
   hardware.i2c.enable = true; # for ddcutil
 
   # AUDIO

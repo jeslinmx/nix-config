@@ -1,11 +1,12 @@
-return { "neovim/nvim-lspconfig",
+return {
+  "neovim/nvim-lspconfig",
   dependencies = {
     "ms-jpq/coq_nvim",
     "b0o/schemastore.nvim",
   },
 
   config = function()
-    local lspconfig = require("lspconfig")
+    local lspconfig = require "lspconfig"
     local servers = { "html", "cssls", "gopls", "pylsp", "nixd", "lua_ls" }
 
     local on_attach = function(client, bufnr) end
@@ -37,7 +38,7 @@ return { "neovim/nvim-lspconfig",
 
     -- lsps with default config
     for _, lsp in ipairs(servers) do
-      lspconfig[lsp].setup(require("coq").lsp_ensure_capabilities{
+      lspconfig[lsp].setup(require("coq").lsp_ensure_capabilities {
         on_attach = on_attach,
         on_init = on_init,
         capabilities = capabilities,
@@ -65,12 +66,14 @@ return { "neovim/nvim-lspconfig",
     }
 
     lspconfig.nixd.setup {
-      settings = { nixd = {
-        options = {
-          -- nixos = { expr = "" },
-          -- home_manager = { expr = "" },
+      settings = {
+        nixd = {
+          options = {
+            -- nixos = { expr = "" },
+            -- home_manager = { expr = "" },
+          },
         },
-      }},
+      },
     }
 
     lspconfig.jsonls.setup {
@@ -95,7 +98,6 @@ return { "neovim/nvim-lspconfig",
         },
       },
     }
-
   end,
 
   event = { "BufReadPost", "BufNewFile" },

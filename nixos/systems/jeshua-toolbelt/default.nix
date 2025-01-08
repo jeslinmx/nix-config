@@ -1,4 +1,9 @@
-{ flake, lib, pkgs, ... }: {
+{
+  flake,
+  lib,
+  pkgs,
+  ...
+}: {
   imports = builtins.attrValues {
     inherit (flake.nixosModules) interactive-common extra-containers;
   };
@@ -18,16 +23,25 @@
   hmUsers.nixos = {
     extraGroups = ["podman" "wireshark"];
     openssh.authorizedKeys.keys = flake.inputs.private-config.ssh-authorized-keys;
-    hmModules = (builtins.attrValues { inherit (flake.homeModules)
-        cli-programs
-        kitty
-        ;
-        }) ++ [{
-      xdg.enable = true;
-      home.packages = builtins.attrValues { inherit (pkgs)
-        powershell
-        wimlib
-      ;};
-    }];
+    hmModules =
+      (builtins.attrValues {
+        inherit
+          (flake.homeModules)
+          cli-programs
+          kitty
+          ;
+      })
+      ++ [
+        {
+          xdg.enable = true;
+          home.packages = builtins.attrValues {
+            inherit
+              (pkgs)
+              powershell
+              wimlib
+              ;
+          };
+        }
+      ];
   };
 }

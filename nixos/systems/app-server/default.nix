@@ -1,16 +1,22 @@
-{ flake, lib, ... }: {
-  imports = builtins.attrValues {
-    inherit (flake.nixosModules) base-common extra-zerotier;
-    inherit (flake.inputs.nixos-generators.nixosModules) proxmox-lxc;
-  } ++ [
-    ./proxy.nix
-    ./flood.nix
-    ./silverbullet.nix
-    ./syncthing.nix
-    ./couchdb.nix
-    ./docker-registry.nix
-    ./zerotier-coredns.nix
-  ];
+{
+  flake,
+  lib,
+  ...
+}: {
+  imports =
+    builtins.attrValues {
+      inherit (flake.nixosModules) base-common extra-zerotier;
+      inherit (flake.inputs.nixos-generators.nixosModules) proxmox-lxc;
+    }
+    ++ [
+      ./proxy.nix
+      ./flood.nix
+      ./silverbullet.nix
+      ./syncthing.nix
+      ./couchdb.nix
+      ./docker-registry.nix
+      ./zerotier-coredns.nix
+    ];
 
   system.stateVersion = "24.05";
 

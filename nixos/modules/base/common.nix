@@ -1,4 +1,10 @@
-{ flake, config, lib, pkgs, ... }: {
+{
+  flake,
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   imports = [
     ./home-manager-users.nix
     ./locale-sg.nix

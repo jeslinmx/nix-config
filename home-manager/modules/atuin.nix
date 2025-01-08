@@ -1,6 +1,6 @@
 {
   programs.atuin = {
-    flags = [ "--disable-up-arrow" ];
+    flags = ["--disable-up-arrow"];
     settings = {
       update_check = false;
       style = "compact";

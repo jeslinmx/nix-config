@@ -63,5 +63,5 @@
       abbr -a !! --position anywhere -f last_history
     '';
   };
-  home.packages = [ pkgs.kjv ];
+  home.packages = [pkgs.kjv];
 }

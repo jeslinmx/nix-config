@@ -1,52 +1,62 @@
-{ flake, config, lib, pkgs, ... }: {
-
-  imports = [ flake.inputs.agenix.nixosModules.default ];
+{
+  flake,
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
+  imports = [flake.inputs.agenix.nixosModules.default];
 
   services.coredns = {
     enable = true;
-    config = ''
-      (defaults) {
-        any
-        cancel
-        errors
-        loop
-        minimal
-        ready
-        prometheus
-      }
-      (forward) {
-        forward . tls://94.140.15.16 tls://94.140.14.15 tls://2a10:50c0::bad1:ff tls://2a10:50c0::bad2:ff {
-          tls_servername family.adguard-dns.com
+    config =
+      ''
+        (defaults) {
+          any
+          cancel
+          errors
+          loop
+          minimal
+          ready
+          prometheus
         }
-      }
-      . {
-        health
-        cache
-        import defaults
-        import forward
-      }
-      '' + builtins.concatStringsSep "\n" ( builtins.attrValues (builtins.mapAttrs (nwid: { config, ... }: ''
-        ${config.dns.domain} {
-          hosts /run/zt-hosts/${nwid} {
-            fallthrough
+        (forward) {
+          forward . tls://94.140.15.16 tls://94.140.14.15 tls://2a10:50c0::bad1:ff tls://2a10:50c0::bad2:ff {
+            tls_servername family.adguard-dns.com
           }
+        }
+        . {
+          health
+          cache
           import defaults
           import forward
         }
-      '') flake.inputs.private-config.zerotier-networks));
+      ''
+      + builtins.concatStringsSep "\n" (builtins.attrValues (builtins.mapAttrs (nwid: {config, ...}: ''
+          ${config.dns.domain} {
+            hosts /run/zt-hosts/${nwid} {
+              fallthrough
+            }
+            import defaults
+            import forward
+          }
+        '')
+        flake.inputs.private-config.zerotier-networks));
   };
 
-  networking.firewall = { allowedTCPPorts = [ 53 ]; allowedUDPPorts = [ 53 ]; };
+  networking.firewall = {
+    allowedTCPPorts = [53];
+    allowedUDPPorts = [53];
+  };
 
   # the resolved stub resolver conflicts with coredns over port 53
-  services.resolved = lib.mkIf config.services.resolved.enable { extraConfig = "DNSStubListener=no"; };
+  services.resolved = lib.mkIf config.services.resolved.enable {extraConfig = "DNSStubListener=no";};
 
   systemd = {
     services = {
-
       coredns = {
-        wants = builtins.map (nwid: "zerotier-hosts@${nwid}.timer") (builtins.attrNames flake.inputs.private-config.zerotier-networks) ++ [ "zerotierone.service" ];
-        after = builtins.map (nwid: "zerotier-hosts@${nwid}.service") (builtins.attrNames flake.inputs.private-config.zerotier-networks) ++ [ "zerotierone.service" ];
+        wants = builtins.map (nwid: "zerotier-hosts@${nwid}.timer") (builtins.attrNames flake.inputs.private-config.zerotier-networks) ++ ["zerotierone.service"];
+        after = builtins.map (nwid: "zerotier-hosts@${nwid}.service") (builtins.attrNames flake.inputs.private-config.zerotier-networks) ++ ["zerotierone.service"];
       };
 
       "zerotier-hosts@" = {
@@ -60,7 +70,7 @@
           RuntimeDirectory = "zt-hosts";
           RuntimeDirectoryPreserve = "yes";
         };
-        path = [ pkgs.jq pkgs.curl ];
+        path = [pkgs.jq pkgs.curl];
         script = ''
           curl -H "Authorization: bearer $ZT_TOKEN" -s $ZT_API_ENDPOINT/network/$ZT_NETWORK_ID/member | \
           ZT_HOSTNAME=$(curl -H "Authorization: bearer $ZT_TOKEN" -s $ZT_API_ENDPOINT/network/$ZT_NETWORK_ID | jq -r .config.dns.domain) \
@@ -72,13 +82,11 @@
           }} > /run/zt-hosts/$1
         '';
         scriptArgs = "%i";
-        after = [ "network.target" ];
+        after = ["network.target"];
       };
-
     };
     timers."zerotier-hosts@".timerConfig.OnCalendar = "*-*-* *:*:00/15";
   };
 
   age.secrets.zt_token.file = ./zt_token.age;
-
 }

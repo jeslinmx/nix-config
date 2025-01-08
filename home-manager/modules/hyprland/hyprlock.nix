@@ -1,4 +1,8 @@
-{config, pkgs, ...}@args: let
+{
+  config,
+  pkgs,
+  ...
+} @ args: let
   common = (import ./common.nix) args;
   inherit (common) rgb;
 in {

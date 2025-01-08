@@ -1,4 +1,8 @@
-{ pkgs, lib, ... }: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   programs.vim = {
     defaultEditor = true;
     plugins = let
@@ -38,45 +42,50 @@
           hash = "sha256-i3I3pk7ngd5RN6a0ADGQu7vt/dU1nFcPtkWWS5TiVTU=";
         };
       };
-    in (builtins.attrValues { inherit (pkgs.vimPlugins)
-      # Editing
-      vim-sensible
-      vim-repeat
-      vim-sleuth
-      vim-surround
-      vim-eunuch
-      vim-speeddating
-      vim-unimpaired
-      editorconfig-vim
-      auto-pairs
-      vim-highlightedyank
-      ReplaceWithRegister
-      undotree
-      Recover-vim
-      rainbow
-      # LSP/code completion/formatting
-      vim-lsp
-      vim-lsp-settings
-      ale
-      asyncomplete-vim
-      asyncomplete-lsp-vim
-      # Git
-      vim-fugitive
-      vim-gitgutter
-      # UI
-      vim-vinegar
-      lightline-vim
-      lightline-bufferline
-      vim-bbye
-      vim-which-key
-      vim-peekaboo
-      goyo-vim
-      limelight-vim
-      devdocs-vim
-      vim-startify
-      vim-devicons
-      zoomwintab-vim
-      ;}) ++ [
+    in
+      (builtins.attrValues {
+        inherit
+          (pkgs.vimPlugins)
+          # Editing
+          vim-sensible
+          vim-repeat
+          vim-sleuth
+          vim-surround
+          vim-eunuch
+          vim-speeddating
+          vim-unimpaired
+          editorconfig-vim
+          auto-pairs
+          vim-highlightedyank
+          ReplaceWithRegister
+          undotree
+          Recover-vim
+          rainbow
+          # LSP/code completion/formatting
+          vim-lsp
+          vim-lsp-settings
+          ale
+          asyncomplete-vim
+          asyncomplete-lsp-vim
+          # Git
+          vim-fugitive
+          vim-gitgutter
+          # UI
+          vim-vinegar
+          lightline-vim
+          lightline-bufferline
+          vim-bbye
+          vim-which-key
+          vim-peekaboo
+          goyo-vim
+          limelight-vim
+          devdocs-vim
+          vim-startify
+          vim-devicons
+          zoomwintab-vim
+          ;
+      })
+      ++ [
         easyjump
         vim-templates
         vim-coloresque

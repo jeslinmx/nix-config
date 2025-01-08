@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  pkgs-unstable = import flake.inputs.nixpkgs-unstable { inherit (pkgs) system config; };
+  pkgs-unstable = import flake.inputs.nixpkgs-unstable {inherit (pkgs) system config;};
 in {
   imports = builtins.attrValues {
     inherit (flake.homeModules) firefox kitty teams;
@@ -15,10 +15,10 @@ in {
     defaultFonts = let
       inherit (config.stylix.fonts) sansSerif serif monospace;
     in {
-      sansSerif = [ sansSerif.name ];
-      serif = [ serif.name ];
-      monospace = [ monospace.name "Symbols Nerd Font Mono" ];
-      emoji = [ "Blobmoji" ];
+      sansSerif = [sansSerif.name];
+      serif = [serif.name];
+      monospace = [monospace.name "Symbols Nerd Font Mono"];
+      emoji = ["Blobmoji"];
     };
   };
 
@@ -65,23 +65,31 @@ in {
   };
 
   # unnixed stuff
-  home.packages = builtins.attrValues { inherit (pkgs)
-    wl-clipboard
-    virt-manager
-  ;} ++ [
-    pkgs.pavucontrol
-    (pkgs.pantheon.switchboard-with-plugs.override {
-      plugs = builtins.attrValues { inherit (pkgs.pantheon)
-        switchboard-plug-about
-        # broken due to missing org.gnome.settings-daemon.plugins.media-keys schema
-        # switchboard-plug-sound
-        switchboard-plug-network
-        switchboard-plug-printers
-        # pulls in wingpanel indicator and thus all of gnome
-        # switchboard-plug-bluetooth
-        switchboard-plug-applications
-      ; };
-      useDefaultPlugs = false;
-    })
-  ];
+  home.packages =
+    builtins.attrValues {
+      inherit
+        (pkgs)
+        wl-clipboard
+        virt-manager
+        ;
+    }
+    ++ [
+      pkgs.pavucontrol
+      (pkgs.pantheon.switchboard-with-plugs.override {
+        plugs = builtins.attrValues {
+          inherit
+            (pkgs.pantheon)
+            switchboard-plug-about
+            # broken due to missing org.gnome.settings-daemon.plugins.media-keys schema
+            # switchboard-plug-sound
+            switchboard-plug-network
+            switchboard-plug-printers
+            # pulls in wingpanel indicator and thus all of gnome
+            # switchboard-plug-bluetooth
+            switchboard-plug-applications
+            ;
+        };
+        useDefaultPlugs = false;
+      })
+    ];
 }

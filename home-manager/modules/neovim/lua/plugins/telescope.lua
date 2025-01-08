@@ -1,4 +1,5 @@
-return { "nvim-telescope/telescope.nvim",
+return {
+  "nvim-telescope/telescope.nvim",
   dependencies = { "2kabhishek/nerdy.nvim", "debugloop/telescope-undo.nvim" },
 
   opts = {
@@ -23,19 +24,17 @@ return { "nvim-telescope/telescope.nvim",
       },
       mappings = {
         i = {
-          ["<C-Down>"] = require('telescope.actions').cycle_history_next,
-          ["<C-Up>"] = require('telescope.actions').cycle_history_prev,
+          ["<C-Down>"] = require("telescope.actions").cycle_history_next,
+          ["<C-Up>"] = require("telescope.actions").cycle_history_prev,
         },
       },
     },
   },
   config = function(_, opts)
     require("telescope").setup(opts)
-    require("telescope").load_extension("nerdy")
-    require("telescope").load_extension("undo")
+    require("telescope").load_extension "nerdy"
+    require("telescope").load_extension "undo"
   end,
 
   cmd = "Telescope",
 }
-
-

@@ -1,4 +1,10 @@
-{ flake, config, lib, pkgs, ... }: {
+{
+  flake,
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   programs.firefox = {
     profiles = {
       default = {
@@ -26,14 +32,15 @@
                 "unified-extensions-button"
                 "customizableui-special-spring3"
               ];
-              "toolbar-menubar" = [ "menubar-items" ];
+              "toolbar-menubar" = ["menubar-items"];
               "unified-extensions-area" = builtins.map (
                 extId: let
                   lowercaseId = lib.toLower extId;
                   sanitizedId = let
-                    illegalCharacters = [ "{" "}" "@" "." ];
+                    illegalCharacters = ["{" "}" "@" "."];
                     replacements = builtins.map (x: "_") illegalCharacters;
-                  in builtins.replaceStrings illegalCharacters replacements lowercaseId;
+                  in
+                    builtins.replaceStrings illegalCharacters replacements lowercaseId;
                 in "${sanitizedId}-browser-action"
               ) (builtins.attrNames config.programs.firefox.policies.ExtensionSettings);
             };
@@ -92,28 +99,28 @@
           default = "DuckDuckGo";
           engines = {
             "MyNixOS" = {
-              urls = [{ template = "https://mynixos.com/search?q={searchTerms}"; }];
-              definedAliases = [ "mn" ];
+              urls = [{template = "https://mynixos.com/search?q={searchTerms}";}];
+              definedAliases = ["mn"];
             };
             "NixHub" = {
-              urls = [{ template = "https://www.nixhub.io/packages/{searchTerms}"; }];
-              definedAliases = [ "nh" ];
+              urls = [{template = "https://www.nixhub.io/packages/{searchTerms}";}];
+              definedAliases = ["nh"];
             };
             "Minecraft Wiki" = {
-              urls = [{ template = "https://minecraft.wiki/?search={searchTerms}&title=Special%3ASearch&wprov=acrw1_-1"; }];
-              definedAliases = [ "mc" ];
+              urls = [{template = "https://minecraft.wiki/?search={searchTerms}&title=Special%3ASearch&wprov=acrw1_-1";}];
+              definedAliases = ["mc"];
             };
             "SpeQtral SharePoint" = {
-              urls = [{ template = "https://speqtralquantum.sharepoint.com/_layouts/15/search.aspx/?q={searchTerms}"; }];
-              definedAliases = [ "q" ];
+              urls = [{template = "https://speqtralquantum.sharepoint.com/_layouts/15/search.aspx/?q={searchTerms}";}];
+              definedAliases = ["q"];
             };
             "GitHub" = {
-              urls = [{ template = "https://github.com/{searchTerms}"; }];
-              definedAliases = [ "gh" ];
+              urls = [{template = "https://github.com/{searchTerms}";}];
+              definedAliases = ["gh"];
             };
             "Lenovo PSREF" = {
-              urls = [{ template = "https://psref.lenovo.com/Search?kw={searchTerms}"; }];
-              definedAliases = [ "psref" ];
+              urls = [{template = "https://psref.lenovo.com/Search?kw={searchTerms}";}];
+              definedAliases = ["psref"];
             };
             "Google".metaData.hidden = true;
             "Amazon.com".metaData.hidden = true;
@@ -124,14 +131,16 @@
       };
     };
     policies = {
-      ExtensionSettings =
-        let extensions = installation_mode: builtins.mapAttrs (
-          _: slug: {
-            inherit installation_mode;
-            install_url = "https://addons.mozilla.org/en-US/firefox/downloads/latest/${slug}/latest.xpi";
-          }
+      ExtensionSettings = let
+        extensions = installation_mode:
+          builtins.mapAttrs (
+            _: slug: {
+              inherit installation_mode;
+              install_url = "https://addons.mozilla.org/en-US/firefox/downloads/latest/${slug}/latest.xpi";
+            }
           );
-        in (extensions "force_installed" {
+      in
+        (extensions "force_installed" {
           "ATBC@EasonWong" = "adaptive-tab-bar-colour";
           "{bda3a2e1-851d-4bf9-83c1-0d1ac026a675}" = "bible-previewer";
           "{74145f27-f039-47ce-a470-a662b129930a}" = "clearurls";
@@ -146,7 +155,8 @@
           "uBlock0@raymondhill.net" = "ublock-origin";
           "{7be2ba16-0f1e-4d93-9ebc-5164397477a9}" = "videospeed";
           "{4d9d2bcc-7acd-404b-8c8c-b1ac947facfc}" = "consent-o-matic";
-        }) // (extensions "blocked" {
+        })
+        // (extensions "blocked" {
           "amazondotcom@search.mozilla.org" = "";
           "bing@search.mozilla.org" = "";
           "google@search.mozilla.org" = "";
@@ -173,12 +183,20 @@
       };
     };
   };
-  stylix.targets.firefox.profileNames = [ "default" ];
+  stylix.targets.firefox.profileNames = ["default"];
   home.file = let
     inherit (pkgs.stdenv.hostPlatform) isDarwin;
     cfg = config.programs.firefox;
     configPath = ".mozilla/firefox";
-    profilesPath = if isDarwin then "${configPath}/Profiles" else configPath;
+    profilesPath =
+      if isDarwin
+      then "${configPath}/Profiles"
+      else configPath;
     defaultProfilePath = "${profilesPath}/${cfg.profiles.default.path}/chrome";
-  in { ${defaultProfilePath} = { recursive = false; source = flake.inputs.arcwtf; }; };
+  in {
+    ${defaultProfilePath} = {
+      recursive = false;
+      source = flake.inputs.arcwtf;
+    };
+  };
 }

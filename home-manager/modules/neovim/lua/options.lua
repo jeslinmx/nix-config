@@ -28,7 +28,14 @@ opt.fillchars = { eob = " " } -- remove tildes from end of buffer
 o.cursorline = true -- Highlight current line
 o.cursorlineopt = "both" -- highlight textline and line number
 o.list = true
-opt.listchars:append { trail = "◦", multispace = "◦", leadmultispace = " ", nbsp = "⍽", precedes = "«", extends = "»" }
+opt.listchars:append {
+  trail = "◦",
+  multispace = "◦",
+  leadmultispace = " ",
+  nbsp = "⍽",
+  precedes = "«",
+  extends = "»",
+}
 o.foldmethod = "indent"
 o.foldlevelstart = 99 -- start with no lines folded
 o.wrap = true
@@ -79,4 +86,3 @@ g.loaded_node_provider = 0
 g.loaded_python3_provider = 0
 g.loaded_perl_provider = 0
 g.loaded_ruby_provider = 0
-

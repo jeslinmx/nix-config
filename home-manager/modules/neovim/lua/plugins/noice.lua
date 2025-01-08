@@ -1,4 +1,5 @@
-return { "folke/noice.nvim",
+return {
+  "folke/noice.nvim",
   dependencies = { "MunifTanjim/nui.nvim" },
 
   opts = {
@@ -8,10 +9,10 @@ return { "folke/noice.nvim",
         cmdline = false,
         search_up = { icon = " " },
         search_down = { icon = " " },
-        help = { icon = "?" }
-      }
+        help = { icon = "?" },
+      },
     },
-    popupmenu = { enabled = false, },
+    popupmenu = { enabled = false },
   },
 
   event = "VeryLazy",

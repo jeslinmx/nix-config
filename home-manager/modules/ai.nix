@@ -1,5 +1,5 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   home.packages = [
-    (pkgs.ollama.override { acceleration = "cuda"; })
+    (pkgs.ollama.override {acceleration = "cuda";})
   ];
 }

@@ -1,10 +1,11 @@
-return { "utilyre/barbecue.nvim",
+return {
+  "utilyre/barbecue.nvim",
   dependencies = { "SmiteshP/nvim-navic" },
 
   config = function()
-    require("barbecue").setup({
+    require("barbecue").setup {
       create_autocmd = false, -- prevent barbecue from updating itself automatically
-    })
+    }
 
     vim.api.nvim_create_autocmd({
       "WinResized",
@@ -13,11 +14,11 @@ return { "utilyre/barbecue.nvim",
       "InsertLeave",
       "BufModifiedSet",
     }, {
-        group = vim.api.nvim_create_augroup("barbecue.updater", {}),
-        callback = function()
-          require("barbecue.ui").update()
-        end,
-      })
+      group = vim.api.nvim_create_augroup("barbecue.updater", {}),
+      callback = function()
+        require("barbecue.ui").update()
+      end,
+    })
   end,
 
   event = { "WinResized", "BufWinEnter", "CursorHold", "InsertLeave", "BufModifiedSet" },

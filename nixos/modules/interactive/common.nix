@@ -1,4 +1,4 @@
-{ lib, ... }: {
+{lib, ...}: {
   imports = [
     ../base/common.nix
     ./chinese-input.nix

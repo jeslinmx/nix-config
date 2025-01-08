@@ -1,4 +1,9 @@
-{ lib, pkgs, config, ... }: {
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}: {
   virtualisation = {
     containers.enable = true;
     podman = {
@@ -13,7 +18,10 @@
     };
   };
   hardware.nvidia-container-toolkit.enable = lib.mkDefault (builtins.elem "nvidia" config.services.xserver.videoDrivers);
-  environment.systemPackages = builtins.attrValues { inherit (pkgs)
-    podman-compose
-  ;};
+  environment.systemPackages = builtins.attrValues {
+    inherit
+      (pkgs)
+      podman-compose
+      ;
+  };
 }

@@ -3,9 +3,10 @@
   pkgs,
   lib,
   ...
-}: let inherit (flake.inputs) stylix tt-schemes;
+}: let
+  inherit (flake.inputs) stylix tt-schemes;
 in {
-  imports = [ stylix.nixosModules.stylix ];
+  imports = [stylix.nixosModules.stylix];
 
   stylix = lib.mkDefault {
     enable = true;
@@ -63,28 +64,43 @@ in {
     in {
       sansSerif = rec {
         name = "Iosevka Custom Proportional";
-        package = pkgs.iosevka.override { set = "-custom-prop"; privateBuildPlan = iosevka-build-plan // {
-          family = name;
-          spacing = "quasi-proportional";
-          serifs = "sans";
-        }; };
+        package = pkgs.iosevka.override {
+          set = "-custom-prop";
+          privateBuildPlan =
+            iosevka-build-plan
+            // {
+              family = name;
+              spacing = "quasi-proportional";
+              serifs = "sans";
+            };
+        };
       };
       serif = rec {
         name = "Iosevka Custom Slab";
-        package = pkgs.iosevka.override { set = "-custom-slab"; privateBuildPlan = iosevka-build-plan // {
-          family = name;
-          spacing = "quasi-proportional";
-          serifs = "slab";
-        }; };
+        package = pkgs.iosevka.override {
+          set = "-custom-slab";
+          privateBuildPlan =
+            iosevka-build-plan
+            // {
+              family = name;
+              spacing = "quasi-proportional";
+              serifs = "slab";
+            };
+        };
       };
       monospace = rec {
         name = "Iosevka Custom Term";
-        package = pkgs.iosevka.override { set = "-custom-term"; privateBuildPlan = iosevka-build-plan // {
-          family = name;
-          spacing = "term";
-          serifs = "sans";
-          exportGlyphNames = true;
-        }; };
+        package = pkgs.iosevka.override {
+          set = "-custom-term";
+          privateBuildPlan =
+            iosevka-build-plan
+            // {
+              family = name;
+              spacing = "term";
+              serifs = "sans";
+              exportGlyphNames = true;
+            };
+        };
       };
       sizes = {
         applications = 11;
@@ -100,8 +116,7 @@ in {
   };
 
   fonts.packages = [
-    (pkgs.nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
+    (pkgs.nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
     pkgs.noto-fonts-emoji-blob-bin
   ];
-
 }

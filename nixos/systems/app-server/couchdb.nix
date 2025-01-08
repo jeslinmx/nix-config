@@ -1,4 +1,4 @@
-{ config, ... }: {
+{config, ...}: {
   services.couchdb = {
     enable = true;
     port = 5984;

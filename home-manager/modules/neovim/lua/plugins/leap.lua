@@ -1,4 +1,5 @@
-return { "ggandor/leap.nvim",
+return {
+  "ggandor/leap.nvim",
 
   opts = {
     equivalence_classes = {

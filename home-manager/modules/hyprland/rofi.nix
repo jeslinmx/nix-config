@@ -1,6 +1,11 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   programs.rofi = let
-    overrides = { rofi-unwrapped = pkgs.rofi-wayland-unwrapped; };
+    overrides = {rofi-unwrapped = pkgs.rofi-wayland-unwrapped;};
     hyprshade-script = pkgs.writeShellApplication {
       name = "hyprshade-script";
       runtimeInputs = [pkgs.hyprshade];
@@ -14,12 +19,16 @@
   in {
     enable = true;
     package = pkgs.rofi.override overrides;
-    plugins = lib.map (plugin: plugin.override overrides) (
-      lib.attrValues { inherit (pkgs) rofi-calc rofi-top rofi-pulse-select;
-    }) ++ [ pkgs.rofi-emoji-wayland (pkgs.rofi-file-browser.override { rofi = overrides.rofi-unwrapped; }) ];
+    plugins =
+      lib.map (plugin: plugin.override overrides) (
+        lib.attrValues {
+          inherit (pkgs) rofi-calc rofi-top rofi-pulse-select;
+        }
+      )
+      ++ [pkgs.rofi-emoji-wayland (pkgs.rofi-file-browser.override {rofi = overrides.rofi-unwrapped;})];
     extraConfig = {
-      modes = [ "combi" "run" "ssh" "shaders:${lib.getExe hyprshade-script}" "calc" "top" "file-browser-extended" ];
-      combi-modes = [ "window" "drun" ];
+      modes = ["combi" "run" "ssh" "shaders:${lib.getExe hyprshade-script}" "calc" "top" "file-browser-extended"];
+      combi-modes = ["window" "drun"];
       combi-hide-mode-prefix = true;
       terminal = lib.getExe config.programs.kitty.package;
       matching = "normal";
@@ -42,7 +51,8 @@
       # calc
       calc-command = "wl-copy {result}";
       # file-browser-extended
-      file-browser-config = (pkgs.writeTextFile {
+      file-browser-config =
+        (pkgs.writeTextFile {
           name = "file-browser-config";
           text = ''
             depth 0
@@ -53,9 +63,11 @@
             show-hidden-symbol "󰘓"
             toggle-hidden-key "kb-custom-19"
           '';
-        }).outPath;
+        })
+        .outPath;
       # keybinds
-      kb-custom-19 = "Control+h"; kb-remove-char-back = "BackSpace,Shift+BackSpace";
+      kb-custom-19 = "Control+h";
+      kb-remove-char-back = "BackSpace,Shift+BackSpace";
     };
   };
 }
