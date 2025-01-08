@@ -22,7 +22,6 @@
         control-center-margin-bottom = config.wayland.windowManager.hyprland.settings.general.gaps_out;
         control-center-margin-left = config.wayland.windowManager.hyprland.settings.general.gaps_out;
         control-center-margin-right = config.wayland.windowManager.hyprland.settings.general.gaps_out;
-        fit-to-screen = false;
         hide-on-clear = true;
       };
     };
