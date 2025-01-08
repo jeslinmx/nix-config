@@ -9,8 +9,7 @@ return {
       -- html = { "prettier" },
     },
 
-    format_on_save = {
-      -- These options will be passed to conform.format()
+    default_format_opts = {
       timeout_ms = 500,
       lsp_fallback = "fallback",
     },
