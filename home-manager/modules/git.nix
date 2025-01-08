@@ -2,8 +2,9 @@
   programs.git = {
     userName = "Jeshua Lin";
     userEmail = "jeslinmx@users.noreply.github.com";
-    delta = {
+    difftastic = {
       enable = true;
+      display = "side-by-side";
     };
     aliases = {
       a = "add";
@@ -15,11 +16,12 @@
       co = "checkout";
       d = "diff";
       f = "fetch";
-      l = "log";
+      l = "log --ext-diff";
       m = "merge";
       r = "restore";
       ra = "remote add";
       s = "status";
+      sh = "show --ext-diff";
       st = "stash";
       sw = "switch";
       unstage = "restore --staged";

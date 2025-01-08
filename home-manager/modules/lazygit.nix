@@ -1,4 +1,8 @@
 {
+  config,
+  lib,
+  ...
+}: {
   programs.lazygit = {
     settings = {
       gui = {
@@ -19,9 +23,12 @@
           defaultFgColor = ["default"];
         };
       };
-      git.log = {
-        order = "date-order";
-        showGraph = "always";
+      git = {
+        log = {
+          order = "date-order";
+          showGraph = "always";
+        };
+        paging.externalDiffCommand = "${lib.getExe' config.programs.git.difftastic.package "difft"} --color=always";
       };
       notARepository = "skip";
       promptToReturnFromSubprocess = false;
