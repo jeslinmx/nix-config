@@ -17,6 +17,19 @@ opt.shortmess = "IaT" -- hide Vim intro, abbreviate [readonly], [Modified] etc. 
 
 --- EDITOR ---
 o.clipboard = "unnamedplus"
+if vim.env.SSH_TTY then
+  g.clipboard = {
+    name = "OSC 52",
+    copy = {
+      ["+"] = require("vim.ui.clipboard.osc52").copy "+",
+      ["*"] = require("vim.ui.clipboard.osc52").copy "*",
+    },
+    paste = {
+      ["+"] = require("vim.ui.clipboard.osc52").paste "+",
+      ["*"] = require("vim.ui.clipboard.osc52").paste "*",
+    },
+  }
+end
 
 -- Gutter
 o.number = true
