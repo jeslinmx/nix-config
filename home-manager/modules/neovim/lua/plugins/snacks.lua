@@ -101,6 +101,7 @@ return {
     },
     terminal = {},
     scroll = {},
+    quickfile = {},
     toggle = {},
     indent = {
       enabled = true,
@@ -117,5 +118,5 @@ return {
     dim = {},
   },
 
-  event = "VeryLazy",
+  lazy = false,
 }
