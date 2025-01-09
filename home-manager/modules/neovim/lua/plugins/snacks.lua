@@ -30,6 +30,7 @@ return {
         },
         function()
           local in_git = require("snacks").git.get_root() ~= nil
+          local github_auth = not (vim.fn.system "gh auth status" and vim.v.shell_error)
           local cmds = {
             {
               icon = " ",
@@ -59,21 +60,21 @@ return {
             },
             {
               title = "Github Notifications",
-              cmd = "gh notify -s -a -n5",
+              cmd = "gh notify -s -a -n" .. ((in_git and 5) or 24),
               action = function()
                 vim.ui.open "https://github.com/notifications"
               end,
               key = "n",
               icon = " ",
-              height = 5,
-              enabled = true,
+              height = (in_git and 5) or 24,
+              enabled = github_auth,
             },
           }
           return vim.tbl_map(function(cmd)
             return vim.tbl_extend("force", {
               pane = 2,
               section = "terminal",
-              enabled = in_git,
+              enabled = in_git and github_auth,
               padding = 1,
               ttl = 5 * 60,
               indent = 3,
