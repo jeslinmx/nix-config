@@ -157,7 +157,7 @@
               category = "build";
               help = "Rebuild and switch <app-server> config";
               command = ''
-                nixos-rebuild switch --flake $PRJ_ROOT#''\${1:-app-server} --target-host ''\${1:-app-server} ''\${@:2}
+                nixos-rebuild switch --flake $PRJ_ROOT#''${1:-app-server} --target-host ''${1:-app-server} ''${@:2}
               '';
             }
             {
@@ -166,9 +166,9 @@
               help = "Build <jeshua-toolbelt> <install-iso> image for ${system}";
               command = ''
                 ${inputs.nixos-generators.apps.${system}.nixos-generate.program} \
-                  --flake $PRJ_ROOT#''\${1:-jeshua-toolbelt} \
-                  --format ''\${2:-install-iso} \
-                  --system ''\${3:-${system}} \
+                  --flake $PRJ_ROOT#''${1:-jeshua-toolbelt} \
+                  --format ''${2:-install-iso} \
+                  --system ''${3:-${system}} \
                   --show-trace
               '';
             }
