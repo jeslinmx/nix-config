@@ -27,7 +27,7 @@
       )
       ++ [pkgs.rofi-emoji-wayland (pkgs.rofi-file-browser.override {rofi = overrides.rofi-unwrapped;})];
     extraConfig = {
-      modes = ["combi" "run" "ssh" "shaders:${lib.getExe hyprshade-script}" "calc" "top" "file-browser-extended"];
+      modes = ["combi" "ssh" "shaders:${lib.getExe hyprshade-script}" "top" "run"];
       combi-modes = ["window" "drun"];
       combi-hide-mode-prefix = true;
       terminal = lib.getExe config.programs.kitty.package;
