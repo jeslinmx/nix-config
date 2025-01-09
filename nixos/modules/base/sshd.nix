@@ -18,4 +18,5 @@
       PermitEmptyPasswords no
     '';
   };
+  security.pam.rssh.enable = true;
 }

@@ -11,7 +11,7 @@
     ./nix-config.nix
     ./power-management.nix
     ./sshd.nix
-    ./sudo-disable-timeout.nix
+    ./sudo.nix
     ./systemd-boot.nix
   ];
   config = lib.mkOverride 900 {
