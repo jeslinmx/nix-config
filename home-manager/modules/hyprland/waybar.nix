@@ -180,7 +180,7 @@ in {
           format-disabled = "󰂲";
           format-off = "󰂲";
           format-on = "";
-          on-click = "${lib.getExe pkgs.overskride}";
+          on-click = lib.getExe pkgs.rofi-bluetooth;
         };
         "bluetooth#extra" = {
           format-connected = "{device_alias}";
