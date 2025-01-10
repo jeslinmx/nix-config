@@ -1,3 +1,16 @@
+local Mcustom = {}
+Mcustom.attached_lsp = {}
+local gr = vim.api.nvim_create_augroup("MiniCustom", {})
+vim.api.nvim_create_autocmd({ "LspAttach", "LspDetach" }, {
+  group = gr,
+  pattern = "*",
+  desc = "Track LSP clients",
+  callback = vim.schedule_wrap(function(data)
+    Mcustom.attached_lsp[data.buf] = vim.lsp.get_clients { bufnr = data.buf }
+    vim.cmd "redrawstatus"
+  end),
+})
+
 return {
   "echasnovski/mini.nvim",
   version = "*",
@@ -70,6 +83,27 @@ return {
             end
             return table.concat(flags)
           end
+          local section_lsp = function(args)
+            if MiniStatusline.is_truncated(args.trunc_width) then
+              return ""
+            end
+
+            local bufnr = vim.api.nvim_get_current_buf()
+            if not Mcustom.attached_lsp[bufnr] then
+              return ""
+            end
+
+            local lsp_list = {}
+            for i, v in ipairs(Mcustom.attached_lsp[bufnr]) do
+              lsp_list[i] = v.name
+            end
+            local lsps = table.concat(lsp_list, "+")
+            if lsps == "" then
+              return ""
+            end
+
+            return "󰌵 " .. lsps
+          end
           local section_fileencoding = function(args)
             local encoding = vim.bo.fileencoding or vim.bo.encoding
             return MiniStatusline.is_truncated(args.trunc_width) and "" or (encoding == "utf-8" and "" or encoding)
@@ -133,7 +167,7 @@ return {
                   signs = { ERROR = "", WARN = "", INFO = "", HINT = "" },
                 },
                 section_filetype { trunc_width = medium },
-                MiniStatusline.section_lsp { trunc_width = wide },
+                section_lsp { trunc_width = medium },
               },
             },
             {
@@ -193,6 +227,10 @@ return {
           c.gen_clues.registers(),
           c.gen_clues.windows(),
           c.gen_clues.z(),
+          { mode = { "n", "v" }, keys = "<leader>b", desc = "+Buffers" },
+          { mode = { "n", "v" }, keys = "<leader>l", desc = "+LSP" },
+          { mode = { "n", "v" }, keys = "<leader><leader>", desc = "+Telescope" },
+          { mode = { "n", "v" }, keys = "<leader><leader>g", desc = "+Git" },
         }
       end)(),
       window = { delay = 100, config = { width = "auto" } },
