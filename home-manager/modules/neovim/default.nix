@@ -21,12 +21,23 @@
         (pkgs)
         zig # for LSP
         bc # for coq_3p
+        # ansiblels
+        ansible-language-server
+        ansible-lint
+        python311
+        # bashls
+        bash-language-server
+        # gopls
+        gopls
+        # luals
         lua-language-server
         stylua
-        gopls
+        # nixd
         nixd
         alejandra
+        # jsonls
         vscode-langservers-extracted
+        # yamlls
         yaml-language-server
         ;
       inherit (pkgs.python312Packages) python-lsp-server;
