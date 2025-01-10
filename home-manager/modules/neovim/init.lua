@@ -18,6 +18,11 @@ _G.palette = _G.palette
     base0F = "#f2cdcd",
   }
 
+-- useful helper for debugging Lua
+_G.v = function(x)
+  print(vim.inspect(x))
+end
+
 require "lazy_init"
 require "options"
 require "autocmds"
