@@ -106,7 +106,6 @@ in {
 
       monitor = [
         "eDP-1,preferred,0x0,1"
-        "desc:VIE PF24HD S.IPS,preferred,auto-left,1" # home monitor
         ",preferred,auto,auto"
       ];
 
@@ -141,6 +140,7 @@ in {
           "rounding 0, onworkspace:f[1]"
           "suppressevent maximize, class:.*"
           "float, class:(org.telegram.desktop) title:(Media viewer)"
+          "workspace special:magic, class:(teams-for-linux)"
         ]
         ++ (
           rule
