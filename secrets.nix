@@ -6,4 +6,6 @@ let
 in {
   "zt_token.age".publicKeys = jeslinmx ++ app-server;
   "cf_token.age".publicKeys = jeslinmx ++ app-server;
+  "rcloneConfig.age".publicKeys = jeslinmx ++ app-server;
+  "rclone_password.age".publicKeys = jeslinmx ++ app-server;
 }

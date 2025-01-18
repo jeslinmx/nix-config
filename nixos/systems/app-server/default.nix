@@ -10,6 +10,7 @@
     }
     ++ [
       ./proxy.nix
+      ./restic.nix
       ./flood.nix
       ./silverbullet.nix
       ./syncthing.nix
