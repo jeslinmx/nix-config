@@ -26,6 +26,25 @@
       }
       // cfg;
   in {
+    gitea = let
+      giteaCfg = config.services.gitea;
+      dumpDir = giteaCfg.dump.backupDir;
+    in
+      resticCommonCfg "gitea" "backupDir" {
+        paths = [dumpDir];
+        backupPrepareCommand = let
+          sudo = lib.getExe pkgs.sudo;
+          gitea = lib.getExe giteaCfg.package;
+          inherit (giteaCfg) user customDir;
+        in ''
+          ${sudo} -u ${user} mkdir -p ${dumpDir}
+          ${sudo} -u ${user} ${gitea} dump -c ${customDir}/conf/app.ini --type tar --file ${dumpDir}/gitea-dump.tar
+        '';
+        backupCleanupCommand = ''
+          rm -rf ${dumpDir}
+        '';
+      };
+
     syncthing = resticCommonCfg "syncthing" "dataDir" {};
     couchdb = resticCommonCfg "couchdb" "databaseDir" {};
     docker-registry = resticCommonCfg "docker-registry" "" {paths = [config.services.dockerRegistry.storagePath];};

@@ -12,6 +12,7 @@
       ./proxy.nix
       ./restic.nix
       ./flood.nix
+      ./gitea.nix
       ./silverbullet.nix
       ./syncthing.nix
       ./couchdb.nix
