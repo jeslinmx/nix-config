@@ -16,35 +16,14 @@ map("t", "jj", "<C-\\><C-N>", { desc = "escape terminal mode" })
 map({ "n", "i" }, "<C-s>", "<cmd>w<cr>", { desc = "general save file" })
 map("n", "<C-c>", "<cmd>%y+<cr>", { desc = "copy whole file" })
 
--- map("n", "<leader>fm", function()
---   require("conform").format { lsp_fallback = true }
--- end, { desc = "general format file" })
-
 -- tabufline
 map("n", "<leader>bn", "<cmd>enew<cr>", { desc = "buffer new" })
 map("n", "<leader>bq", require("mini.bufremove").delete, { desc = "buffer close" })
 map("n", "<tab>", "<cmd>bnext<cr>", { desc = "buffer goto next" })
 map("n", "<S-tab>", "<cmd>bprev<cr>", { desc = "buffer goto prev" })
 
--- comments
-map("n", "<leader>/", "gcc", { desc = "toggle comment", remap = true })
-map("v", "<leader>/", "gc", { desc = "toggle comment", remap = true })
-
 -- terminals
 map({ "n", "t" }, "<C-\\>", require("snacks").terminal.toggle, { desc = "toggle terminals" })
-
--- toggleable
-map({ "n", "t" }, "<A-v>", function()
-  require("nvchad.term").toggle { pos = "vsp", id = "vtoggleTerm" }
-end, { desc = "terminal toggleable vertical term" })
-
-map({ "n", "t" }, "<A-h>", function()
-  require("nvchad.term").toggle { pos = "sp", id = "htoggleTerm" }
-end, { desc = "terminal toggleable horizontal term" })
-
-map({ "n", "t" }, "<A-i>", function()
-  require("nvchad.term").toggle { pos = "float", id = "floatTerm" }
-end, { desc = "terminal toggle floating term" })
 
 -- leap
 map("n", "s", "<Plug>(leap)", { desc = "Leap" })
@@ -64,18 +43,19 @@ map("n", "<leader><leader><leader>", function()
 end, { desc = "Open dashboard" })
 
 -- LSP
-map("n", "gD", vim.lsp.buf.declaration, { desc = "Go to declaration" })
-map("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
-map("n", "gi", vim.lsp.buf.implementation, { desc = "Go to implementation" })
--- map("n", "gr", vim.lsp.buf.references, { desc = "Show references" })
-map("n", "<leader>sh", vim.lsp.buf.signature_help, { desc = "Show signature help" })
-map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, { desc = "Add workspace folder" })
-map("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, { desc = "Remove workspace folder" })
-map("n", "<leader>wl", function()
+map("n", "<leader>ld", vim.lsp.buf.definition, { desc = "Go to definition" })
+map("n", "<leader>lD", vim.lsp.buf.declaration, { desc = "Go to declaration" })
+map("n", "<leader>li", vim.lsp.buf.implementation, { desc = "Go to implementation" })
+map("n", "<leader>lt", vim.lsp.buf.type_definition, { desc = "Go to type definition" })
+map("n", "<leader>l.", vim.lsp.buf.code_action, { desc = "Show code actions" })
+map("n", "<leader>lr", vim.lsp.buf.references, { desc = "Show references" })
+map("n", "<leader>ls", vim.lsp.buf.signature_help, { desc = "Show signature help" })
+map("n", "<leader>la", vim.lsp.buf.add_workspace_folder, { desc = "Add workspace folder" })
+map("n", "<leader>lx", vim.lsp.buf.remove_workspace_folder, { desc = "Remove workspace folder" })
+map("n", "<leader>ll", function()
   print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 end, { desc = "List workspace folders" })
-map("n", "<leader>D", vim.lsp.buf.type_definition, { desc = "Go to type definition" })
-map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "Code action" })
+map("n", "<leader>lc", vim.lsp.buf.rename, { desc = "Go to type definition" })
 -- map("n", "<leader>ds", vim.diagnostic.setloclist, { desc = "LSP diagnostic loclist" })
 
 -- Telescope
@@ -95,7 +75,7 @@ map("n", "<leader><leader>h", "<cmd>Telescope help_tags<cr>", { desc = "help" })
 map("n", "<leader><leader>j", "<cmd>Telescope jumplist<cr>", { desc = "jumps" })
 map("n", "<leader><leader>m", "<cmd>Telescope man_pages<cr>", { desc = "man" })
 map("n", "<leader><leader>n", "<cmd>Telescope nerdy<cr>", { desc = "nerdglyphs" })
-map("n", "<leader><leader>t", "<cmd>Telescope terms<cr>", { desc = "terminals" })
+map("n", "<leader><leader>t", "<cmd>Telescope filetypes<cr>", { desc = "filetypes" })
 map("n", "<leader><leader>q", "<cmd>Telescope oldfiles<cr>", { desc = "recently closed" })
 map("n", "<leader><leader>u", "<cmd>Telescope undo<cr>", { desc = "undotree" })
 map("n", "<leader><leader>o", "<cmd>Telescope vim_options<cr>", { desc = "options" })
