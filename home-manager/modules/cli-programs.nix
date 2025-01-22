@@ -61,7 +61,7 @@
         git_protocol = "ssh";
       };
       extensions = builtins.attrValues {
-        inherit (pkgs) gh-notify;
+        inherit (pkgs) gh-notify gh-dash;
       };
     };
     # configured in dedicated modules
