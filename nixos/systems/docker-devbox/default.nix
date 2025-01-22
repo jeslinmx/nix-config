@@ -1,6 +1,7 @@
 {
   flake,
   lib,
+  pkgs,
   ...
 }: {
   imports = builtins.attrValues {
@@ -23,6 +24,7 @@
     };
   };
   virtualisation.podman.enable = lib.mkForce false;
+  environment.systemPackages = [pkgs.lazydocker];
 
   ### USER SETUP ###
   hmUsers.jeslinmx = {
