@@ -1,7 +1,13 @@
 return {
   {
     "nvzone/showkeys",
-    opts = { position = "top-right", maxkeys = 5, show_count = true, excluded_modes = { "i", "c" } },
+    opts = {
+      position = "top-right",
+      maxkeys = 5,
+      show_count = true,
+      excluded_modes = { "i", "c" },
+      winopts = { border = "rounded" },
+    },
     cmd = "ShowkeysToggle",
     event = "UIEnter",
   },
