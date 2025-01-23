@@ -70,7 +70,7 @@ in {
         owner = "yazi-rs";
         repo = "plugins";
         rev = "main";
-        hash = "sha256-mQkivPt9tOXom78jgvSwveF/8SD8M2XCXxGY8oijl+o=";
+        hash = "sha256-Sd3sA64j2TwRuOcH14ouC4LD14sGGaxfyq9Ys4xivvM=";
       };
     in {
       starship = pkgs.fetchFromGitHub {
