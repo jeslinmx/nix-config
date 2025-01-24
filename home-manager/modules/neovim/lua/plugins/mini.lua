@@ -162,12 +162,6 @@ return {
             {
               hl = "MiniStatuslineDevinfo",
               strings = {
-                MiniStatusline.section_diagnostics {
-                  trunc_width = small,
-                  icon = "",
-                  signs = { ERROR = "", WARN = "", INFO = "", HINT = "" },
-                },
-                section_filetype { trunc_width = medium },
                 section_lsp { trunc_width = medium },
               },
             },
@@ -177,11 +171,6 @@ return {
                 section_fileencoding { trunc_width = small },
                 section_fileformat { trunc_width = medium },
                 section_filesize { trunc_width = wide },
-              },
-            },
-            {
-              hl = "MiniStatuslineFileinfo",
-              strings = {
                 section_location { trunc_width = wide },
               },
             },
@@ -205,18 +194,32 @@ return {
                 section_filename { trunc_width = xwide },
                 section_filestatus(),
                 "%=", -- End center alignment
-                MiniStatusline.section_diagnostics {
-                  trunc_width = small,
-                  icon = "",
-                  signs = { ERROR = "", WARN = "", INFO = "", HINT = "" },
-                },
               },
             },
           }
         end,
       },
     }
-    require("mini.tabline").setup { tabpage_section = "right" }
+    require("mini.tabline").setup {
+      tabpage_section = "right",
+      format = function(buf_id, label)
+        local levels = { vim.diagnostic.severity.WARN, vim.diagnostic.severity.ERROR }
+        local icons = { [vim.diagnostic.severity.WARN] = "", [vim.diagnostic.severity.ERROR] = "" }
+        local diag = vim.diagnostic.count(buf_id, { severity = levels })
+        local t = {
+          MiniIcons.get("filetype", vim.api.nvim_get_option_value("filetype", { buf = buf_id })),
+          label,
+        }
+        for level, icon in ipairs(icons) do
+          local n = diag[level] or 0
+          if n > 0 then
+            table.insert(t, icon)
+            table.insert(t, n)
+          end
+        end
+        return " " .. table.concat(t, " ") .. " "
+      end,
+    }
     require("mini.icons").setup()
     require("mini.icons").mock_nvim_web_devicons()
     require("mini.icons").tweak_lsp_kind()
