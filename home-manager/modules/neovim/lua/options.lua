@@ -10,7 +10,6 @@ o.splitkeep = "screen" -- when splitting, keep text on the current screenline
 o.termguicolors = true
 
 -- statusline and cmdline
-o.laststatus = 3 -- global statusline
 o.showmode = false
 o.ruler = false -- hide row:col and position% indicators
 opt.shortmess = "IaT" -- hide Vim intro, abbreviate [readonly], [Modified] etc. messages in cmdline, truncate cmdline at middle
