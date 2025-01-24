@@ -69,8 +69,12 @@ return {
       settings = {
         nixd = {
           options = {
-            -- nixos = { expr = "" },
-            -- home_manager = { expr = "" },
+            nixos = {
+              expr = '(builtins.getFlake "github:jeslinmx/nix-config").nixosConfigurations.jeshua-xps-9510.options',
+            },
+            -- home_manager = {
+            --   expr = '',
+            -- },
           },
         },
       },
