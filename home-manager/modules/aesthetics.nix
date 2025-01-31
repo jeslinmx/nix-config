@@ -2,7 +2,7 @@
   gtk = {
     enable = true;
     iconTheme = {
-      name = "Colloid-dark";
+      name = "Colloid";
       package = pkgs.colloid-icon-theme;
     };
   };
