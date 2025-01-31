@@ -28,7 +28,6 @@ in {
     kitty.package = pkgs-unstable.kitty;
     mangohud = {
       enable = true;
-      enableSessionWide = true;
     };
   };
 
@@ -57,7 +56,6 @@ in {
       "net.ankiweb.Anki"
       "com.rafaelmardojai.Blanket"
       "org.pipewire.Helvum"
-      "com.github.rafostar.Clapper"
     ];
   };
 
@@ -68,6 +66,8 @@ in {
         (pkgs)
         wl-clipboard
         virt-manager
+        clapper
+        loupe
         ;
     }
     ++ [
