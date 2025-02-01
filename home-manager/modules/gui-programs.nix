@@ -68,6 +68,7 @@ in {
         virt-manager
         clapper
         loupe
+        zathura
         ;
     }
     ++ [

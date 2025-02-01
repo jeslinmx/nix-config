@@ -20,7 +20,7 @@
         "application/xhtml+xml" = "firefox.desktop";
         "application/x-extension-xhtml" = "firefox.desktop";
         "application/x-extension-xht" = "firefox.desktop";
-        "application/pdf" = "firefox.desktop";
+        "application/pdf" = "org.pwmt.zathura.desktop";
         "application/vnd.openxmlformats-officedocument.wordprocessingml.document" = "org.onlyoffice.desktopeditors.desktop";
         "application/vnd.openxmlformats-officedocument.presentationml.presentation" = "org.onlyoffice.desktopeditors.desktop";
         "inode/directory" = "yazi.desktop";
