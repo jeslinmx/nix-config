@@ -6,7 +6,7 @@
   ...
 }: {
   imports = builtins.attrValues {
-    inherit (flake.nixosModules) interactive-common quirks-iwlwifi quirks-gmk67 extra-cloudflare-warp extra-containers extra-java extra-secure-boot extra-virtualisation extra-zerotier;
+    inherit (flake.nixosModules) interactive-common quirks-iwlwifi quirks-gmk67 extra-cloudflare-warp extra-containers extra-java extra-ollama extra-secure-boot extra-virtualisation extra-zerotier;
     inherit (flake.inputs.nixos-hardware.nixosModules) dell-xps-15-9510 dell-xps-15-9510-nvidia;
     inherit (flake.inputs.lanzaboote.nixosModules) lanzaboote;
   };
@@ -36,6 +36,7 @@
 
       ### ENVIRONMENT CUSTOMIZATION ###
       hardware.nvidia.open = false; # currently broken
+      nixpkgs.config.cudaSupport = true;
     }
 
     ### jeshua-nixos specialisation ###
