@@ -70,7 +70,7 @@ in {
       ];
 
       group = let
-        inherit (config.lib.stylix.colors) base09 base0A base0C base0D;
+        inherit (config.lib.stylix.colors) base09 base0A base0D;
       in {
         # not yet available in 0.44.1
         # drag_into_group = 2; # only drag into group via groupbar
@@ -113,6 +113,7 @@ in {
         "systemctl --user start hyprpolkitagent"
         "uwsm app -- ${lib.getExe config.programs.waybar.package} &"
         "uwsm app -- ${lib.getExe' pkgs.swww "swww-daemon"} &"
+        "uwsm app -- fcitx5 -d -r &"
         "${lib.getExe' pkgs.swww "swww-daemon"} img ${config.stylix.image}"
         "uwsm finalize"
         "$menu -show combi"
