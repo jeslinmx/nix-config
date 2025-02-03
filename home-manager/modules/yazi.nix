@@ -173,7 +173,7 @@ in {
         owner = "yazi-rs";
         repo = "plugins";
         rev = "main";
-        hash = "sha256-xY2yVCLLcXRyFfnmyP6h5Fw+4kwOZhEOCWVZrRwXnTA=";
+        hash = "sha256-1FZ8wcf2VVp6ZWY27vm1dUU1KAL32WwoYbNA/8RUAog=";
       };
     in {
       chmod = builtins.path {path = "${yazi-rs}/chmod.yazi";};
