@@ -34,5 +34,5 @@
   brightness-command = amt: "${lib.getExe pkgs.brightnessctl} set --min-value=960 --exponent=2 ${fmt-adj amt}";
   move-monitor-command = dir: ''hyprctl keyword monitor "$(hyprctl monitors -j | jq -r '.[] | select(.focused == true) | "\(.name), \(.width)x\(.height), auto-${dir}, \(.scale)"')"'';
   scrot-date-format = "+%Y-%m-%d %k-%M-%S.%N";
-  scrot-base-command = "${lib.getExe pkgs.hyprshot} --output-folder ~/Pictures/Screenshots/ --filename \"Screenshot from $(date \"${scrot-date-format}\").png\" --current";
+  scrot-base-command = "${lib.getExe pkgs.hyprshot} --output-folder ~/Pictures/Screenshots/ --filename \"Screenshot from $(date \"${scrot-date-format}\").png\" --freeze --current";
 }
