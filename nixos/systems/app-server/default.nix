@@ -16,6 +16,7 @@
       ./silverbullet.nix
       ./syncthing.nix
       ./couchdb.nix
+      ./netdata.nix
       ./docker-registry.nix
       ./zerotier-coredns.nix
     ];
