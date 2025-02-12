@@ -172,7 +172,7 @@ in {
       yazi-rs = pkgs.fetchFromGitHub {
         owner = "yazi-rs";
         repo = "plugins";
-        rev = "main";
+        rev = "02d18be03812415097e83c6a912924560e4cec6d";
         hash = "sha256-1FZ8wcf2VVp6ZWY27vm1dUU1KAL32WwoYbNA/8RUAog=";
       };
     in {
