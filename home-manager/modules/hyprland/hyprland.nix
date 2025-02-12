@@ -141,6 +141,7 @@ in {
           "rounding 0, onworkspace:f[1]"
           "suppressevent maximize, class:.*"
           "float, class:(org.telegram.desktop) title:(Media viewer)"
+          "workspace special:magic, class:(org.telegram.desktop)"
           "workspace special:magic, class:(teams-for-linux)"
         ]
         ++ (
