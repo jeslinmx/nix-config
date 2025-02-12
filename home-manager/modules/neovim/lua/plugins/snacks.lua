@@ -84,7 +84,7 @@ return {
       },
       preset = {
         keys = {
-          { icon = " ", key = "e", desc = "Empty buffer", action = ":ene | startinsert" },
+          { icon = " ", key = "e", desc = "Empty buffer", action = ":ene" },
           { icon = " ", key = "s", desc = "Restore session", section = "session" },
           {
             icon = "󰒲 ",
