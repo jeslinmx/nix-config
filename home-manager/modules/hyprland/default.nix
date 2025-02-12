@@ -9,6 +9,7 @@
     ./waybar.nix
     ./hyprlock.nix
     ./hyprland.nix
+    ./wallpaper-cycle.nix
   ];
 
   home.packages = lib.attrValues {
@@ -18,6 +19,7 @@
   services = {
     network-manager-applet.enable = true;
     udiskie.enable = true;
+    udiskie.settings.program_options.file_manager = "xdg-open";
     ssh-agent.enable = true;
     swaync = {
       enable = true;

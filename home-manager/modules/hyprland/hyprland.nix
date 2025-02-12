@@ -114,7 +114,7 @@ in {
         "uwsm app -- ${lib.getExe config.programs.waybar.package} &"
         "uwsm app -- ${lib.getExe' pkgs.swww "swww-daemon"} &"
         "uwsm app -- fcitx5 -d -r &"
-        "${lib.getExe' pkgs.swww "swww-daemon"} img ${config.stylix.image}"
+        "${lib.getExe pkgs.swww} restore"
         "uwsm finalize"
         "$menu -show combi"
       ];
