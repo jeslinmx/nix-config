@@ -39,10 +39,10 @@ in {
     };
     timers.next-wallpaper = {
       Unit = {
-        Description = "Change next wallpaper every 5 minutes";
+        Description = "Change next wallpaper every minute";
         After = "wayland-session@Hyprland.target";
       };
-      Timer.OnCalendar = "*:00/5";
+      Timer.OnCalendar = "*:*:00";
       Install.WantedBy = ["wayland-session@Hyprland.target"];
     };
   };
