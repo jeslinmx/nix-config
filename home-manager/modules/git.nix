@@ -5,6 +5,7 @@
     difftastic = {
       enable = true;
       display = "side-by-side";
+      background = "dark";
     };
     aliases = {
       a = "add";
