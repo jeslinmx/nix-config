@@ -7,6 +7,9 @@
       window_padding_width = 8;
       hide_window_decorations = "yes";
 
+      font_family = "family=Recursive style=Linear";
+      font_features = "Recursive +dlig +ss08 +ss09 +liga";
+
       tab_bar_edge = "top";
       tab_bar_style = "slant";
 
@@ -22,6 +25,8 @@
       selection_background = "none"; # reverse video
       url_style = "curly";
       show_hyperlink_targets = "yes";
+
+      notify_on_cmd_finish = "invisible 15 notify focus next";
     };
     keybindings = {};
     environment = {};
