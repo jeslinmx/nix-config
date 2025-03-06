@@ -53,7 +53,10 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    private-config.url = "git+ssh://git@github.com/jeslinmx/nix-private-config";
+    private-config = {
+      url = "git+ssh://git@github.com/jeslinmx/nix-private-config";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Supporting repos
     tt-schemes = {

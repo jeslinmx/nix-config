@@ -563,21 +563,6 @@
         "type": "indirect"
       }
     },
-    "nixpkgs_2": {
-      "locked": {
-        "lastModified": 1728891163,
-        "narHash": "sha256-swrMA/4XozGIYTN4YQn8Etu2e3ytJg/P+LzgCNQDWX0=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "0a015d59305f02a8cb9b70bfa7d22d2ca6cb19c5",
-        "type": "github"
-      },
-      "original": {
-        "id": "nixpkgs",
-        "ref": "release-24.05",
-        "type": "indirect"
-      }
-    },
     "pre-commit-hooks-nix": {
       "inputs": {
         "flake-compat": [
@@ -606,14 +591,16 @@
     },
     "private-config": {
       "inputs": {
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": [
+          "nixpkgs"
+        ]
       },
       "locked": {
-        "lastModified": 1736223296,
-        "narHash": "sha256-9DWgxcN48NXeEVOei7O9SbgpNhOsQLHj4YE74hmPXCo=",
+        "lastModified": 1741263568,
+        "narHash": "sha256-5rEwcQpu+rb1sF+2Sag7uflFWR1vGPutGaIom+cgoE8=",
         "ref": "refs/heads/main",
-        "rev": "0122f6fd047c604709ef41488c7d5bf173cb1126",
-        "revCount": 26,
+        "rev": "34133ce9fab7bfc729634b616bc3d203699eef5e",
+        "revCount": 31,
         "type": "git",
         "url": "ssh://git@github.com/jeslinmx/nix-private-config"
       },
