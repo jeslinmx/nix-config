@@ -132,6 +132,7 @@ in {
             "class<firefox>" = "󰈹";
             "class<kitty>" = "";
             "class<org.telegram.desktop>" = "";
+            "class<Minecraft.*>" = "󰍳";
             "class<steam>" = "";
             "class<teams-for-linux>" = "󰊻";
             "title<nvim .*>" = "";
