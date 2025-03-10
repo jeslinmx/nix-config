@@ -139,6 +139,7 @@ in {
             "class<org.pwmt.zathura>" = "";
             "class<Minecraft.*>" = "󰍳";
             "class<steam>" = "";
+            "class<vesktop>" = "";
             "class<obsidian>" = "";
             "class<teams-for-linux>" = "󰊻";
             "title<nvim .*>" = "";
