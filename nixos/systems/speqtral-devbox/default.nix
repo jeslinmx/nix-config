@@ -11,8 +11,6 @@
   system.stateVersion = "24.05";
 
   ### ENVIRONMENT CUSTOMIZATION ###
-  # TODO: remove when https://github.com/danth/stylix/issues/442 goes through
-  stylix.image = ../jeshua-xps-9510/speqtral.png;
   # temp:
   networking.hosts = {"10.1.128.13" = ["nqsnplus-sw-testbed.speqtranet.com"];};
 

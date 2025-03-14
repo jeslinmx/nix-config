@@ -1,6 +1,7 @@
 {
   flake,
   pkgs,
+  config,
   lib,
   ...
 }: let
@@ -36,6 +37,9 @@ in {
       name = "Bibata-Modern-Classic";
       package = pkgs.bibata-cursors;
     };
+
+    # TODO: remove when https://github.com/danth/stylix/issues/442 goes through
+    image = config.lib.stylix.pixel "base00";
   };
 
   fonts.packages = [

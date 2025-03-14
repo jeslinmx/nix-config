@@ -36,8 +36,6 @@
     hardware.nvidia.open = false; # currently broken
     nixpkgs.config.cudaSupport = true;
     stylix = {
-      # TODO: remove when https://github.com/danth/stylix/issues/442 goes through
-      image = ./speqtral.png;
       targets.plymouth = {
         logo = "${(pkgs.fetchgit {
             url = "https://github.com/speqtral/branding";
