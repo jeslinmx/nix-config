@@ -1,6 +1,6 @@
 {
   config,
-  pkgs,
+  pkgs, # don't believe LSP, this is needed
   ...
 } @ args: let
   common = (import ./common.nix) args;
