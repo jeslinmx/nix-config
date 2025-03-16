@@ -21,6 +21,7 @@
         (pkgs)
         zig # for LSP
         bc # for coq_3p
+        postgresql # for dadbod
         # ansiblels
         ansible-language-server
         ansible-lint
