@@ -6,21 +6,12 @@
 }: {
   imports = builtins.attrValues {
     inherit (flake.nixosModules) base-common interactive-stylix extra-containers extra-zerotier;
-    inherit (flake.inputs.nixos-generators.nixosModules) proxmox-lxc;
+    # inherit (flake.inputs.nixos-generators.nixosModules) proxmox-lxc;
   };
 
   system.stateVersion = "24.05";
 
   ### ENVIRONMENT CUSTOMIZATION ###
-  virtualisation.docker = {
-    enable = true;
-    enableOnBoot = true;
-    liveRestore = true;
-    autoPrune = {
-      enable = true;
-      dates = "weekly";
-    };
-  };
   virtualisation.podman.enable = lib.mkForce false;
   environment.systemPackages = [pkgs.lazydocker];
 

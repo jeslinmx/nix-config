@@ -4,7 +4,7 @@
   config,
   ...
 }: {
-  virtualisation = {
+  virtualisation = rec {
     containers.enable = true;
     podman = {
       enable = true;
@@ -16,12 +16,13 @@
         dates = "weekly";
       };
     };
+    docker = {
+      enable = lib.mkDefault false;
+      enableOnBoot = true;
+      liveRestore = true;
+      autoPrune = podman.autoPrune;
+    };
   };
   hardware.nvidia-container-toolkit.enable = lib.mkDefault (builtins.elem "nvidia" config.services.xserver.videoDrivers);
-  environment.systemPackages = builtins.attrValues {
-    inherit
-      (pkgs)
-      podman-compose
-      ;
-  };
+  environment.systemPackages = lib.mkIf config.virtualisation.podman.enable [pkgs.podman-compose];
 }
