@@ -1,11 +1,17 @@
 {
+  config,
+  lib,
+  ...
+}: {
   programs.kitty = {
     settings = {
       remember_window_size = "no";
       initial_window_width = "120c";
       initial_window_height = "40c";
-      window_padding_width = 8;
       hide_window_decorations = "yes";
+
+      background_opacity = lib.mkForce 0.97;
+      transparent_background_colors = with config.lib.stylix.colors.withHashtag; "${base01}@0.99 ${base02}@0.99";
 
       font_family = "family=Recursive style=Linear";
       font_features = "Recursive +dlig +ss08 +ss09 +liga";
