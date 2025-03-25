@@ -6,7 +6,7 @@
   pkgs-unstable = import flake.inputs.nixpkgs-unstable {inherit (pkgs) system config;};
 in {
   imports = builtins.attrValues {
-    inherit (flake.homeModules) firefox kitty teams;
+    inherit (flake.homeModules) firefox kitty;
   };
 
   programs = {
