@@ -11,7 +11,6 @@
     optimise.automatic = true;
     gc = {
       automatic = true;
-      dates = "weekly";
       options = "--delete-older-than 30d";
     };
     nixPath = builtins.attrValues (builtins.mapAttrs (name: path: "${name}=${path}") flake.inputs);

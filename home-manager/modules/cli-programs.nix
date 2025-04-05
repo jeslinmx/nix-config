@@ -14,9 +14,9 @@
       lazygit
       neovim
       starship
-      termshark
+      #termshark
       tmux
-      yazi
+      #yazi
       ;
   };
 
