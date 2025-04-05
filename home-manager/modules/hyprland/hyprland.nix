@@ -61,7 +61,7 @@ in {
         inactive_opacity = 0.95;
         shadow.enabled = false;
         blur = {
-          enabled = true;
+          enabled = false;
           size = 1;
           passes = 4;
         };
