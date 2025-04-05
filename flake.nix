@@ -15,6 +15,17 @@
     nixpkgs-patched.url = "github:jeslinmx/nixpkgs/cozette-psfu";
     nixpkgs-caddy-plugins.url = "nixpkgs/b8a14976023e53f6e08e51dc61585838eb1f2828";
 
+    # nix-darwin modules
+    nixpkgs-darwin.url = "nixpkgs/nixpkgs-24.11-darwin";
+    nix-darwin = {
+      url = "github:LnL7/nix-darwin/nix-darwin-24.11";
+      inputs.nixpkgs.follows = "nixpkgs-darwin";
+    };
+    home-manager-darwin = {
+      url = "github:nix-community/home-manager/release-24.11";
+      inputs.nixpkgs.follows = "nixpkgs-darwin";
+    };
+
     # NixOS modules
     nixos-hardware.url = "github:nixos/nixos-hardware";
     nixos-generators = {
@@ -128,6 +139,10 @@
           nixPathsDefaultsCollapsed;
       in {
         inherit findModulesRecursive;
+        darwinConfigurations."jeshua-macbook" = inputs.nix-darwin.lib.darwinSystem {
+          modules = [./macos/jeshua-macbook];
+          specialArgs = {flake = self;};
+        };
         homeModules = findModulesRecursive ./home-manager/modules;
         homeConfigurations = findModulesRecursive ./home-manager/profiles;
         nixosModules = findModulesFlatten ./nixos/modules;
@@ -146,7 +161,7 @@
           }) (findModulesRecursive ./nixos/systems);
       };
 
-      systems = ["x86_64-linux"];
+      systems = ["x86_64-linux" "aarch64-darwin"];
       perSystem = {
         pkgs,
         system,
