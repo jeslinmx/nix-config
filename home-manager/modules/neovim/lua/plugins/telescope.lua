@@ -22,12 +22,6 @@ return {
         -- shorten = { len = 2, exclude = {1, -2, -1} },
         "truncate",
       },
-      mappings = {
-        i = {
-          ["<C-Down>"] = require("telescope.actions").cycle_history_next,
-          ["<C-Up>"] = require("telescope.actions").cycle_history_prev,
-        },
-      },
     },
   },
   config = function(_, opts)
