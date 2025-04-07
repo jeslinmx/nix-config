@@ -95,70 +95,62 @@
       ];
 
       flake = let
-        findModulesFlatten = path:
-          lib.concatMapAttrs (
-            name: type:
-              if type == "directory"
-              then
-                lib.mapAttrs' (
-                  subname: path:
-                    lib.nameValuePair (lib.concatStringsSep "-" [name subname]) path
-                ) (findModulesRecursive (lib.path.append path name))
-              else if lib.hasSuffix ".nix" name
-              then {"${lib.removeSuffix ".nix" name}" = lib.path.append path name;}
-              else {}
-          ) (builtins.readDir path);
-        findModulesRecursive = path: let
-          allPaths = lib.mapAttrs' (
-            name: type:
-              lib.nameValuePair
-              (lib.removeSuffix ".nix" name)
-              (
+        dirToAttrs = path:
+          lib.pipe path [
+            builtins.readDir
+            (builtins.mapAttrs (
+              name: type: let
+                fullPath = /${path}/${name};
+              in
                 if type == "directory"
-                then findModulesRecursive (lib.path.append path name)
-                else lib.path.append path name
-              )
-          ) (builtins.readDir path);
-          nixPaths =
-            lib.filterAttrsRecursive (
-              name: path:
-                (lib.isAttrs path)
-                || (lib.hasSuffix ".nix" (builtins.toString path))
-            )
-            allPaths;
-          nixPathsDefaultsCollapsed =
-            lib.mapAttrsRecursiveCond
-            (as: !(as ? "default"))
-            (_: x: (
-              if lib.isAttrs x
-              then x.default
-              else x
+                then dirToAttrs fullPath
+                else fullPath
             ))
-            nixPaths;
+          ];
+        filterNonNix = lib.filterAttrsRecursive (_: v: !(builtins.isPath v) || lib.hasSuffix ".nix" "${v}");
+        filterEmptySubdirs = lib.filterAttrsRecursive (_: v: builtins.isPath v || builtins.length (builtins.attrNames v) != 0);
+        flattenAttrs = let
+          recurse = sep: prefix:
+            lib.foldlAttrs (
+              acc: n: v: let
+                fullPath = builtins.concatStringsSep sep (prefix ++ [n]);
+              in
+                acc
+                // (
+                  if builtins.isPath v
+                  then {${fullPath} = v;}
+                  else recurse sep [fullPath] v
+                )
+            ) {};
         in
-          nixPathsDefaultsCollapsed;
+          sep: recurse sep [];
+        truncateSuffix = lib.mapAttrs' (n: v: lib.nameValuePair (lib.pipe n [(lib.removeSuffix ".nix") (lib.removeSuffix "-default")]) v);
+        gatherModules = lib.flip lib.pipe [dirToAttrs filterNonNix filterEmptySubdirs (flattenAttrs "-") truncateSuffix];
       in {
-        inherit findModulesRecursive;
-        darwinConfigurations."jeshua-macbook" = inputs.nix-darwin.lib.darwinSystem {
-          modules = [./macos/jeshua-macbook];
-          specialArgs = {flake = self;};
-        };
-        homeModules = findModulesRecursive ./home-manager/modules;
-        homeConfigurations = findModulesRecursive ./home-manager/profiles;
-        nixosModules = findModulesFlatten ./nixos/modules;
-        nixosConfigurations = lib.mapAttrs (_: x: let
-          isKnownArch = {name, ...}: lib.elem name lib.systems.flakeExposed;
-          notFound = throw "no default.nix or <arch>.nix found";
-          file =
-            if lib.isAttrs x
-            then lib.findFirst isKnownArch (lib.nameValuePair notFound notFound) (lib.attrsToList x)
-            else lib.nameValuePair "x86_64-linux" x;
-        in
-          inputs.nixpkgs.lib.nixosSystem {
-            system = file.name;
-            modules = [file.value];
+        inherit gatherModules;
+        darwinModules = gatherModules ./modules/darwin;
+        nixosModules = gatherModules ./modules/nixos;
+        homeModules = gatherModules ./modules/home-manager;
+
+        darwinConfigurations = builtins.mapAttrs (_: v:
+          inputs.nix-darwin.lib.darwinSystem {
+            modules = [v];
             specialArgs = {flake = self;};
-          }) (findModulesRecursive ./nixos/systems);
+          }) {
+          jeshua-macbook = ./systems/jeshua-macbook;
+        };
+        nixosConfigurations = builtins.mapAttrs (_: v:
+          inputs.nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
+            modules = [v];
+            specialArgs = {flake = self;};
+          }) {
+          app-server = ./systems/app-server;
+          docker-devbox = ./systems/docker-devbox;
+          jeshua-toolbelt = ./systems/jeshua-toolbelt;
+          jeshua-xps-9510 = ./systems/jeshua-xps-9510;
+          speqtral-devbox = ./systems/speqtral-devbox;
+        };
       };
 
       systems = ["x86_64-linux" "aarch64-darwin"];

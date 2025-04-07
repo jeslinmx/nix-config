@@ -1,16 +1,20 @@
 {
   flake,
-  lib,
   pkgs,
   ...
 }: {
-  imports = with flake.nixosModules; [
-    base-nix-config
-    flake.inputs.home-manager-darwin.darwinModules.home-manager
-    flake.inputs.stylix.darwinModules.stylix
-    darwin-sudo
-    darwin-stylix
-  ];
+  imports =
+    (with flake.inputs; [
+      home-manager-darwin.darwinModules.home-manager
+      stylix.darwinModules.stylix
+    ])
+    ++ (with flake.darwinModules; [
+      sudo
+      stylix
+    ])
+    ++ (with flake.nixosModules; [
+      base-nix-config
+    ]);
   nixpkgs.hostPlatform = "aarch64-darwin";
   system.stateVersion = 5;
   networking.hostName = "jeshua-macbook";
