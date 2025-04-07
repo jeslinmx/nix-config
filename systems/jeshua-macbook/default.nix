@@ -5,63 +5,59 @@
 }: {
   imports =
     (with flake.inputs; [
-      home-manager-darwin.darwinModules.home-manager
       stylix.darwinModules.stylix
     ])
     ++ (with flake.darwinModules; [
       sudo
       stylix
+      homebrew
+      home-manager-users
+      macos-desktop
     ])
     ++ (with flake.nixosModules; [
       base-nix-config
     ]);
+
   nixpkgs.hostPlatform = "aarch64-darwin";
-  system.stateVersion = 5;
   networking.hostName = "jeshua-macbook";
-  homebrew = {
-    enable = true;
-    onActivation.cleanup = "uninstall";
-    casks = [
-      "iterm2"
-      "whisky"
-      "keepassxc"
-      "telegram"
-      "microsoft-word"
-      "microsoft-powerpoint"
-      "microsoft-excel"
-      "obsidian"
-      "godot"
-      "discord"
-      "prismlauncher"
-      "figma"
-      "orion"
-      "firefox"
-      "obs"
-      "zerotier-one"
-      "syncthing"
-      "scroll-reverser"
-    ];
-  };
-  users.users.jeslinmx = {
-    home = "/Users/jeslinmx";
-  };
-  system.defaults = {
-  };
-  home-manager = {
-    useUserPackages = true;
-    useGlobalPkgs = true;
-    extraSpecialArgs = {inherit flake;};
-    backupFileExtension = "hmbak";
-    users.jeslinmx = {
-      imports =
-        (with flake.homeModules; [cli-programs])
-        ++ (with flake.inputs.private-config.homeModules; [
-          ssh-personal-hosts
-          ssh-speqtral-hosts
-        ]);
-      home.stateVersion = "24.11";
-      home.homeDirectory = "/Users/jeslinmx";
-      targets.darwin.search = "DuckDuckGo";
-    };
+  system.stateVersion = 5;
+
+  homebrew.casks = [
+    "iterm2"
+    "whisky"
+    "keepassxc"
+    "telegram"
+    "microsoft-word"
+    "microsoft-powerpoint"
+    "microsoft-excel"
+    "obsidian"
+    "godot"
+    "discord"
+    "prismlauncher"
+    "figma"
+    "orion"
+    "firefox"
+    "obs"
+    "zerotier-one"
+    "syncthing"
+    "scroll-reverser"
+  ];
+
+  programs.fish.enable = true;
+  hmUsers.jeslinmx = {
+    uid = 501;
+    shell = pkgs.fish;
+    hmModules =
+      (with flake.homeModules; [
+        cli-programs
+        {
+          home.stateVersion = "24.11";
+          targets.darwin.search = "DuckDuckGo";
+        }
+      ])
+      ++ (with flake.inputs.private-config.homeModules; [
+        ssh-personal-hosts
+        ssh-speqtral-hosts
+      ]);
   };
 }
