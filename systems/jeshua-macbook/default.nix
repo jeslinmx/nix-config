@@ -41,6 +41,8 @@
     "zerotier-one"
     "syncthing"
     "scroll-reverser"
+    "lm-studio"
+    "ticktick"
   ];
 
   programs.fish.enable = true;
