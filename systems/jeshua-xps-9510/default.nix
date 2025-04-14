@@ -47,6 +47,7 @@
         logoAnimated = false;
       };
     };
+    programs.openvpn3.enable = true;
 
     ### USER SETUP ###
     hmUsers.jeslinmx = {
