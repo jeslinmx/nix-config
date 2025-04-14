@@ -1,12 +1,12 @@
 {
-  flake,
-  lib,
+  inputs,
+  nixosModules,
   ...
-}: {
+}: {lib, ...}: {
   imports =
     builtins.attrValues {
-      inherit (flake.nixosModules) base-common extra-zerotier;
-      inherit (flake.inputs.nixos-generators.nixosModules) proxmox-lxc;
+      inherit (nixosModules) base-common extra-zerotier;
+      inherit (inputs.nixos-generators.nixosModules) proxmox-lxc;
     }
     ++ [
       ./proxy.nix
@@ -24,5 +24,5 @@
 
   ### ENVIRONMENT CUSTOMIZATION ###
   services.openssh.settings.PermitRootLogin = lib.mkForce "prohibit-password";
-  users.users.root.openssh.authorizedKeys.keys = flake.inputs.private-config.ssh-authorized-keys;
+  users.users.root.openssh.authorizedKeys.keys = inputs.private-config.ssh-authorized-keys;
 }

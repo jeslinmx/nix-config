@@ -1,12 +1,13 @@
 {
-  flake,
-  pkgs,
+  inputs,
+  nixosModules,
+  homeModules,
   ...
-}: {
+}: {pkgs, ...}: {
   imports = builtins.attrValues {
-    inherit (flake.nixosModules) interactive-common quirks-iwlwifi quirks-gmk67 extra-cloudflare-warp extra-containers extra-java extra-ollama extra-secure-boot extra-virtualisation extra-zerotier;
-    inherit (flake.inputs.nixos-hardware.nixosModules) dell-xps-15-9510 dell-xps-15-9510-nvidia;
-    inherit (flake.inputs.lanzaboote.nixosModules) lanzaboote;
+    inherit (nixosModules) interactive-common quirks-iwlwifi quirks-gmk67 extra-cloudflare-warp extra-containers extra-java extra-ollama extra-secure-boot extra-virtualisation extra-zerotier;
+    inherit (inputs.nixos-hardware.nixosModules) dell-xps-15-9510 dell-xps-15-9510-nvidia;
+    inherit (inputs.lanzaboote.nixosModules) lanzaboote;
   };
   config = {
     system.stateVersion = "24.05";
@@ -54,11 +55,11 @@
       uid = 1000;
       description = "Jeshua Lin";
       extraGroups = ["wheel" "podman" "libvirtd" "wireshark"];
-      openssh.authorizedKeys.keys = flake.inputs.private-config.ssh-authorized-keys;
+      openssh.authorizedKeys.keys = inputs.private-config.ssh-authorized-keys;
       hmModules =
         (builtins.attrValues {
           inherit
-            (flake.homeModules)
+            (homeModules)
             aesthetics
             cli-programs
             gui-programs
@@ -66,7 +67,7 @@
             xdg
             ;
           inherit
-            (flake.inputs.private-config.homeModules)
+            (inputs.private-config.homeModules)
             awscli
             ssh-personal-hosts
             ssh-speqtral-hosts

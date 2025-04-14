@@ -1,11 +1,7 @@
-{
-  flake,
-  pkgs,
-  ...
-}: {
+{homeModules, ...}: {pkgs, ...}: {
   imports = builtins.attrValues {
     inherit
-      (flake.homeModules)
+      (homeModules)
       atuin
       comma
       fish
@@ -14,9 +10,9 @@
       lazygit
       neovim
       starship
-      #termshark
+      # termshark
       tmux
-      #yazi
+      # yazi
       ;
   };
 

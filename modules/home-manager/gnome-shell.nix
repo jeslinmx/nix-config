@@ -1,11 +1,10 @@
-{
+{inputs, ...}: {
   lib,
   osConfig ? {},
   pkgs,
-  flake,
   ...
 }: let
-  pkgs-unstable = import flake.inputs.nixpkgs-unstable {inherit (pkgs) system config;};
+  pkgs-unstable = import inputs.nixpkgs-unstable {inherit (pkgs) system config;};
   extensions = lib.attrValues {
     inherit
       (pkgs.gnomeExtensions)

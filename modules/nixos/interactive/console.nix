@@ -1,9 +1,5 @@
-{
-  flake,
-  pkgs,
-  ...
-}: let
-  pkgs-patched = import flake.inputs.nixpkgs-patched {inherit (pkgs.cozette) system;};
+{inputs, ...}: {pkgs, ...}: let
+  pkgs-patched = import inputs.nixpkgs-patched {inherit (pkgs.cozette) system;};
 in {
   console = {
     earlySetup = true;

@@ -1,11 +1,10 @@
-{
-  flake,
+{inputs, ...}: {
   pkgs,
   config,
   lib,
   ...
 }: let
-  inherit (flake.inputs) stylix tt-schemes;
+  inherit (inputs) stylix tt-schemes;
 in {
   stylix = lib.mkDefault {
     enable = true;

@@ -1,19 +1,21 @@
-{
-  flake,
+flake @ {nixosModules, ...}: {
   config,
   lib,
   pkgs,
   ...
 }: {
-  imports = [
-    ./home-manager-users.nix
-    ./locale-sg.nix
-    ./nix-config.nix
-    ./power-management.nix
-    ./sshd.nix
-    ./sudo.nix
-    ./systemd-boot.nix
-  ];
+  imports = builtins.attrValues {
+    inherit
+      (nixosModules)
+      base-home-manager-users
+      base-locale-sg
+      base-nix-config
+      base-power-management
+      base-sshd
+      base-sudo
+      base-systemd-boot
+      ;
+  };
   config = lib.mkOverride 900 {
     system.nixos.label = "${config.networking.hostName}-${toString (flake.shortRev or flake.dirtyShortRev or flake.lastModified or "(unknown rev)")}";
     nixpkgs.config.allowUnfree = true;

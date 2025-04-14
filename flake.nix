@@ -102,17 +102,13 @@
         homeModules = gatherModules ./modules/home-manager;
 
         darwinConfigurations = builtins.mapAttrs (_: v:
-          inputs.nix-darwin.lib.darwinSystem {
-            modules = [v];
-            specialArgs = {flake = self;};
-          }) {
+          inputs.nix-darwin.lib.darwinSystem {modules = [v];}) {
           jeshua-macbook = ./systems/jeshua-macbook;
         };
         nixosConfigurations = builtins.mapAttrs (_: v:
           inputs.nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
-            modules = [v];
-            specialArgs = {flake = self;};
+            modules = [((import v) self)];
           }) {
           app-server = ./systems/app-server;
           docker-devbox = ./systems/docker-devbox;
@@ -158,6 +154,8 @@
             self.lib.filterEmptySubdirs
             (self.lib.flattenAttrs "-")
             self.lib.truncateSuffix
+            (builtins.mapAttrs (_: import))
+            (builtins.mapAttrs (_: v: v self))
           ];
         };
       };

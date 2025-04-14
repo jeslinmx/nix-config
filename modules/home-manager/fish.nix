@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{...}: {pkgs, ...}: {
   home = {
     sessionVariables = {
       PAGER = "less -R";

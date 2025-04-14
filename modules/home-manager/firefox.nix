@@ -1,5 +1,4 @@
-{
-  flake,
+{inputs, ...}: {
   config,
   lib,
   pkgs,
@@ -196,7 +195,7 @@
   in {
     ${defaultProfilePath} = {
       recursive = false;
-      source = flake.inputs.arcwtf;
+      source = inputs.arcwtf;
     };
   };
 }

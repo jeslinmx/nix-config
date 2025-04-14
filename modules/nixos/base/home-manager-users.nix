@@ -1,13 +1,11 @@
-{
-  flake,
+{inputs, ...}: {
   config,
   lib,
   ...
 }: let
   cfg = config.hmUsers;
-  inherit (flake.inputs) home-manager nix-flatpak;
 in {
-  imports = [home-manager.nixosModules.home-manager];
+  imports = [inputs.home-manager.nixosModules.home-manager];
 
   options = let
     inherit (lib) types mkOption;
@@ -43,7 +41,6 @@ in {
     home-manager = {
       useUserPackages = true;
       useGlobalPkgs = true;
-      extraSpecialArgs = {inherit flake;};
       backupFileExtension = "hmbak";
       users =
         lib.mapAttrs (
@@ -54,7 +51,7 @@ in {
                   home.stateVersion = lib.mkDefault (osConfig.system.stateVersion or "24.05");
                 })
                 # due to https://github.com/gmodena/nix-flatpak/issues/25
-                nix-flatpak.homeManagerModules.nix-flatpak
+                inputs.nix-flatpak.homeManagerModules.nix-flatpak
               ];
               # BUG: due to a weird home-manager quirk, modules defined inline in hmModules (i.e. not given as paths to a Nix file) will not be able to request for pkgs as an argument
               # use pkgs from NixOS scope instead

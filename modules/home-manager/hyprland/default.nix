@@ -1,16 +1,19 @@
-{
+{homeModules, ...}: {
   config,
   lib,
   pkgs,
   ...
 }: {
-  imports = [
-    ./rofi.nix
-    ./waybar.nix
-    ./hyprlock.nix
-    ./hyprland.nix
-    ./wallpaper-cycle.nix
-  ];
+  imports = builtins.attrValues {
+    inherit
+      (homeModules)
+      hyprland-rofi
+      hyprland-waybar
+      hyprland-hyprlock
+      hyprland-hyprland
+      hyprland-wallpaper-cycle
+      ;
+  };
 
   home.packages = lib.attrValues {
     inherit (pkgs) swww brightnessctl playerctl;

@@ -1,10 +1,9 @@
-{
-  flake,
+{inputs, ...}: {
   lib,
   pkgs,
   ...
 }: let
-  pkgs-unstable = import flake.inputs.nixpkgs-unstable {inherit (pkgs) system config;};
+  pkgs-unstable = import inputs.nixpkgs-unstable {inherit (pkgs) system config;};
 in {
   programs.yazi = {
     enable = true;

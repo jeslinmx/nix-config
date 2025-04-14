@@ -1,11 +1,15 @@
 {
-  flake,
+  inputs,
+  nixosModules,
+  homeModules,
+  ...
+}: {
   lib,
   pkgs,
   ...
 }: {
   imports = builtins.attrValues {
-    inherit (flake.nixosModules) interactive-common extra-containers;
+    inherit (nixosModules) interactive-common extra-containers;
   };
 
   networking.hostName = "jeshua-toolbelt";
@@ -22,11 +26,11 @@
   ### USER SETUP ###
   hmUsers.nixos = {
     extraGroups = ["podman" "wireshark"];
-    openssh.authorizedKeys.keys = flake.inputs.private-config.ssh-authorized-keys;
+    openssh.authorizedKeys.keys = inputs.private-config.ssh-authorized-keys;
     hmModules =
       (builtins.attrValues {
         inherit
-          (flake.homeModules)
+          (homeModules)
           cli-programs
           kitty
           ;

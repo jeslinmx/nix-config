@@ -1,22 +1,19 @@
 {
-  flake,
-  pkgs,
+  inputs,
+  darwinModules,
+  nixosModules,
+  homeModules,
   ...
-}: {
-  imports =
-    (with flake.inputs; [
-      stylix.darwinModules.stylix
-    ])
-    ++ (with flake.darwinModules; [
-      sudo
-      stylix
-      homebrew
-      home-manager-users
-      macos-desktop
-    ])
-    ++ (with flake.nixosModules; [
-      base-nix-config
-    ]);
+}: {pkgs, ...}: {
+  imports = with darwinModules; [
+    inputs.stylix.darwinModules.stylix
+    sudo
+    stylix
+    homebrew
+    home-manager-users
+    macos-desktop
+    nixosModules.base-nix-config
+  ];
 
   nixpkgs.hostPlatform = "aarch64-darwin";
   networking.hostName = "jeshua-macbook";
@@ -50,14 +47,14 @@
     uid = 501;
     shell = pkgs.fish;
     hmModules =
-      (with flake.homeModules; [
+      (with homeModules; [
         cli-programs
         {
           home.stateVersion = "24.11";
           targets.darwin.search = "DuckDuckGo";
         }
       ])
-      ++ (with flake.inputs.private-config.homeModules; [
+      ++ (with inputs.private-config.homeModules; [
         ssh-personal-hosts
         ssh-speqtral-hosts
       ]);

@@ -1,12 +1,12 @@
 {
-  flake,
-  pkgs,
+  inputs,
+  homeModules,
   ...
-}: let
-  pkgs-unstable = import flake.inputs.nixpkgs-unstable {inherit (pkgs) system config;};
+}: {pkgs, ...}: let
+  pkgs-unstable = import inputs.nixpkgs-unstable {inherit (pkgs) system config;};
 in {
   imports = builtins.attrValues {
-    inherit (flake.homeModules) firefox kitty;
+    inherit (homeModules) firefox kitty;
   };
 
   programs = {

@@ -1,4 +1,4 @@
-{
+{...}: {
   config,
   pkgs, # don't believe LSP, this is needed
   ...

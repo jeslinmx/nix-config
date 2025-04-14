@@ -1,10 +1,9 @@
-{
-  flake,
+{inputs, ...}: {
   config,
   lib,
   ...
 }: {
-  imports = [flake.inputs.home-manager.darwinModules.home-manager];
+  imports = [inputs.home-manager.darwinModules.home-manager];
 
   options = let
     inherit (lib) types mkOption;
@@ -32,7 +31,6 @@
     home-manager = {
       useUserPackages = true;
       useGlobalPkgs = true;
-      extraSpecialArgs = {inherit flake;};
       backupFileExtension = "hmbak";
       users =
         lib.mapAttrs (
