@@ -95,39 +95,8 @@
       ];
 
       flake = let
-        dirToAttrs = path:
-          lib.pipe path [
-            builtins.readDir
-            (builtins.mapAttrs (
-              name: type: let
-                fullPath = /${path}/${name};
-              in
-                if type == "directory"
-                then dirToAttrs fullPath
-                else fullPath
-            ))
-          ];
-        filterNonNix = lib.filterAttrsRecursive (_: v: !(builtins.isPath v) || lib.hasSuffix ".nix" "${v}");
-        filterEmptySubdirs = lib.filterAttrsRecursive (_: v: builtins.isPath v || builtins.length (builtins.attrNames v) != 0);
-        flattenAttrs = let
-          recurse = sep: prefix:
-            lib.foldlAttrs (
-              acc: n: v: let
-                fullPath = builtins.concatStringsSep sep (prefix ++ [n]);
-              in
-                acc
-                // (
-                  if builtins.isPath v
-                  then {${fullPath} = v;}
-                  else recurse sep [fullPath] v
-                )
-            ) {};
-        in
-          sep: recurse sep [];
-        truncateSuffix = lib.mapAttrs' (n: v: lib.nameValuePair (lib.pipe n [(lib.removeSuffix ".nix") (lib.removeSuffix "-default")]) v);
-        gatherModules = lib.flip lib.pipe [dirToAttrs filterNonNix filterEmptySubdirs (flattenAttrs "-") truncateSuffix];
+        inherit (self.lib) gatherModules;
       in {
-        inherit gatherModules;
         darwinModules = gatherModules ./modules/darwin;
         nixosModules = gatherModules ./modules/nixos;
         homeModules = gatherModules ./modules/home-manager;
@@ -150,6 +119,46 @@
           jeshua-toolbelt = ./systems/jeshua-toolbelt;
           jeshua-xps-9510 = ./systems/jeshua-xps-9510;
           speqtral-devbox = ./systems/speqtral-devbox;
+        };
+
+        lib = {
+          dirToAttrs = path:
+            lib.pipe path [
+              builtins.readDir
+              (builtins.mapAttrs (
+                name: type: let
+                  fullPath = /${path}/${name};
+                in
+                  if type == "directory"
+                  then self.lib.dirToAttrs fullPath
+                  else fullPath
+              ))
+            ];
+          filterNonNix = lib.filterAttrsRecursive (_: v: !(builtins.isPath v) || lib.hasSuffix ".nix" "${v}");
+          filterEmptySubdirs = lib.filterAttrsRecursive (_: v: builtins.isPath v || builtins.length (builtins.attrNames v) != 0);
+          flattenAttrs = let
+            recurse = sep: prefix:
+              lib.foldlAttrs (
+                acc: n: v: let
+                  fullPath = builtins.concatStringsSep sep (prefix ++ [n]);
+                in
+                  acc
+                  // (
+                    if builtins.isPath v
+                    then {${fullPath} = v;}
+                    else recurse sep [fullPath] v
+                  )
+              ) {};
+          in
+            sep: recurse sep [];
+          truncateSuffix = lib.mapAttrs' (n: v: lib.nameValuePair (lib.pipe n [(lib.removeSuffix ".nix") (lib.removeSuffix "-default")]) v);
+          gatherModules = lib.flip lib.pipe [
+            self.lib.dirToAttrs
+            self.lib.filterNonNix
+            self.lib.filterEmptySubdirs
+            (self.lib.flattenAttrs "-")
+            self.lib.truncateSuffix
+          ];
         };
       };
 
