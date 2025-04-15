@@ -1,4 +1,4 @@
-{config, ...}: {
+{...}: {config, ...}: {
   services.dockerRegistry = {
     enable = true;
     port = 5000;

@@ -1,8 +1,4 @@
-{
-  flake,
-  config,
-  ...
-}: {
+{inputs, ...}: {config, ...}: {
   services.syncthing = {
     enable = true;
     guiAddress = "127.0.0.1:8384";
@@ -14,7 +10,7 @@
           inherit id;
           autoAcceptFolders = true;
         })
-        flake.inputs.private-config.syncthing-devices;
+        inputs.private-config.syncthing-devices;
       options = {
         urAccepted = -1;
       };

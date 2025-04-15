@@ -1,4 +1,4 @@
-{config, ...}: {
+{...}: {config, ...}: {
   services.silverbullet = {
     enable = true;
     listenPort = 3000;

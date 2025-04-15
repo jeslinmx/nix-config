@@ -1,12 +1,9 @@
-{
-  flake,
+{inputs, ...}: {
   config,
   lib,
   pkgs,
   ...
 }: {
-  imports = [flake.inputs.agenix.nixosModules.default];
-
   services.coredns = {
     enable = true;
     config =
@@ -41,7 +38,7 @@
             import forward
           }
         '')
-        flake.inputs.private-config.zerotier-networks));
+        inputs.private-config.zerotier-networks));
   };
 
   networking.firewall = {
@@ -55,8 +52,8 @@
   systemd = {
     services = {
       coredns = {
-        wants = builtins.map (nwid: "zerotier-hosts@${nwid}.timer") (builtins.attrNames flake.inputs.private-config.zerotier-networks) ++ ["zerotierone.service"];
-        after = builtins.map (nwid: "zerotier-hosts@${nwid}.service") (builtins.attrNames flake.inputs.private-config.zerotier-networks) ++ ["zerotierone.service"];
+        wants = builtins.map (nwid: "zerotier-hosts@${nwid}.timer") (builtins.attrNames inputs.private-config.zerotier-networks) ++ ["zerotierone.service"];
+        after = builtins.map (nwid: "zerotier-hosts@${nwid}.service") (builtins.attrNames inputs.private-config.zerotier-networks) ++ ["zerotierone.service"];
       };
 
       "zerotier-hosts@" = {
@@ -66,7 +63,7 @@
           ZT_NETWORK_ID = "%i";
         };
         serviceConfig = {
-          EnvironmentFile = config.age.secrets.zt_token.path;
+          EnvironmentFile = config.sops.templates.zerotier-envFile.path;
           RuntimeDirectory = "zt-hosts";
           RuntimeDirectoryPreserve = "yes";
         };
@@ -88,5 +85,8 @@
     timers."zerotier-hosts@".timerConfig.OnCalendar = "*-*-* *:*:00/15";
   };
 
-  age.secrets.zt_token.file = ./zt_token.age;
+  sops = {
+    secrets."zerotier/api-token" = {};
+    templates.zerotier-envFile.content = "ZT_TOKEN=${config.sops.placeholder."zerotier/api-token"}";
+  };
 }

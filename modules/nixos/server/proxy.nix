@@ -1,11 +1,10 @@
-{
-  flake,
+{inputs, ...}: {
   config,
   lib,
   pkgs,
   ...
 }: let
-  pkgs-patched = import flake.inputs.nixpkgs-caddy-plugins {inherit (pkgs.caddy) system;};
+  pkgs-patched = import inputs.nixpkgs-caddy-plugins {inherit (pkgs.caddy) system;};
 in {
   options.services.caddy.proxiedServices = lib.mkOption {
     type = lib.types.attrsOf (lib.types.separatedString " ");
@@ -43,9 +42,8 @@ in {
     };
     # trigger caddy restart on re-config
     systemd.services.caddy.restartTriggers = [config.services.caddy.configFile];
-    # get cloudflare api token from age
-    systemd.services.caddy.serviceConfig.EnvironmentFile = config.age.secrets.cf_token.path;
-    age.secrets.cf_token.file = ./cf_token.age;
+    # get cloudflare api token from sops
+    systemd.services.caddy.serviceConfig.EnvironmentFile = config.sops.templates.caddy-envFile.path;
     # open firewall
     networking.firewall.interfaces =
       lib.mapAttrs' (
@@ -57,6 +55,11 @@ in {
     boot.kernel.sysctl = {
       "net.core.rmem_max" = 7500000;
       "net.core.wmem_max" = 7500000;
+    };
+
+    sops = {
+      secrets."caddy/cloudflare-api-token" = {};
+      templates.caddy-envFile.content = "CF_API_TOKEN=${config.sops.placeholder."caddy/cloudflare-api-token"}";
     };
   };
 }

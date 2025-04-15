@@ -1,4 +1,4 @@
-{config, ...}: {
+{...}: {config, ...}: {
   services.gitea = {
     enable = true;
     appName = "Gitea";
