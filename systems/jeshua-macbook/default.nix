@@ -8,10 +8,12 @@
   imports = with darwinModules; [
     inputs.stylix.darwinModules.stylix
     sudo
+    sshd
     stylix
     homebrew
     home-manager-users
     macos-desktop
+    linux-builder
     nixosModules.base-nix-config
   ];
 
