@@ -42,6 +42,12 @@
     "scroll-reverser"
     "lm-studio"
     "ticktick"
+    "transmission"
+    "vlc"
+    "middleclick"
+    "jordanbaird-ice"
+    "domzilla-caffeine"
+    "bambu-studio"
   ];
 
   programs.fish.enable = true;
