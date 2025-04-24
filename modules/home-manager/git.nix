@@ -1,4 +1,8 @@
 {...}: {
+  lib,
+  pkgs,
+  ...
+}: {
   programs.git = {
     userName = "Jeshua Lin";
     userEmail = "jeslinmx@users.noreply.github.com";
@@ -52,7 +56,27 @@
         "https://gist.github.com/".insteadOf = "gist://";
         "git@github.com:".insteadOf = "gh:";
       };
-      core.autocrlf = "input";
+      core = {
+        autocrlf = "input";
+        excludesFile =
+          lib.pipe [
+            # neovim
+            "Session.vim"
+            # macos
+            ".DS_Store"
+            ".Spotlight-V100"
+            ".fseventsd"
+            # windows
+            "Thumbs.db"
+            "Desktop.ini"
+            # linux
+            ".Trash-*"
+          ] [
+            (builtins.concatStringsSep "\n")
+            (pkgs.writeText ".gitignore")
+            (builtins.getAttr "outPath")
+          ];
+      };
     };
   };
 }
