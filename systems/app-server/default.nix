@@ -2,7 +2,11 @@
   inputs,
   nixosModules,
   ...
-}: {lib, ...}: {
+}: {
+  lib,
+  pkgs,
+  ...
+}: {
   imports =
     builtins.attrValues {
       inherit
@@ -29,6 +33,6 @@
 
   ### ENVIRONMENT CUSTOMIZATION ###
   services.openssh.settings.PermitRootLogin = lib.mkForce "prohibit-password";
-  users.users.root.openssh.authorizedKeys.keys = inputs.private-config.ssh-authorized-keys;
+  users.users.root.openssh.authorizedKeys.keyFiles = [inputs.private-config.packages.${pkgs.system}.ssh-authorized-keys];
   sops.defaultSopsFile = ./secrets.yaml;
 }

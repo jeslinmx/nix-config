@@ -23,7 +23,7 @@
   hmUsers.jeslinmx = {
     uid = 1000;
     extraGroups = ["wheel" "docker"];
-    openssh.authorizedKeys.keys = inputs.private-config.ssh-authorized-keys;
+    openssh.authorizedKeys.keyFiles = [inputs.private-config.packages.${pkgs.system}.ssh-authorized-keys];
     hmModules = [homeModules.cli-programs];
   };
 }

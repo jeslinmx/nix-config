@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  inherit (inputs.private-config) zerotier-networks;
+  inherit (inputs.private-config.lib) zerotier-networks;
 
   # Convert a string like "8056c2e21c36f91e" to the zerotier network interface name like "ztmjfpigyc"
   ifrname = let

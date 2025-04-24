@@ -185,6 +185,24 @@
         "type": "github"
       }
     },
+    "flake-parts_2": {
+      "inputs": {
+        "nixpkgs-lib": "nixpkgs-lib_2"
+      },
+      "locked": {
+        "lastModified": 1743550720,
+        "narHash": "sha256-hIshGgKZCgWh6AYJpJmRgFdR3WUbkY04o82X05xqQiY=",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "rev": "c621e8422220273271f52058f618c94e405bb0f5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "type": "github"
+      }
+    },
     "flake-utils": {
       "inputs": {
         "systems": [
@@ -545,6 +563,21 @@
         "type": "github"
       }
     },
+    "nixpkgs-lib_2": {
+      "locked": {
+        "lastModified": 1743296961,
+        "narHash": "sha256-b1EdN3cULCqtorQ4QeWgLMrd5ZGOjLSLemfa00heasc=",
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
+        "rev": "e4822aea2a6d1cdd36653c134cacfd64c97ff4fa",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
+        "type": "github"
+      }
+    },
     "nixpkgs-patched": {
       "locked": {
         "lastModified": 1736102157,
@@ -604,16 +637,17 @@
     },
     "private-config": {
       "inputs": {
+        "flake-parts": "flake-parts_2",
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1741263568,
-        "narHash": "sha256-5rEwcQpu+rb1sF+2Sag7uflFWR1vGPutGaIom+cgoE8=",
+        "lastModified": 1745473033,
+        "narHash": "sha256-6AHbaReG3tn7zg1WUnKLO2qiVdRLKoI1UNx8qCMQVXA=",
         "ref": "refs/heads/main",
-        "rev": "34133ce9fab7bfc729634b616bc3d203699eef5e",
-        "revCount": 31,
+        "rev": "fd2594159c5c49cecccf6b29e23308a33cdace98",
+        "revCount": 34,
         "type": "git",
         "url": "ssh://git@github.com/jeslinmx/nix-private-config"
       },

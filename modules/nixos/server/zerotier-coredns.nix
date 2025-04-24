@@ -3,7 +3,9 @@
   lib,
   pkgs,
   ...
-}: {
+}: let
+  inherit (inputs.private-config.lib) zerotier-networks;
+in {
   services.coredns = {
     enable = true;
     config =
@@ -38,7 +40,7 @@
             import forward
           }
         '')
-        inputs.private-config.zerotier-networks));
+        zerotier-networks));
   };
 
   networking.firewall = {
@@ -52,8 +54,8 @@
   systemd = {
     services = {
       coredns = {
-        wants = builtins.map (nwid: "zerotier-hosts@${nwid}.timer") (builtins.attrNames inputs.private-config.zerotier-networks) ++ ["zerotierone.service"];
-        after = builtins.map (nwid: "zerotier-hosts@${nwid}.service") (builtins.attrNames inputs.private-config.zerotier-networks) ++ ["zerotierone.service"];
+        wants = builtins.map (nwid: "zerotier-hosts@${nwid}.timer") (builtins.attrNames zerotier-networks) ++ ["zerotierone.service"];
+        after = builtins.map (nwid: "zerotier-hosts@${nwid}.service") (builtins.attrNames zerotier-networks) ++ ["zerotierone.service"];
       };
 
       "zerotier-hosts@" = {

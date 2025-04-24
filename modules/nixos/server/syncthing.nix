@@ -10,7 +10,7 @@
           inherit id;
           autoAcceptFolders = true;
         })
-        inputs.private-config.syncthing-devices;
+        inputs.private-config.lib.syncthing-devices;
       options = {
         urAccepted = -1;
       };

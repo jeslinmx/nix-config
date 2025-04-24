@@ -55,7 +55,7 @@
       uid = 1000;
       description = "Jeshua Lin";
       extraGroups = ["wheel" "podman" "libvirtd" "wireshark"];
-      openssh.authorizedKeys.keys = inputs.private-config.ssh-authorized-keys;
+      openssh.authorizedKeys.keyFiles = [inputs.private-config.packages.${pkgs.system}.ssh-authorized-keys];
       hmModules =
         (builtins.attrValues {
           inherit
