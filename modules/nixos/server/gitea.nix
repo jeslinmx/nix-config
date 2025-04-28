@@ -1,4 +1,9 @@
-{...}: {config, ...}: {
+{...}: {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   services.gitea = {
     enable = true;
     appName = "Gitea";
@@ -25,4 +30,22 @@
     };
   };
   services.caddy.proxiedServices.${config.services.gitea.settings.server.ROOT_URL} = "${config.services.gitea.settings.server.HTTP_ADDR}:${builtins.toString config.services.gitea.settings.server.HTTP_PORT}";
+
+  backups.restic.services.gitea = let
+    giteaCfg = config.services.gitea;
+    dumpDir = giteaCfg.dump.backupDir;
+  in {
+    paths = [dumpDir];
+    backupPrepareCommand = let
+      sudo = lib.getExe pkgs.sudo;
+      gitea = lib.getExe giteaCfg.package;
+      inherit (giteaCfg) user customDir;
+    in ''
+      ${sudo} -u ${user} mkdir -p ${dumpDir}
+      ${sudo} -u ${user} ${gitea} dump -c ${customDir}/conf/app.ini --type tar --file ${dumpDir}/gitea-dump.tar
+    '';
+    backupCleanupCommand = ''
+      rm -rf ${dumpDir}
+    '';
+  };
 }

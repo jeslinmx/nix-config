@@ -17,4 +17,10 @@
     };
   };
   services.caddy.proxiedServices."st.zt.jesl.in" = config.services.syncthing.guiAddress;
+
+  backups.restic.services.syncthing = {
+    paths = [config.services.syncthing.dataDir];
+    backupPrepareCommand = "systemctl stop syncthing.service";
+    backupCleanupCommand = "systemctl start syncthing.service";
+  };
 }
