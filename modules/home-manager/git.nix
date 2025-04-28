@@ -71,6 +71,9 @@
             "Desktop.ini"
             # linux
             ".Trash-*"
+            ".direnv"
+            "**.swp"
+            "**.swo"
           ] [
             (builtins.concatStringsSep "\n")
             (pkgs.writeText ".gitignore")
