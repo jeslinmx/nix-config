@@ -99,7 +99,7 @@
         homeModules = gatherModules ./modules/home-manager;
 
         darwinConfigurations = builtins.mapAttrs (_: v:
-          inputs.nix-darwin.lib.darwinSystem {modules = [v];}) {
+          inputs.nix-darwin.lib.darwinSystem {modules = [((import v) self)];}) {
           jeshua-macbook = ./systems/jeshua-macbook;
         };
         nixosConfigurations = builtins.mapAttrs (_: v:
