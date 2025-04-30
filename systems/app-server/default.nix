@@ -17,6 +17,7 @@
         server-restic
         server-flood
         server-gitea
+        server-jellyfin
         server-silverbullet
         server-syncthing
         server-netdata
