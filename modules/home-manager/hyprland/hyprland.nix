@@ -110,6 +110,7 @@ in {
 
       monitor = [
         "eDP-1,preferred,0x0,1"
+        "desc:VIE PF24HD S.IPS,preferred,auto-left,1" # home monitor
         ",preferred,auto,auto"
       ];
 
