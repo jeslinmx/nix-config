@@ -42,7 +42,7 @@
     "scroll-reverser"
     "lm-studio"
     "ticktick"
-    "transmission"
+    "transmission-remote-gui"
     "vlc"
     "middleclick"
     "jordanbaird-ice"
