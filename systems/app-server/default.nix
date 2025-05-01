@@ -15,7 +15,7 @@
         extra-zerotier
         server-proxy
         server-restic
-        server-flood
+        server-transmission
         server-gitea
         server-jellyfin
         server-silverbullet
