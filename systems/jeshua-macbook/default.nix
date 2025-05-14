@@ -22,32 +22,36 @@
   system.stateVersion = 5;
 
   homebrew.casks = [
-    "iterm2"
-    "whisky"
-    "keepassxc"
+    # Applications
+    "zen-browser"
     "telegram"
+    "obsidian"
+    "ticktick"
+    "iterm2"
+    "keepassxc"
+    "godot"
+    "figma"
+    "obs"
+    "bambu-studio"
     "microsoft-word"
     "microsoft-powerpoint"
     "microsoft-excel"
-    "obsidian"
-    "godot"
+    "whisky"
     "discord"
     "prismlauncher"
-    "figma"
-    "orion"
-    "firefox"
-    "obs"
-    "zerotier-one"
-    "syncthing"
-    "scroll-reverser"
-    "lm-studio"
-    "ticktick"
     "transmission-remote-gui"
     "vlc"
+
+    # Services
+    "zerotier-one"
+    "syncthing"
+    "lm-studio"
+
+    # Desktop
+    "scroll-reverser"
     "middleclick"
     "jordanbaird-ice"
     "domzilla-caffeine"
-    "bambu-studio"
   ];
 
   programs.fish.enable = true;
