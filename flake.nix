@@ -25,6 +25,10 @@
       url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
+    nix-rosetta-builder = {
+      url = "github:cpick/nix-rosetta-builder";
+      inputs.nixpkgs.follows = "nixpkgs-darwin";
+    };
 
     # NixOS modules
     nixos-hardware.url = "github:nixos/nixos-hardware";

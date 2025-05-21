@@ -13,7 +13,7 @@
     homebrew
     home-manager-users
     macos-desktop
-    linux-builder
+    rosetta-builder
     nixosModules.base-nix-config
   ];
 
