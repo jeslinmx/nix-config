@@ -46,9 +46,16 @@
     };
     ssh = {
       enable = true;
+      addKeysToAgent = "yes";
       hashKnownHosts = true;
       controlMaster = "auto";
       controlPersist = "3s";
+      extraConfig = ''
+        IgnoreUnknown UseKeychain
+        UseKeychain yes
+        IdentityFile ~/.ssh/id_ed25519
+        IdentityFile ~/.ssh/id_rsa
+      '';
       includes = ["~/.ssh/config.d/*.conf"];
     };
     gh = {
