@@ -52,6 +52,7 @@
     "middleclick"
     "jordanbaird-ice"
     "domzilla-caffeine"
+    "maccy"
   ];
 
   programs.fish.enable = true;
