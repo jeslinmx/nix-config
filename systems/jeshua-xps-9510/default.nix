@@ -5,7 +5,7 @@
   ...
 }: {pkgs, ...}: {
   imports = builtins.attrValues {
-    inherit (nixosModules) interactive-common quirks-iwlwifi quirks-gmk67 extra-cloudflare-warp extra-containers extra-java extra-ollama extra-secure-boot extra-virtualisation extra-zerotier;
+    inherit (nixosModules) interactive-common quirks-iwlwifi quirks-gmk67 extra-cloudflare-warp extra-containers extra-java extra-secure-boot extra-virtualisation extra-zerotier;
     inherit (inputs.nixos-hardware.nixosModules) dell-xps-15-9510 dell-xps-15-9510-nvidia;
     inherit (inputs.lanzaboote.nixosModules) lanzaboote;
   };
