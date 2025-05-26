@@ -59,6 +59,7 @@
   hmUsers.jeslinmx = {
     uid = 501;
     shell = pkgs.fish;
+    openssh.authorizedKeys.keyFiles = [inputs.private-config.packages.${pkgs.system}.ssh-authorized-keys];
     hmModules =
       (with homeModules; [
         cli-programs
