@@ -66,7 +66,7 @@
         {
           home.stateVersion = "24.11";
           targets.darwin.search = "DuckDuckGo";
-          # TODO: remove when https://github.com/danth/stylix/issues/1316 comes to release-24.11
+          # TODO: remove when https://github.com/danth/stylix/issues/1316 comes to release-25.11
           stylix.targets.gnome.enable = false;
         }
       ])

@@ -1,5 +1,6 @@
 {...}: {
   config,
+  lib,
   pkgs, # don't believe LSP, this is needed
   ...
 } @ args: let
@@ -9,7 +10,7 @@ in {
   programs.hyprlock = {
     enable = true;
     settings = {
-      background = {
+      background = lib.mkIf (!builtins.isNull config.stylix.image) {
         path = "${config.stylix.image}";
         blur_passes = 2;
         blur_size = 10;

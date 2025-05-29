@@ -8,8 +8,6 @@
     };
   };
 
-  fonts.packages = [pkgs.recursive (pkgs.nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})];
-
   services = {
     yabai = {
       enable = true;

@@ -35,14 +35,13 @@ in {
     cursor = {
       name = "Bibata-Modern-Classic";
       package = pkgs.bibata-cursors;
+      # hotfix for https://github.com/nix-community/stylix/issues/1396
+      size = lib.mkDefault 0;
     };
-
-    # TODO: remove when https://github.com/danth/stylix/issues/442 goes through
-    image = config.lib.stylix.pixel "base00";
   };
 
   fonts.packages = [
-    (pkgs.nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
+    pkgs.nerd-fonts.symbols-only
     pkgs.noto-fonts-emoji-blob-bin
   ];
 }
