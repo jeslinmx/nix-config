@@ -95,7 +95,7 @@
         };
         search = {
           force = true;
-          default = "DuckDuckGo";
+          default = "ddg";
           engines = {
             "MyNixOS" = {
               urls = [{template = "https://mynixos.com/search?q={searchTerms}";}];
@@ -121,10 +121,10 @@
               urls = [{template = "https://psref.lenovo.com/Search?kw={searchTerms}";}];
               definedAliases = ["psref"];
             };
-            "Google".metaData.hidden = true;
-            "Amazon.com".metaData.hidden = true;
-            "Bing".metaData.hidden = true;
-            "Wikipedia (en)".metaData.hidden = true;
+            "google".metaData.hidden = true;
+            "amazondotcom-us".metaData.hidden = true;
+            "bing".metaData.hidden = true;
+            "wikipedia".metaData.hidden = true;
           };
         };
       };

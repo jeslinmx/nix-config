@@ -123,6 +123,7 @@
         colmenaHive = inputs.colmena.lib.makeHive (
           {
             meta.nixpkgs = import inputs.nixpkgs {system = "x86_64-linux";};
+            meta.nodeNixpkgs = builtins.mapAttrs (_: v: v.pkgs) self.nixosConfigurations;
           }
           // (builtins.mapAttrs (
               node: deployment: {

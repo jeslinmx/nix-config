@@ -2,12 +2,9 @@
   lib,
   pkgs,
   ...
-}: let
-  pkgs-unstable = import inputs.nixpkgs-unstable {inherit (pkgs) system config;};
-in {
+}: {
   programs.yazi = {
     enable = true;
-    package = pkgs-unstable.yazi;
     keymap = {
       manager = {
         prepend_keymap = [

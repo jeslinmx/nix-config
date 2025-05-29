@@ -4,7 +4,6 @@
   pkgs,
   ...
 }: let
-  pkgs-unstable = import inputs.nixpkgs-unstable {inherit (pkgs) system config;};
   extensions = lib.attrValues {
     inherit
       (pkgs.gnomeExtensions)
@@ -22,9 +21,6 @@
       task-widget
       windownavigator
       wtmb-window-thumbnails
-      ;
-    inherit
-      (pkgs-unstable.gnomeExtensions)
       dim-background-windows
       quick-settings-tweaker
       tiling-shell

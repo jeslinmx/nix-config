@@ -1,10 +1,9 @@
 {inputs, ...}: {
   pkgs,
-  config,
   lib,
   ...
 }: let
-  inherit (inputs) stylix tt-schemes;
+  inherit (inputs) tt-schemes;
 in {
   stylix = lib.mkDefault {
     enable = true;
@@ -30,13 +29,10 @@ in {
         terminal = 11;
       };
     };
-
-    # TODO: remove when https://github.com/danth/stylix/issues/442 goes through
-    image = config.lib.stylix.pixel "base00";
   };
 
   fonts.packages = [
-    (pkgs.nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
+    pkgs.nerd-fonts.symbols-only
     pkgs.noto-fonts-emoji-blob-bin
   ];
 }

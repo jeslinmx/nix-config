@@ -2,9 +2,7 @@
   inputs,
   homeModules,
   ...
-}: {pkgs, ...}: let
-  pkgs-unstable = import inputs.nixpkgs-unstable {inherit (pkgs) system config;};
-in {
+}: {pkgs, ...}: {
   imports = builtins.attrValues {
     inherit (homeModules) firefox kitty;
   };
@@ -12,7 +10,6 @@ in {
   programs = {
     firefox.enable = true;
     kitty.enable = true;
-    kitty.package = pkgs-unstable.kitty;
     mangohud = {
       enable = true;
     };
@@ -52,7 +49,7 @@ in {
       inherit
         (pkgs)
         wl-clipboard
-        virt-manager
+        # virt-manager
         clapper
         loupe
         zathura
