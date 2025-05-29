@@ -10,19 +10,18 @@
     };
 
     # nixpkgs
-    nixpkgs.url = "nixpkgs/release-24.11";
-    nixpkgs-unstable.url = "nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "nixpkgs/release-25.05";
     nixpkgs-patched.url = "github:jeslinmx/nixpkgs/cozette-psfu";
     nixpkgs-caddy-plugins.url = "nixpkgs/b8a14976023e53f6e08e51dc61585838eb1f2828";
 
     # nix-darwin modules
-    nixpkgs-darwin.url = "nixpkgs/nixpkgs-24.11-darwin";
+    nixpkgs-darwin.url = "nixpkgs/nixpkgs-25.05-darwin";
     nix-darwin = {
-      url = "github:LnL7/nix-darwin/nix-darwin-24.11";
+      url = "github:LnL7/nix-darwin/nix-darwin-25.05";
       inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
     home-manager-darwin = {
-      url = "github:nix-community/home-manager/release-24.11";
+      url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
     nix-rosetta-builder = {
@@ -54,11 +53,11 @@
 
     # Home Manager
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.11";
+      url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     stylix = {
-      url = "github:danth/stylix/release-24.11";
+      url = "github:danth/stylix/release-25.05";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         home-manager.follows = "home-manager";
