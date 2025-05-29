@@ -47,6 +47,10 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    colmena = {
+      url = "github:zhaofengli/colmena";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Home Manager
     home-manager = {
@@ -117,6 +121,31 @@
           jeshua-xps-9510 = ./systems/jeshua-xps-9510;
           speqtral-devbox = ./systems/speqtral-devbox;
         };
+        colmenaHive = inputs.colmena.lib.makeHive (
+          {
+            meta.nixpkgs = import inputs.nixpkgs {system = "x86_64-linux";};
+          }
+          // (builtins.mapAttrs (
+              node: deployment: {
+                inherit deployment;
+                imports = self.nixosConfigurations.${node}._module.args.modules;
+              }
+            ) {
+              jeshua-xps-9510 = {
+                allowLocalDeployment = true;
+                tags = ["speqtral" "bare-metal"];
+                targetHost = "xps";
+                targetUser = "jeslinmx";
+              };
+              app-server = {
+                tags = ["personal" "proxmox-lxc"];
+              };
+              speqtral-devbox = {
+                tags = ["speqtral" "proxmox-lxc"];
+                targetUser = "jeslinmx";
+              };
+            })
+        );
 
         lib = {
           dirToAttrs = path:
@@ -169,28 +198,14 @@
       }: {
         formatter = pkgs.alejandra;
 
+        packages.jeshua-toolbelt = inputs.nixos-generators.nixosGenerate {
+          inherit system;
+          modules = [((import ./systems/jeshua-toolbelt) self)];
+          format = "install-iso";
+        };
+
         devshells.default = {
           commands = [
-            {
-              name = "deploy-server";
-              category = "build";
-              help = "Rebuild and switch <app-server> config";
-              command = ''
-                nixos-rebuild switch --flake $PRJ_ROOT#''${1:-app-server} --target-host ''${1:-app-server} ''${@:2}
-              '';
-            }
-            {
-              name = "build-image";
-              category = "build";
-              help = "Build <jeshua-toolbelt> <install-iso> image for ${system}";
-              command = ''
-                ${inputs.nixos-generators.apps.${system}.nixos-generate.program} \
-                  --flake $PRJ_ROOT#''${1:-jeshua-toolbelt} \
-                  --format ''${2:-install-iso} \
-                  --system ''${3:-${system}} \
-                  --show-trace
-              '';
-            }
             {
               package = pkgs.nurl;
               category = "dev";
@@ -200,16 +215,16 @@
               category = "dev";
             }
             {
-              package = pkgs.nh;
-              category = "build";
-            }
-            {
               package = pkgs.nix-tree;
               category = "debug";
             }
             {
               package = pkgs.nix-melt;
               category = "debug";
+            }
+            {
+              package = inputs.colmena.packages.${system}.colmena;
+              category = "build";
             }
           ];
           packages = [pkgs.nixd];
