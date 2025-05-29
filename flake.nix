@@ -169,48 +169,6 @@
       }: {
         formatter = pkgs.alejandra;
 
-        packages.osx-kvm = let
-          osx-kvm = pkgs.fetchFromGitHub {
-            owner = "kholia";
-            repo = "OSX-KVM";
-            rev = "adde00327ac767b012d8e5cab114db4acd129f6f";
-            hash = "sha256-jNtZxsJd9FwFrhQvtyll294d+ix+csA5kfyxg0wOwcU=";
-          };
-        in (pkgs.writeShellScriptBin "osx-kvm" ''
-          set -euo pipefail
-          OSX_KVM_DIR="$HOME/.local/share/osx-kvm"
-          pushd "$OSX_KVM_DIR" 2> /dev/null
-
-          # copy OpenCore-Boot.sh dependencies to OSX_KVM_DIR
-          install -Dm644 -t .          ${osx-kvm}/OVMF_CODE.fd ${osx-kvm}/OVMF_VARS-1920x1080.fd
-          install -Dm644 -t ./OpenCore ${osx-kvm}/OpenCore/OpenCore.qcow2
-
-          # create BaseSystem.img from dmg if needed
-          if [ ! -e ./BaseSystem.img ];then
-            if [ ! -e ./BaseSystem.dmg ];then
-              install -Dm644 -t . ${osx-kvm}/fetch-macOS-v2.py
-              ${lib.getExe pkgs.python3} ./fetch-macOS-v2.py && rm ./fetch-macOS-v2.py
-            fi
-            ${lib.getExe' pkgs.qemu "qemu-img"} convert ./BaseSystem.dmg -O raw ./BaseSystem.img && rm ./BaseSystem.dmg
-          fi
-
-          # create macOS drive if needed
-          if [ ! -e ./mac_hdd_ng.img ];then
-            ${lib.getExe' pkgs.qemu "qemu-img"} create -f qcow2 ./mac_hdd_ng.img 128G
-          fi
-
-          # create and define libvirt domain if needed
-          sed \
-            -e "s|/home/CHANGEME/OSX-KVM|$OSX_KVM_DIR|g" \
-            -e "s|/usr/bin/qemu-system-x86_64|${lib.getExe' pkgs.qemu "qemu-system-x86_64"}|g" \
-            -e "s|OVMF_VARS.fd|OVMF_VARS-1920x1080.fd|g" \
-            ${osx-kvm}/macOS-libvirt-Catalina.xml > ./macOS.xml
-          ${lib.getExe' pkgs.libvirt "virt-xml-validate"} ./macOS.xml
-          ${lib.getExe' pkgs.libvirt "virsh"} --connect qemu:///system define ./macOS.xml
-
-          popd 2> /dev/null
-        '');
-
         devshells.default = {
           commands = [
             {
@@ -253,15 +211,8 @@
               package = pkgs.nix-melt;
               category = "debug";
             }
-            {package = self.packages.${system}.osx-kvm;}
           ];
           packages = [pkgs.nixd];
-          env = [
-            {
-              name = "RULES";
-              eval = "$PRJ_ROOT/secrets.nix";
-            }
-          ];
         };
       };
     });
