@@ -12,7 +12,7 @@
       starship
       # termshark
       tmux
-      # yazi
+      yazi
       ;
   };
 
