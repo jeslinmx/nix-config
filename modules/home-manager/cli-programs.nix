@@ -86,11 +86,15 @@
       fd
       dig
       lazydocker
-      unzip
+      ouch
       visidata
       httpie
       mitmproxy
-      wishlist
+      dust
+      hyperfine
+      tokei
+      wiki-tui
+      mask
       ;
   };
   home.file = {
