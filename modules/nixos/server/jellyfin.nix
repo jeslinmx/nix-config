@@ -1,7 +1,7 @@
 {...}: {config, ...}: {
   services = {
     jellyfin.enable = true;
-    caddy.proxiedServices."jf.zt.jesl.in" = "127.0.0.1:8096";
+    caddy.proxiedServices."jf.app.jesl.in" = "127.0.0.1:8096";
   };
   networking.firewall = {
     allowedTCPPorts = [8096 8920]; # for locally discovered LAN

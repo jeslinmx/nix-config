@@ -16,7 +16,7 @@
       };
     };
   };
-  services.caddy.proxiedServices."st.zt.jesl.in" = config.services.syncthing.guiAddress;
+  services.caddy.proxiedServices."st.app.jesl.in" = config.services.syncthing.guiAddress;
 
   backups.restic.services.syncthing = {
     paths = [config.services.syncthing.dataDir];

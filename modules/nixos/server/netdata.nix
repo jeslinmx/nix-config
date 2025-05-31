@@ -12,5 +12,5 @@
       };
     };
   };
-  services.caddy.proxiedServices."nd.zt.jesl.in" = "localhost:19999";
+  services.caddy.proxiedServices."nd.app.jesl.in" = "localhost:19999";
 }

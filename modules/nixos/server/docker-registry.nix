@@ -5,7 +5,7 @@
     enableDelete = true;
     enableGarbageCollect = true;
   };
-  services.caddy.proxiedServices."dr.zt.jesl.in" = "${config.services.dockerRegistry.listenAddress}:${builtins.toString config.services.dockerRegistry.port}";
+  services.caddy.proxiedServices."dr.app.jesl.in" = "${config.services.dockerRegistry.listenAddress}:${builtins.toString config.services.dockerRegistry.port}";
 
   backups.restic.services.dockerRegistry = {
     paths = [config.services.dockerRegistry.storagePath];

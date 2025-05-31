@@ -9,7 +9,7 @@
     appName = "Gitea";
     settings = rec {
       server = {
-        DOMAIN = "gt.zt.jesl.in";
+        DOMAIN = "gt.app.jesl.in";
         ROOT_URL = "https://${server.DOMAIN}";
         HTTP_ADDR = "127.0.0.1";
         HTTP_PORT = 3001;

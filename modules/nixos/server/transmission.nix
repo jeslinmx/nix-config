@@ -18,6 +18,6 @@
         rpc-port = 9091;
       };
     };
-    caddy.proxiedServices."bt.zt.jesl.in" = "localhost:${builtins.toString config.services.transmission.settings.rpc-port}";
+    caddy.proxiedServices."bt.app.jesl.in" = "localhost:${builtins.toString config.services.transmission.settings.rpc-port}";
   };
 }
