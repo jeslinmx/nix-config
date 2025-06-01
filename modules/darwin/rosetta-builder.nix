@@ -1,7 +1,7 @@
 {inputs, ...}: {
   imports = [inputs.nix-rosetta-builder.darwinModules.default];
 
-  # for bootstrapping rosetta-builder
+  # # for bootstrapping rosetta-builder
   # nix.linux-builder = {
   #   enable = true;
   #   ephemeral = true;

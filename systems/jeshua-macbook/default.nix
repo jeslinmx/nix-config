@@ -56,6 +56,7 @@
   ];
 
   programs.fish.enable = true;
+  system.primaryUser = "jeslinmx";
   hmUsers.jeslinmx = {
     uid = 501;
     shell = pkgs.fish;
