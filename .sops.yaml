@@ -1,5 +1,6 @@
 keys:
   - &jeslinmx-keepass age1x7e4qdyfsksf4w4ar47mthwnrv9zm7n4hqm74h54dkgcvlr8pcwqwmj33f
+  - &jeshua-macbook ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII/1u4M/CLNt3YbmT2d9FnyGtbOVodjSKOLtrif+1GDU
   - &jeshua-ipad age12595427zfvrthw9xetz4r5adgcn28uyhgu8lr5fpcrfgnjhv7e9swfgvqr
   - &jeshua-iphone age1empgcdn7q6k455zyk2nz9v54x5whzsqnu2nfyrj0z3kxy9eruy6szmgqp3
   - &app-server age1k3c3w73m9t7k7qd0mjdu8mjt4j3xg94gvesdhsrfwfxjhv4megxs3ly9pu
@@ -9,6 +10,7 @@ creation_rules:
     key_groups:
       - age:
         - *jeslinmx-keepass
+        - *jeshua-macbook
         - *jeshua-ipad
         - *jeshua-iphone
         - *app-server

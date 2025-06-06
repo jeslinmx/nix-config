@@ -3,6 +3,7 @@
   nixosModules,
   ...
 }: {
+  config,
   lib,
   pkgs,
   ...
@@ -35,5 +36,38 @@
   ### ENVIRONMENT CUSTOMIZATION ###
   services.openssh.settings.PermitRootLogin = lib.mkForce "prohibit-password";
   users.users.root.openssh.authorizedKeys.keyFiles = [inputs.private-config.packages.${pkgs.system}.ssh-authorized-keys];
-  sops.defaultSopsFile = ./secrets.yaml;
+
+  sops = {
+    defaultSopsFile = ./secrets.yaml;
+    secrets = {
+      "netdata/jam-pve" = {};
+    };
+    templates.netdata_stream_conf = {
+      inherit (config.services.netdata) group;
+      mode = "0440";
+      restartUnits = ["netdata.service"];
+      content = let
+        inherit (config.sops) placeholder;
+        mkChildCfg = apiKey: ''
+          [${apiKey}]
+            type = api
+            enabled = yes
+            allow from = fcc5:ae24:cb*
+        '';
+      in
+        builtins.concatStringsSep "\n" (
+          [
+            ''
+              [stream]
+                enabled = no
+                enable compression = yes
+            ''
+          ]
+          ++ (builtins.map mkChildCfg [placeholder."netdata/jam-pve"])
+        );
+    };
+  };
+  services.netdata.configDir = {
+    "stream.conf" = config.sops.templates.netdata_stream_conf.path;
+  };
 }
