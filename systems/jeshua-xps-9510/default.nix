@@ -6,7 +6,7 @@
 }: {pkgs, ...}: {
   imports = builtins.attrValues {
     inherit (nixosModules) interactive-common quirks-iwlwifi quirks-gmk67 extra-cloudflare-warp extra-containers extra-java extra-secure-boot extra-zerotier;
-    inherit (inputs.nixos-hardware.nixosModules) dell-xps-15-9510 dell-xps-15-9510-nvidia;
+    inherit (inputs.nixos-hardware.nixosModules) lenovo-thinkpad-t14;
     inherit (inputs.lanzaboote.nixosModules) lanzaboote;
   };
   config = {
