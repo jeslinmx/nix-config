@@ -1,11 +1,9 @@
-{inputs, ...}: {
+{...}: {
   config,
   lib,
   pkgs,
   ...
-}: let
-  pkgs-patched = import inputs.nixpkgs-caddy-plugins {inherit (pkgs.caddy) system;};
-in {
+}: {
   options.services.caddy.proxiedServices = lib.mkOption {
     type = lib.types.attrsOf (lib.types.separatedString " ");
     default = [];
@@ -13,9 +11,9 @@ in {
   config = {
     services.caddy = {
       enable = true;
-      package = pkgs-patched.caddy.withPlugins {
-        plugins = ["github.com/caddy-dns/cloudflare@v0.0.0-20240703190432-89f16b99c18e"];
-        hash = "sha256-Aqu2st8blQr/Ekia2KrH1AP/2BVZIN4jOJpdLc1Rr4g=";
+      package = pkgs.caddy.withPlugins {
+        plugins = ["github.com/caddy-dns/cloudflare@v0.2.1"];
+        hash = "sha256-Gsuo+ripJSgKSYOM9/yl6Kt/6BFCA6BuTDvPdteinAI=";
       };
       # for testing
       # acmeCA = "https://acme-staging-v02.api.letsencrypt.org/directory";

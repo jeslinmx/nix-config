@@ -11,8 +11,7 @@
 
     # nixpkgs
     nixpkgs.url = "nixpkgs/release-25.05";
-    nixpkgs-patched.url = "github:jeslinmx/nixpkgs/cozette-psfu";
-    nixpkgs-caddy-plugins.url = "nixpkgs/b8a14976023e53f6e08e51dc61585838eb1f2828";
+    nixpkgs-unstable.url = "nixpkgs/master";
 
     # nix-darwin modules
     nixpkgs-darwin.url = "nixpkgs/nixpkgs-25.05-darwin";

@@ -651,21 +651,6 @@
         "type": "indirect"
       }
     },
-    "nixpkgs-caddy-plugins": {
-      "locked": {
-        "lastModified": 1733248914,
-        "narHash": "sha256-Fby4Smt4OjPbICcXLXKE+kDZv9vf709Abi2KtZmyn/E=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "b8a14976023e53f6e08e51dc61585838eb1f2828",
-        "type": "github"
-      },
-      "original": {
-        "id": "nixpkgs",
-        "rev": "b8a14976023e53f6e08e51dc61585838eb1f2828",
-        "type": "indirect"
-      }
-    },
     "nixpkgs-darwin": {
       "locked": {
         "lastModified": 1748433079,
@@ -711,20 +696,19 @@
         "type": "github"
       }
     },
-    "nixpkgs-patched": {
+    "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1736102157,
-        "narHash": "sha256-RPcQ0Q9hy3mYWiAPn+WrM0E/Y9nb/8fXwFx9eqEBKR0=",
-        "owner": "jeslinmx",
+        "lastModified": 1749452990,
+        "narHash": "sha256-m/HkrPqvVrvxNNjKPn45ZSkEJ9KhmU7s1eVyqTcg8FU=",
+        "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "39409302e4d890a4ef5050d23f764e19d001132a",
+        "rev": "0b35f052696e8cc00908529e60b4a6a1daafefad",
         "type": "github"
       },
       "original": {
-        "owner": "jeslinmx",
-        "ref": "cozette-psfu",
-        "repo": "nixpkgs",
-        "type": "github"
+        "id": "nixpkgs",
+        "ref": "master",
+        "type": "indirect"
       }
     },
     "nur": {
@@ -816,9 +800,8 @@
         "nixos-generators": "nixos-generators_2",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-caddy-plugins": "nixpkgs-caddy-plugins",
         "nixpkgs-darwin": "nixpkgs-darwin",
-        "nixpkgs-patched": "nixpkgs-patched",
+        "nixpkgs-unstable": "nixpkgs-unstable",
         "private-config": "private-config",
         "sops-nix": "sops-nix",
         "stylix": "stylix",
