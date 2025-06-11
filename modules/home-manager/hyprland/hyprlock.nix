@@ -10,10 +10,16 @@ in {
   programs.hyprlock = {
     enable = true;
     settings = {
-      background = lib.mkIf (!builtins.isNull config.stylix.image) {
-        path = "${config.stylix.image}";
-        blur_passes = 2;
-        blur_size = 10;
+      general = {
+        hide_cursor = true;
+        ignore_empty_input = true;
+        immediate_render = true;
+      };
+      background = {
+        color = rgb "base01";
+        path = lib.mkIf (!builtins.isNull config.stylix.image) "${config.stylix.image}";
+        reload_cmd = ''swww query | sed -n "1s/.*image: \(.*\)/\1/;1p"'';
+        reload_time = 1;
       };
       input-field = {
         position = "0, 0";
