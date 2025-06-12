@@ -210,6 +210,13 @@ in {
         # switch workspaces with SUPER + number
         ++ (produceBinds {
           keys = lib.map builtins.toString (lib.range 1 9) ++ ["0"];
+          dispatcher = "workspace";
+          args = lib.map builtins.toString (lib.range 1 10);
+        })
+        # switch workspaces to current display with CTRL + SUPER + number
+        ++ (produceBinds {
+          mod = "CTRL SUPER";
+          keys = lib.map builtins.toString (lib.range 1 9) ++ ["0"];
           dispatcher = "focusworkspaceoncurrentmonitor";
           args = lib.map builtins.toString (lib.range 1 10);
         })
