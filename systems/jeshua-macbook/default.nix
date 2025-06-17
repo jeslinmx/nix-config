@@ -45,7 +45,6 @@
     # Services
     "zerotier-one"
     "syncthing"
-    "lm-studio"
 
     # Desktop
     "scroll-reverser"
@@ -64,6 +63,7 @@
     hmModules =
       (with homeModules; [
         cli-programs
+        ollama
         {
           home.stateVersion = "24.11";
           targets.darwin.search = "DuckDuckGo";
