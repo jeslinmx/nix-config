@@ -36,11 +36,13 @@
     "microsoft-word"
     "microsoft-powerpoint"
     "microsoft-excel"
-    "whisky"
+    "steam"
     "discord"
     "prismlauncher"
     "transmission-remote-gui"
     "vlc"
+    "eloston-chromium"
+    "imageoptim"
 
     # Services
     "zerotier-one"
@@ -50,8 +52,7 @@
     "scroll-reverser"
     "middleclick"
     "jordanbaird-ice"
-    "domzilla-caffeine"
-    "maccy"
+    "raycast"
   ];
 
   programs.fish.enable = true;
