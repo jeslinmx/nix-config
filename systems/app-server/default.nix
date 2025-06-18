@@ -19,7 +19,6 @@
         server-transmission
         server-gitea
         server-jellyfin
-        server-silverbullet
         server-syncthing
         server-netdata
         server-docker-registry
@@ -69,5 +68,24 @@
   };
   services.netdata.configDir = {
     "stream.conf" = config.sops.templates.netdata_stream_conf.path;
+  };
+
+  services.samba = {
+    enable = true;
+    settings = {
+      medialibrary = {
+        browseable = "yes";
+        path = "/mnt/medialibrary";
+      };
+    };
+  };
+
+  services.avahi = {
+    enable = true;
+    publish = {
+      enable = true;
+      addresses = true;
+      workstation = true;
+    };
   };
 }
